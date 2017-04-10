@@ -1,0 +1,51 @@
+{
+  "sidebar": [
+    {
+      "text": "主导航",
+      "heading": "true",
+      "translate": "sidebar.heading.HEADER"
+    },
+    {
+      "text": "首页",
+      "href": "singleview.html",
+      "icon": "fa fa-file-o",
+      "translate": "sidebar.nav.SINGLEVIEW"
+    },
+    {
+      "text": "音乐管理",
+      "href": "#menuid",
+      "icon": "icon-folder",
+      "submenu": [
+        { "text": "乐库查询", 
+          "href": "submenu.html", 
+          "translate": "sidebar.nav.menu.SUBMENU" 
+        }    
+      ],
+      "submenu": [
+        { "text": "新增音乐", 
+          "href": "submenu.html", 
+          "translate": "sidebar.nav.menu.SUBMENU" 
+        }    
+      ],
+      "translate": "sidebar.nav.menu.MENU"
+    },
+    {
+      "text": "视频管理",
+      "href": "#menuid",
+      "icon": "icon-folder",
+      "submenu": [
+        { "text": "视频查询", 
+          "href": "submenu.html", 
+          "translate": "sidebar.nav.menu.SUBMENU" 
+        }    
+      ],
+      "submenu": [
+        { "text": "新增视频", 
+          "href": "submenu.html", 
+          "translate": "sidebar.nav.menu.SUBMENU" 
+        }    
+      ],
+      "translate": "sidebar.nav.menu.MENU"
+    }
+  ]
+}
