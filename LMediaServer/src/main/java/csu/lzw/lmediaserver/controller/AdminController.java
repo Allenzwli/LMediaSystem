@@ -28,4 +28,17 @@ public class AdminController {
         return "admin_add";
     }
 
+    @RequestMapping(value = "login",method = RequestMethod.POST)
+    public String adminLogin(String account,String encyptPassword){
+        boolean ret=false;
+        if("allenzwli".equals(account)&&"CE249598691AF4048F6E6F36BB5EB5B4".equals(encyptPassword))
+            ret=true;
+
+        if(ret){
+            return "main";
+        }else {
+            return "login";
+        }
+    }
+
 }
