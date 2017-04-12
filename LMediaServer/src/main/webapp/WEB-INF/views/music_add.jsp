@@ -16,6 +16,7 @@
    <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/animate.css/animate.min.css">
    <!-- WHIRL (spinners)-->
    <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/whirl/dist/whirl.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/blueimp-file-upload/css/jquery.fileupload.css">
    <!-- =============== PAGE VENDOR STYLES ===============-->
    <!-- =============== BOOTSTRAP STYLES ===============-->
    <link rel="stylesheet" href="<%=request.getContextPath()%>/app/css/bootstrap.css" id="bscss">
@@ -247,18 +248,47 @@
             <h3>音乐
                <small>新增音频</small>
             </h3>
-            <div class="row">
-               <div class="col-lg-12">
-                  <p>A row with content</p>
+
+         <form id="fileupload" action="<%=request.getContextPath()%>/musics/upload" method="POST" enctype="multipart/form-data">
+            <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload-->
+            <div class="row fileupload-buttonbar">
+               <div class="col-lg-7">
+                  <!-- The fileinput-button span is used to style the file input field as button-->
+                  <span class="btn btn-success fileinput-button"><i class="fa fa-fw fa-plus"></i>
+                        <span id="filePath">添加音频</span>
+                        <input id="fileInput" type="file" name="songFile" onchange="OnSelectFile()">
+                     </span>
+                  <button type="submit" class="btn btn-primary start"><i class="fa fa-fw fa-upload"></i>
+                     <span>开始上传</span>
+                  </button>
                </div>
             </div>
+         </form>
+
+            <tr class="template-upload">
+               <td>
+                  <p class="name" id="fileNameTitle">${message}</p>
+               </td>
+            </tr>
          </div>
       </section>
+   <script>
+      function OnSelectFile() {
+
+          $("#fileNameTitle").text($("#fileInput").val());
+
+      }
+   </script>
       <!-- Page footer-->
       <footer>
          <span>&copy; 2017 - Li Zhaowei</span>
       </footer>
    </div>
+
+
+
+
+
    <!-- =============== VENDOR SCRIPTS ===============-->
    <!-- MODERNIZR-->
    <script src="<%=request.getContextPath()%>/vendor/modernizr/modernizr.custom.js"></script>

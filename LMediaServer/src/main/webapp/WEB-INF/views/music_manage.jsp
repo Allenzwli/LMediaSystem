@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
 
 <head>
@@ -247,12 +248,40 @@
             <h3>音乐
                <small>音频库管理</small>
             </h3>
-            <div class="row">
-               <div class="col-lg-12">
-                  <p>A row with content</p>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">音频库</div>
+               <div class="panel-body">
+                  <!-- START table-responsive-->
+                  <div class="table-responsive">
+                     <table class="table">
+                        <thead>
+                        <tr>
+                           <th>#</th>
+                           <th>音频文件名</th>
+                           <th>音频文件大小</th>
+                           <th>音频文件URL</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="songItem" items="${songList}" >
+                            <tr>
+                                <td>${songItem.id}</td>
+                                <td>${songItem.fileName}</td>
+                                <td>${songItem.fileSize}</td>
+                                <td>${songItem.fileUrl}</td>
+                            </tr>
+                        </c:forEach>
+                        </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <!-- END table-responsive-->
                </div>
             </div>
+            <!-- END panel-->
          </div>
+
       </section>
       <!-- Page footer-->
       <footer>

@@ -1,4 +1,11 @@
+<%@ page import="csu.lzw.lmediaserver.pojo.Admin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
+<%
+   Admin admin= (Admin) request.getSession().getAttribute("admin");
+   if(admin==null){
+      request.getRequestDispatcher(request.getContextPath()+"/admins/login").forward(request,response);
+   }
+%>
 <html lang="en">
 
 <head>
@@ -60,7 +67,7 @@
                <ul class="nav navbar-nav navbar-right">
                   <!-- Search icon-->
                   <li>
-                     <a href="http://www.baidu.com">
+                     <a href="<%=request.getContextPath()%>/admins/logout">
                         <em class="fa fa-sign-out"></em>
                      </a>
                   </li>
@@ -88,7 +95,7 @@
                <ul class="nav">
                   <!-- Iterates over all sidebar items-->
                   <li class="nav-heading ">
-                     <span data-localize="sidebar.heading.HEADER">欢迎 李钊伟</span>
+                     <span data-localize="sidebar.heading.HEADER">欢迎 <%=admin.getNickName()%></span>
                   </li>
                   <li class="active">
                      <a href="<%=request.getContextPath()%>/main" title="Single View">

@@ -15,8 +15,16 @@ public class Song {
     private int duration;
     private String pictureUrl;
     private String uploadTime;
-    private int fileSize;
+    private long fileSize;
     private String fileUrl;
+
+    public long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
+    }
 
     public int getId() {
         return id;
@@ -96,14 +104,6 @@ public class Song {
 
     public void setUploadTime(String uploadTime) {
         this.uploadTime = uploadTime;
-    }
-
-    public int getFileSize() {
-        return fileSize;
-    }
-
-    public void setFileSize(int fileSize) {
-        this.fileSize = fileSize;
     }
 
     public String getFileUrl() {

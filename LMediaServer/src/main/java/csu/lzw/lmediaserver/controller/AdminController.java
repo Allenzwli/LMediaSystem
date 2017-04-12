@@ -1,12 +1,17 @@
 package csu.lzw.lmediaserver.controller;
 
 import csu.lzw.lmediaserver.pojo.Admin;
+import csu.lzw.lmediaserver.service.AdminService;
+import csu.lzw.lmediaserver.service.imp.AdminServiceImp;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -18,6 +23,9 @@ public class AdminController {
 
     private Logger log = Logger.getLogger(AdminController.class);
 
+    @Resource
+    private AdminService mAdminService;
+
     @RequestMapping("manage")
     public String adminManageDirect(){
         return "admin_manage";
@@ -28,17 +36,27 @@ public class AdminController {
         return "admin_add";
     }
 
-    @RequestMapping(value = "login",method = RequestMethod.POST)
-    public String adminLogin(String account,String encyptPassword){
-        boolean ret=false;
-        if("allenzwli".equals(account)&&"CE249598691AF4048F6E6F36BB5EB5B4".equals(encyptPassword))
-            ret=true;
-
-        if(ret){
+    @RequestMapping(value = "login")
+    public String adminLogin(HttpServletRequest request, String account, String encyptPassword){
+        //检查登录态
+        Admin admin=(Admin) request.getSession().getAttribute("admin");
+        if(admin!=null){
+            return "main";
+        }
+        //未登录，则登录
+        admin=mAdminService.getAdmin(account,encyptPassword);
+        if(admin!=null){
+            request.getSession().setAttribute("admin",admin);
             return "main";
         }else {
             return "login";
         }
+    }
+
+    @RequestMapping("logout")
+    public String adminLogout(HttpServletRequest request){
+        request.getSession().removeAttribute("admin");
+        return "login";
     }
 
 }

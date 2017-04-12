@@ -1,0 +1,10 @@
+/Users/allenzwli/Documents/JavaEE_IDEA_Proj/LMediaServer/src/main/java/csu/lzw/lmediaserver/controller/AdminController.java
+/Users/allenzwli/Documents/JavaEE_IDEA_Proj/LMediaServer/src/main/java/csu/lzw/lmediaserver/controller/VideoController.java
+/Users/allenzwli/Documents/JavaEE_IDEA_Proj/LMediaServer/src/main/java/csu/lzw/lmediaserver/controller/LogController.java
+/Users/allenzwli/Documents/JavaEE_IDEA_Proj/LMediaServer/src/main/java/csu/lzw/lmediaserver/controller/HomeController.java
+/Users/allenzwli/Documents/JavaEE_IDEA_Proj/LMediaServer/src/main/java/csu/lzw/lmediaserver/service/AdminService.java
+/Users/allenzwli/Documents/JavaEE_IDEA_Proj/LMediaServer/src/main/java/csu/lzw/lmediaserver/service/imp/AdminServiceImp.java
+/Users/allenzwli/Documents/JavaEE_IDEA_Proj/LMediaServer/src/main/java/csu/lzw/lmediaserver/mapper/AdminMapper.java
+/Users/allenzwli/Documents/JavaEE_IDEA_Proj/LMediaServer/src/main/java/csu/lzw/lmediaserver/pojo/Song.java
+/Users/allenzwli/Documents/JavaEE_IDEA_Proj/LMediaServer/src/main/java/csu/lzw/lmediaserver/pojo/Admin.java
+/Users/allenzwli/Documents/JavaEE_IDEA_Proj/LMediaServer/src/main/java/csu/lzw/lmediaserver/controller/MusicController.java

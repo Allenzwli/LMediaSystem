@@ -128,11 +128,18 @@
     </dependency>
     
     <!-- 添加数据库连接池依赖 -->
-    <dependency>
+    <!--<dependency>
       <groupId>commons-dbcp</groupId>
       <artifactId>commons-dbcp</artifactId>
       <version>1.2.2</version>
+    </dependency>-->
+
+    <dependency>
+      <groupId>com.mchange</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>0.9.5-pre8</version>
     </dependency>
+
 
     <!-- 添加日志相关jar包 -->
     <dependency>
@@ -188,6 +195,13 @@
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
       <version>1.9</version>
+    </dependency>
+
+    <!--MP3解析库-->
+    <dependency>
+      <groupId>org</groupId>
+      <artifactId>jaudiotagger</artifactId>
+      <version>2.0.3</version>
     </dependency>
 
   </dependencies>

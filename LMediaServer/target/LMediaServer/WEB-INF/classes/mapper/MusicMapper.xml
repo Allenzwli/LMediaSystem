@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="csu.lzw.lmediaserver.mapper.MusicMapper">
+    <insert id="saveSong" parameterType="csu.lzw.lmediaserver.pojo.Song">
+        INSERT INTO songs(fileName,fileSize,fileUrl) VALUES (#{fileName},#{fileSize},#{fileUrl})
+    </insert>
+
+    <select id="getAllSongs" resultType="csu.lzw.lmediaserver.pojo.Song">
+        SELECT id,fileName,fileSize,fileUrl FROM songs
+    </select>
+</mapper>
