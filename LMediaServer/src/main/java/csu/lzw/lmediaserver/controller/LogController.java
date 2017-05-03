@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LogController {
     private Logger log = Logger.getLogger(LogController.class);
 
-    @RequestMapping("manage")
+    @RequestMapping("/manage")
     public String logManageDirect(){
         return "log_manage";
     }

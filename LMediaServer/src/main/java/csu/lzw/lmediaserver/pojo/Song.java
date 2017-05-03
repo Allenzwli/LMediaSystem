@@ -17,6 +17,7 @@ public class Song {
     private String uploadTime;
     private long fileSize;
     private String fileUrl;
+    private int adminId;
 
     public long getFileSize() {
         return fileSize;
@@ -112,5 +113,13 @@ public class Song {
 
     public void setFileUrl(String fileUrl) {
         this.fileUrl = fileUrl;
+    }
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
+    }
+
+    public int getAdminId() {
+        return adminId;
     }
 }

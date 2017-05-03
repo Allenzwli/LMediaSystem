@@ -26,17 +26,17 @@ public class AdminController {
     @Resource
     private AdminService mAdminService;
 
-    @RequestMapping("manage")
+    @RequestMapping("/manage")
     public String adminManageDirect(){
         return "admin_manage";
     }
 
-    @RequestMapping("add")
+    @RequestMapping("/add")
     public String adminAddDirect(){
         return "admin_add";
     }
 
-    @RequestMapping(value = "login")
+    @RequestMapping("/login")
     public String adminLogin(HttpServletRequest request, String account, String encyptPassword){
         //检查登录态
         Admin admin=(Admin) request.getSession().getAttribute("admin");
@@ -53,7 +53,7 @@ public class AdminController {
         }
     }
 
-    @RequestMapping("logout")
+    @RequestMapping("/logout")
     public String adminLogout(HttpServletRequest request){
         request.getSession().removeAttribute("admin");
         return "login";

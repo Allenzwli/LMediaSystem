@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class VideoController {
     private Logger log = Logger.getLogger(VideoController.class);
 
-    @RequestMapping("manage")
+    @RequestMapping("/manage")
     public String videoManageDirect(){
         return "video_manage";
     }
 
-    @RequestMapping("add")
+    @RequestMapping("/add")
     public String videoAddDirect(){
         return "video_add";
     }

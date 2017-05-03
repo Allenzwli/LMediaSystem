@@ -1,3 +1,4 @@
+<%@ page import="csu.lzw.lmediaserver.pojo.Admin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
 <html lang="en">
 
@@ -249,7 +250,7 @@
                <small>新增音频</small>
             </h3>
 
-         <form id="fileupload" action="<%=request.getContextPath()%>/musics/upload" method="POST" enctype="multipart/form-data">
+         <form id="fileUploadForm" action="<%=request.getContextPath()%>/musics/upload" method="POST" enctype="multipart/form-data">
             <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload-->
             <div class="row fileupload-buttonbar">
                <div class="col-lg-7">
@@ -257,8 +258,9 @@
                   <span class="btn btn-success fileinput-button"><i class="fa fa-fw fa-plus"></i>
                         <span id="filePath">添加音频</span>
                         <input id="fileInput" type="file" name="songFile" onchange="OnSelectFile()">
+                        <input type="hidden" name="adminId" value="<%=((Admin)session.getAttribute("admin")).getId()%>">
                      </span>
-                  <button type="submit" class="btn btn-primary start"><i class="fa fa-fw fa-upload"></i>
+                  <button type="button" class="btn btn-primary start" onclick="OnUploadFile()" ><i class="fa fa-fw fa-upload"></i>
                      <span>开始上传</span>
                   </button>
                </div>
@@ -267,7 +269,7 @@
 
             <tr class="template-upload">
                <td>
-                  <p class="name" id="fileNameTitle">${message}</p>
+                  <p class="name" id="fileNameTitle"></p>
                </td>
             </tr>
          </div>
@@ -276,6 +278,43 @@
       function OnSelectFile() {
 
           $("#fileNameTitle").text($("#fileInput").val());
+
+      }
+
+      function OnUploadFile(){
+          var xhr = new XMLHttpRequest();
+          var fileUploadForm = document.getElementById('fileUploadForm');
+          var fd=new FormData(fileUploadForm);
+
+         /* event listners */
+          function OnUploadProgress(evt) {
+              if (evt.lengthComputable) {
+                  var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+                  $("#fileNameTitle").text(percentComplete.toString() + '%');
+              }
+              else {
+                  $("#fileNameTitle").text('unable to upload');
+              }
+          }
+          xhr.upload.addEventListener("progress", OnUploadProgress, false);
+
+          function OnUploadComplete(evt) {
+              var resultJson=JSON.parse(evt.target.responseText);
+              if(resultJson.data==0){
+                  $("#fileNameTitle").text(resultJson.msg);
+              }
+              else {
+                  alert(resultJson.msg);
+              }
+          }
+          xhr.addEventListener("load", OnUploadComplete, false);
+
+          function OnUploadFailed() {
+              alert("There was an error attempting to upload the file.");
+          }
+          xhr.addEventListener("error", OnUploadFailed, false);
+          xhr.open("POST", "<%=request.getContextPath()%>/musics/upload");
+          xhr.send(fd);
 
       }
    </script>

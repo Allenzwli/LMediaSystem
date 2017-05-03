@@ -254,7 +254,7 @@
                <div class="panel-body">
                   <!-- START table-responsive-->
                   <div class="table-responsive">
-                     <table class="table">
+                     <table id="songs" class="table table-bordered table-condensed">
                         <thead>
                         <tr>
                            <th>#</th>
@@ -264,14 +264,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="songItem" items="${songList}" >
+                        <%--<c:forEach var="songItem" items="${songList}" >
                             <tr>
                                 <td>${songItem.id}</td>
                                 <td>${songItem.fileName}</td>
                                 <td>${songItem.fileSize}</td>
                                 <td>${songItem.fileUrl}</td>
                             </tr>
-                        </c:forEach>
+                        </c:forEach>--%>
                         </tr>
                         </tbody>
                      </table>
@@ -288,6 +288,7 @@
          <span>&copy; 2017 - Li Zhaowei</span>
       </footer>
    </div>
+
    <!-- =============== VENDOR SCRIPTS ===============-->
    <!-- MODERNIZR-->
    <script src="<%=request.getContextPath()%>/vendor/modernizr/modernizr.custom.js"></script>
