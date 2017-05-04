@@ -9,5 +9,7 @@ import java.util.List;
  */
 public interface MusicService {
     void saveSong(Song song);
-    List<Song> getAllSongs();
+    List<Song> getSongsPerPage(int page);
+    List<Song> getSongsByStartIndexAndLength(int startIndex,int length);
+    int getSongAllCount();
 }

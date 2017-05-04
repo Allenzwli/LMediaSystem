@@ -13,15 +13,22 @@
    <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/fontawesome/css/font-awesome.min.css">
    <!-- SIMPLE LINE ICONS-->
    <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/simple-line-icons/css/simple-line-icons.css">
-   <!-- ANIMATE.CSS-->
-   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/animate.css/animate.min.css">
-   <!-- WHIRL (spinners)-->
-   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/whirl/dist/whirl.css">
+
    <!-- =============== PAGE VENDOR STYLES ===============-->
    <!-- =============== BOOTSTRAP STYLES ===============-->
    <link rel="stylesheet" href="<%=request.getContextPath()%>/app/css/bootstrap.css" id="bscss">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/datatable/css/bootstrap.min.css">
    <!-- =============== APP STYLES ===============-->
    <link rel="stylesheet" href="<%=request.getContextPath()%>/app/css/app.css" id="maincss">
+
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/datatable/css/bootstrap-responsive.min.css" media="screen">
+
+   <!-- DataTables CSS start-->
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/datatable/css/dataTables.bootstrap.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/datatable/css/dataTables.fontAwesome.css">
+   <!-- DataTables CSS end-->
+
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/datatable/css/music-manage.css">
 </head>
 
 <body>
@@ -244,48 +251,204 @@
       <!-- Main section-->
       <section>
          <!-- Page content-->
-         <div class="content-wrapper">
+         <div class="content-wrapper" style="background-color: white">
             <h3>音乐
                <small>音频库管理</small>
             </h3>
             <!-- START panel-->
-            <div class="panel panel-default">
-               <div class="panel-heading">音频库</div>
-               <div class="panel-body">
-                  <!-- START table-responsive-->
-                  <div class="table-responsive">
-                     <table id="songs" class="table table-bordered table-condensed">
-                        <thead>
-                        <tr>
-                           <th>#</th>
-                           <th>音频文件名</th>
-                           <th>音频文件大小</th>
-                           <th>音频文件URL</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <%--<c:forEach var="songItem" items="${songList}" >
-                            <tr>
-                                <td>${songItem.id}</td>
-                                <td>${songItem.fileName}</td>
-                                <td>${songItem.fileSize}</td>
-                                <td>${songItem.fileUrl}</td>
-                            </tr>
-                        </c:forEach>--%>
-                        </tr>
-                        </tbody>
-                     </table>
+            <div class="container-fluid">
+               <div class="row-fluid">
+                  <div class="span12" id="content">
+                     <div class="row-fluid">
+                        <div class="span12">
+                           <div class="btn-toolbar">
+                              <div class="pull-right">
+                                 <div class="input-append">
+                                    <input type="text" placeholder="模糊查询" id="fuzzy-search">
+                                    <div class="btn-group">
+                                       <button type="button" class="btn" id="btn-simple-search"><i class="fa fa-search"></i></button>
+                                       <button type="button" class="btn" title="高级查询" id="toggle-advanced-search">
+                                          <i class="fa fa-angle-double-down"></i>
+                                       </button>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- <a type="button" class="btn btn-primary" id="btn-add" href="addBook.action"><i class="fa fa-plus"></i> 添加</a> -->
+                              <button type="button" class="btn btn-danger" id="btn-del"><i class="fa fa-remove"></i> 批量删除</button>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row-fluid" style="display:none;" id="div-advanced-search">
+                        <form class="form-inline well">
+                           <span>文件名:</span>
+                           <input type="text" class="input-medium" placeholder="文件名" id="fileName-search">
+                           <span>歌曲名:</span>
+                           <input type="text" class="input-medium" placeholder="歌曲名" id="songName-search">
+                           <span>歌手:</span>
+                           <input type="text" class="input-medium" placeholder="歌手" id="artist-search">
+                           <span>专辑:</span>
+                           <input type="text" class="input-medium" placeholder="专辑" id="album-search">
+                           <span>年份:</span>
+                           <input type="text" class="input-medium" placeholder="年份" id="year-search">
+                           <button type="button" class="btn" id="btn-advanced-search"><i class="fa fa-search"></i> 查询</button>
+                        </form>
+                     </div>
+
+                     <div class="block info-block" id="user-view">
+                        <div class="navbar navbar-inner block-header">
+                           <div class="block-title">歌曲详情</div>
+                           <div class="header-buttons">
+                              <button type="button" class="btn btn-primary" id="btn-view-edit">修改</button>
+                           </div>
+                        </div>
+                        <div class="block-content info-content clearfix">
+                           <div class="row-fluid">
+                              <div class="span5">
+                                 <label class="prop-name">歌曲名:</label>
+                                 <div class="prop-value" id="songName-view"></div>
+                              </div>
+                              <div class="span3">
+                                 <label class="prop-name">歌手:</label>
+                                 <div class="prop-value" id="aritst-view"></div>
+                              </div>
+                              <div class="span3">
+                                 <label class="prop-name">专辑:</label>
+                                 <div class="prop-value" id="album-view"></div>
+                              </div>
+                           </div>
+
+                           <div class="row-fluid">
+                              <div class="span2">
+                                 <label class="prop-name">年份:</label>
+                                 <div class="prop-value" id="year-view"></div>
+                              </div>
+                              <div class="span3">
+                                 <label class="prop-name">时长:</label>
+                                 <div class="prop-value" id="duration-view"></div>
+                              </div>
+
+                              <div class="span3">
+                                 <label class="prop-name">添加时间:</label>
+                                 <div class="prop-value" id="uploadTime-view"></div>
+                              </div>
+                              <div class="span3">
+                                 <label class="prop-name">文件大小:</label>
+                                 <div class="prop-value" id="fileSize-view"></div>
+                              </div>
+                           </div>
+
+                           <div class="row-fluid">
+                              <div class="span5">
+                                 <label class="prop-name">文件名:</label>
+                                 <div class="prop-value" id="fileName-view"></div>
+                              </div>
+
+                              <div class="span5">
+                                 <label class="prop-name">文件Url:</label>
+                                 <div class="prop-value" id="fileUrl-view"></div>
+                              </div>
+                           </div>
+
+                           <div class="row-fluid">
+                              <div class="span8">
+                                 <label class="prop-name">专辑封面:</label>
+                                 <div class="prop-value" id="pic_url-view"></div>
+                              </div>
+                           </div>
+                        </div>
+
+
+                     </div>
+
+                     <div class="block info-block" id="user-edit" style="display:none;">
+                        <div class="navbar navbar-inner block-header">
+                           <div class="block-title">修改歌曲信息:<span id="title-edit"></span></div>
+                           <div class="header-buttons">
+                              <button type="button" class="btn btn-primary" id="btn-save-edit">保存更改</button>
+                              <button type="button" class="btn btn-cancel">取消</button>
+                           </div>
+                        </div>
+                        <div class="block-content info-content clearfix">
+                           <form id="form-edit">
+                              <div class="control-group" style="display:none">
+                                 <label class="control-label" for="id-edit"><span
+                                         class="red-asterisk">*</span>ID:</label>
+                                 <div class="controls">
+                                    <input type="text" id="id-edit" name="id-edit">
+                                 </div>
+                              </div>
+                              <div class="control-group">
+                                 <label class="control-label" for="songName-edit"><span
+                                         class="red-asterisk">*</span>歌曲名:</label>
+                                 <div class="controls">
+                                    <input type="text" id="songName-edit" name="songName-edit">
+                                 </div>
+                              </div>
+                              <div class="control-group">
+                                 <label class="control-label" for="artist-edit">歌手:</label>
+                                 <div class="controls">
+                                    <input type="text" id="artist-edit" name="artist-edit">
+                                 </div>
+                              </div>
+                              <div class="control-group">
+                                 <label class="control-label" for="album-edit">专辑:</label>
+                                 <div class="controls">
+                                    <input type="text" id="album-edit" name="album-edit">
+                                 </div>
+                              </div>
+                              <div class="control-group">
+                                 <label class="control-label" for="year-edit">年份</label>
+                                 <div class="controls">
+                                    <input type="text" id="year-edit" name="year-edit">
+                                 </div>
+                              </div>
+                              <div class="control-group">
+                                 <label class="control-label" for="pic_url-edit">封面URL:</label>
+                                 <div class="controls">
+                                    <input type="text" id="pic_url-edit" name="pic_url-edit">
+                                    <input type="file" id="pic_file-edit" name="pic_file-edit" onchange="checkedFile()">
+                                 </div>
+
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+
+                     <div class="row-fluid">
+                        <div class="span12" id="div-table-container">
+                           <table class="table table-striped table-hover" id="table-user">
+                              <thead>
+                              <tr>
+                                 <th>
+                                    <input type="checkbox" name="cb-check-all">
+                                 </th>
+                                 <th>歌曲名</th>
+                                 <th>歌手</th>
+                                 <th>专辑</th>
+                                 <th>年份</th>
+                                 <th>文件名</th>
+                                 <th>时长</th>
+                                 <th>文件大小</th>
+                                 <th>文件URL</th>
+                                 <th>封面</th>
+                                 <th>添加时间</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                           </table>
+
+                        </div>
+                     </div>
                   </div>
-                  <!-- END table-responsive-->
                </div>
             </div>
             <!-- END panel-->
          </div>
-
       </section>
       <!-- Page footer-->
       <footer>
-         <span>&copy; 2017 - Li Zhaowei</span>
+
       </footer>
    </div>
 
@@ -302,11 +465,43 @@
    <script src="<%=request.getContextPath()%>/vendor/jquery.easing/js/jquery.easing.js"></script>
    <!-- ANIMO-->
    <script src="<%=request.getContextPath()%>/vendor/animo.js/animo.js"></script>
-   
+   <!-- Datatable-->
+
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/json2.js"></script>
+   <!-- JQueryFileUpload -->
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/ajaxfileupload.js"></script>
+   <!-- SpinJS-->
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/jquery.spin.merge.js"></script>
+   <!-- lhgdialog -->
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/lhgdialog.js?skin=bootstrap2"></script>
+   <!-- DataTables JS-->
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/jquery.dataTables.js"></script>
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/dataTables.bootstrap.js"></script>
+   <!-- DataTables JS end-->
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/constant.js"></script>
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/music-manage.js"></script>
    
    <!-- =============== PAGE VENDOR SCRIPTS ===============-->
    <!-- =============== APP SCRIPTS ===============-->
    <script src="<%=request.getContextPath()%>/app/js/app.js"></script>
+
+   <script type="text/javascript">
+       function checkedFile()
+       {
+           var picPath = document.getElementById("pic_file-edit").value;
+           var type = picPath.substring(picPath.lastIndexOf(".") + 1, picPath.length).toLowerCase();
+           if (type != "jpg" && type != "bmp" && type != "png") {
+               alert("请上传正确的图片格式");
+               $("#pic_file-edit").val("");
+               $("#pic_url-edit").attr("disabled",false);
+               //$("#pic_url-edit").val("");
+               return false;
+           }
+           $("#pic_url-edit").attr("disabled",true);
+           //$("#pic_url-edit").val("");
+           return true;
+       }
+   </script>
 </body>
 
 </html>

@@ -2,7 +2,7 @@ package csu.lzw.lmediaserver.controller;
 
 import csu.lzw.lmediaserver.pojo.Song;
 import csu.lzw.lmediaserver.service.MusicService;
-import csu.lzw.lmediaserver.util.AudioUtil;
+import csu.lzw.lmediaserver.util.StaticConfig;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -28,8 +25,6 @@ import java.util.Map;
 @RequestMapping("/musics")
 public class MusicController {
 
-    private static final String BASE_LOCAL_MUSIC_FILE_PATH="/Users/allenzwli/Documents/songlib/";
-
     private Logger mLogger = Logger.getLogger(MusicController.class);
 
     @Resource
@@ -42,8 +37,17 @@ public class MusicController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<Song> getAllSongs(){
-        return mMusicService.getAllSongs();
+    public List<Song> getSongsList(@RequestParam(required = false) int page){
+            return mMusicService.getSongsPerPage(page);
+    }
+
+    @ResponseBody
+    @RequestMapping("/get")
+    public Map getSongsByStartAndLength(int startIndex,int pageSize){
+            Map<String,Object> resultMap=new HashMap<String,Object>();
+            resultMap.put("pageData",mMusicService.getSongsByStartIndexAndLength(startIndex,pageSize));
+            resultMap.put("total",mMusicService.getSongAllCount());
+            return resultMap;
     }
 
     @RequestMapping("/add")
@@ -59,19 +63,21 @@ public class MusicController {
         Map<String,Object> resultMap=new HashMap<String, Object>();
         if(songFile!=null&&!songFile.isEmpty()){
             String originalFileName=songFile.getOriginalFilename();
-            String realPath=BASE_LOCAL_MUSIC_FILE_PATH+originalFileName;
+            String realPath= StaticConfig.BASE_LOCAL_MUSIC_FILE_PATH+originalFileName;
             String songType=originalFileName.substring(originalFileName.lastIndexOf(".")).toLowerCase();
             if(songType.equals(".mp3")) {
                 File file = new File(realPath);
                 try {
                     songFile.transferTo(file);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    resultMap.put("data",3);
+                    resultMap.put("msg",e.toString());
                 }
                 //Song song= AudioUtil.getMP3Info(file);
                 Song song=new Song();
                 song.setFileSize(file.length());
-                song.setFileUrl("localhost:8080/songlib/"+originalFileName);
+                song.setFileUrl(StaticConfig.MUSIC_FILE_URL_PREFIX+originalFileName);
                 song.setAdminId(adminId);
                 song.setFileName(originalFileName);
                 mMusicService.saveSong(song);

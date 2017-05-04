@@ -5,7 +5,11 @@
         INSERT INTO songs(fileName,fileSize,fileUrl,adminId) VALUES (#{fileName},#{fileSize},#{fileUrl},#{adminId})
     </insert>
 
-    <select id="getAllSongs" resultType="csu.lzw.lmediaserver.pojo.Song">
-        SELECT id,fileName,fileSize,fileUrl FROM songs
+    <select id="getSongsByStartAndLength" resultType="csu.lzw.lmediaserver.pojo.Song">
+        SELECT id,fileName,fileSize,fileUrl,uploadTime FROM songs LIMIT #{length} OFFSET #{start}
+    </select>
+
+    <select id="getSongsAllCount" resultType="int">
+        SELECT count(id) FROM songs
     </select>
 </mapper>
