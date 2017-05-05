@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdminMapper {
     Admin getAdminByAccountByEncyptPassword(@Param("account") String account,@Param("encyptPassword") String encyptPassword);
+    Admin getAdminByIdByToken(@Param("token")String token,@Param("id") int adminId);
 }

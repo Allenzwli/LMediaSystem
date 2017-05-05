@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="csu.lzw.lmediaserver.mapper.AdminMapper">
     <select id="getAdminByAccountByEncyptPassword" resultType="csu.lzw.lmediaserver.pojo.Admin">
-      SELECT id,account,nickName FROM admins WHERE account=#{account} AND encyptPassword=#{encyptPassword} LIMIT 1
+      SELECT id,account,nickName,token FROM admins WHERE account=#{account} AND encyptPassword=#{encyptPassword} LIMIT 1
+    </select>
+
+    <select id="getAdminByIdByToken" resultType="csu.lzw.lmediaserver.pojo.Admin">
+      SELECT id,account,nickName,token FROM admins WHERE id=#{id} AND token=#{token} LIMIT 1
     </select>
 </mapper>

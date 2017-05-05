@@ -21,4 +21,13 @@ public class AdminServiceImp implements AdminService{
     public Admin getAdmin(String account, String encyptPassword) {
         return mAdminMapper.getAdminByAccountByEncyptPassword(account,encyptPassword);
     }
+
+    public boolean validAdminToken(String token, int adminId) {
+        Admin admin=mAdminMapper.getAdminByIdByToken(token,adminId);
+        if(admin==null)
+            return false;
+        else
+            return true;
+
+    }
 }

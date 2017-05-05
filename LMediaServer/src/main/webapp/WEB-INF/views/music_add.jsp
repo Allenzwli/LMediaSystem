@@ -243,7 +243,7 @@
          <!-- END Off Sidebar (right)-->
       </aside>
       <!-- Main section-->
-      <section>
+      <section style="background-color: white">
          <!-- Page content-->
          <div class="content-wrapper">
             <h3>音乐
@@ -259,6 +259,7 @@
                         <span id="filePath">添加音频</span>
                         <input id="fileInput" type="file" name="songFile" onchange="OnSelectFile()">
                         <input type="hidden" name="adminId" value="<%=((Admin)session.getAttribute("admin")).getId()%>">
+                        <input type="hidden" name="token" value="<%=((Admin)session.getAttribute("admin")).getToken()%>">
                      </span>
                   <button type="button" class="btn btn-primary start" onclick="OnUploadFile()" ><i class="fa fa-fw fa-upload"></i>
                      <span>开始上传</span>
@@ -318,10 +319,7 @@
 
       }
    </script>
-      <!-- Page footer-->
-      <footer>
-         <span>&copy; 2017 - Li Zhaowei</span>
-      </footer>
+
    </div>
 
 

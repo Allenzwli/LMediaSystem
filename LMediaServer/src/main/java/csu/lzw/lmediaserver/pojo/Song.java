@@ -9,10 +9,9 @@ public class Song {
     private String songName;
     private String artist;
     private String album;
-    private String year;
     private String comment;
     private String fileName;
-    private int duration;
+    private long duration;
     private String pictureUrl;
     private String uploadTime;
     private long fileSize;
@@ -59,14 +58,6 @@ public class Song {
         this.album = album;
     }
 
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
     public String getComment() {
         return comment;
     }
@@ -83,11 +74,11 @@ public class Song {
         this.fileName = fileName;
     }
 
-    public int getDuration() {
+    public long getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(long duration) {
         this.duration = duration;
     }
 

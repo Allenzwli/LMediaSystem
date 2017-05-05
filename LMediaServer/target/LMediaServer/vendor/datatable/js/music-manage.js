@@ -1,8 +1,9 @@
+var _table;
 $(function (){
 	var $wrapper = $('#div-table-container');
 	var $table = $('#table-user');
 	
-	var _table = $table.dataTable($.extend(true,{},CONSTANT.DATA_TABLES.DEFAULT_OPTION, {
+	_table = $table.dataTable($.extend(true,{},CONSTANT.DATA_TABLES.DEFAULT_OPTION, {
 		ajax : function(data, callback, settings) {//ajax配置为function,手动调用异步查询
 			//手动控制遮罩
 			$wrapper.spinModal();
@@ -47,7 +48,7 @@ $(function (){
             {
             	className : "ellipsis",	//文字过长时用省略号显示，CSS实现
             	data: "songName",
-            	width : "80px"	,
+            	//width : "120px"	,
             	render : CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,//会显示省略号的列，需要用title属性实现划过时显示全部文本的效果
             },
             {
@@ -56,69 +57,82 @@ $(function (){
             	data: "artist",
             	//固定列宽，但至少留下一个活动列不要固定宽度，让表格自行调整。不要将所有列都指定列宽，否则页面伸缩时所有列都会随之按比例伸缩。
 				//切记设置table样式为table-layout:fixed; 否则列宽不会强制为指定宽度，也不会出现省略号。
-				width : "60px"			
+				//width : "100px"
             },
 			{
             	className : "ellipsis",	
             	render : CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,
 				data : "album",
-				width : "80px",
+				//width : "120px",
 				/*render : function(data,type, row, meta) {
 					return '<i class="fa fa-male"></i> '+(data?"在线":"离线");
 				}*/
-			},
-			{
-				className : "ellipsis",	
-            	render : CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,
-				data : "year",
-				width : "60px"
 			},
 			
 			{
 				className : "ellipsis",	
             	render : CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,
 				data : "fileName",
-				width : "90px"
+				//width : "120px"
 			},
-			
-			{
-				className : "ellipsis",	
-            	render : CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,
-				data : "duration",
-				width : "50px"
+
+            {
+                className: "ellipsis",
+                render: CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,
+                data: "duration",
+                //width : "80px"
+                render: function (data, type, row, meta) {
+                    var t="";
+                    if(data > -1){
+                        var min = Math.floor(data/60);
+                        var sec = data % 60;
+                        if(min < 10){t += "0";}
+                        t += min + ":";
+                        if(sec < 10){t += "0";}
+                        t += sec;
+                    }
+                    return t;
+                },
 			},
 			{
 				className : "ellipsis",	
             	render : CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,
 				data : "fileSize",
-				width : "60px"
+				//width : "80px"
+                render: function (data, type, row, meta) {
+                    if (data === 0) return '0 B';
+                    var k = 1000, // or 1024
+                        sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+                        i = Math.floor(Math.log(data) / Math.log(k));
+                    return (data / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+                },
 			},
 			
 			{
+			    sortable:false,
 				className : "ellipsis",	
             	render : CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,
 				data : "fileUrl",
-				width : "80px"
+				//width : "120px"
 			},
 			{
 				sortable:false,
-				className : "ellipsis",	
+				className : "ellipsis",
             	render : CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,
-				className : "ellipsis",	
+				//className : "ellipsis",
 				data : "pictureUrl",
-				//render : CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,
-				render: function (data, type, row, meta) {
-                   return "<img src='" + data + "' width='50px' height='50px' />";
+                render: function (data, type, row, meta) {
+                    return "<img src='" + data + "' width='50px' height='50px' />";
 
-               },
-				width : "60px"
+                },
+				//width : "100px"
 			},
 			
 			{
 				className : "ellipsis",	
             	render : CONSTANT.DATA_TABLES.RENDER.ELLIPSIS,
 				data : "uploadTime",
-				width : "80px"
+				//width : "80px"
 			}
         ],
         "createdRow": function ( row, data, index ) {
@@ -172,11 +186,6 @@ $(function (){
 	$("#btn-save-add").click(function(){
 		userManage.addItemSubmit();
 	});
-	
-	$("#btn-save-edit").click(function(){
-		userManage.editItemSubmit();
-	});
-	
 	//行点击事件
 	$("tbody",$table).on("click","tr",function(event) {
 		$(this).addClass("active").siblings().removeClass("active");
@@ -198,13 +207,7 @@ $(function (){
     }).on("click",".td-checkbox",function(event) {
     	//点击单元格即点击复选框
     	!$(event.target).is(":checkbox") && $(":checkbox",this).trigger("click");
-    }).on("click",".btn-edit",function() {
-    	//点击编辑按钮
-        var item = _table.row($(this).closest('tr')).data();
-		$(this).closest('tr').addClass("active").siblings().removeClass("active");
-		userManage.currentItem = item;
-		userManage.editItemInit(item);
-	}).on("click",".btn-del",function() {
+    }).on("click",".btn-del",function() {
 		//点击删除按钮
 		var item = _table.row($(this).closest('tr')).data();
 		$(this).closest('tr').addClass("active").siblings().removeClass("active");
@@ -220,10 +223,6 @@ $(function (){
 		$("i",this).toggleClass("fa-minus fa-plus");
 		$("span",this).toggle();
 		$("#user-view .info-content").slideToggle("fast");
-	});
-	
-	$("#btn-view-edit").click(function(){
-		userManage.editItemInit(userManage.currentItem);
 	});
 	
 	$(".btn-cancel").click(function(){
@@ -249,18 +248,15 @@ var userManage = {
 				param.orderColumn = "album";
 				break;
 			case 4:
-				param.orderColumn = "year";
-				break;
-			case 5:
 				param.orderColumn = "fileName";
 				break;
-			case 6:
+			case 5:
 				param.orderColumn = "duration";
 				break;
-			case 7:
+			case 6:
 				param.orderColumn = "fileSize";
 				break;
-			case 8:
+			case 9:
 				param.orderColumn = "uploadTime";
 				break;
 			default:
@@ -277,7 +273,6 @@ var userManage = {
 			param.songName = $("#songName-search").val();
 			param.artist = $("#artist-search").val();
 			param.album = $("#album-search").val();
-			param.year = $("#year-search").val();
 			param.fileName = $("#fileName-search").val();
 		}
 		//组装分页参数
@@ -297,124 +292,38 @@ var userManage = {
 		$("#songName-view").text(item.songName);
 		$("#aritst-view").text(item.artist);
 		$("#album-view").text(item.album);
-		$("#year-view").text(item.year);
 		$("#duration-view").text(item.duration);
 		$("#uploadTime-view").text(item.uploadTime);
 		$("#fileName-view").text(item.fileName);
-		$("#fileSize-view").text(item.fileSzie);
+		$("#fileSize-view").text(item.fileSize);
         $("#fileUrl-view").text(item.fileUrl);
-		$("#pic_url-view").text(item.pictureUrl);
-	},
-	/*addItemInit : function() {
-		$("#form-add")[0].reset();
-		
-		$("#user-add").show().siblings(".info-block").hide();
-	},*/
-	editItemInit : function(item) {
-		if (!item) {
-			return;
-		}
-		$("#form-edit")[0].reset();
-		$("#id-edit").val(item.id);
-		$("#songName-edit").val(item.songName);
-		$("#artist-edit").val(item.artist);
-		$("#album-edit").val(item.album);
-		$("#year-edit").val(item.year);
-		$("#pic_url-edit").val(item.pictureUrl);
-		$("#user-edit").show().siblings(".info-block").hide();
-	},
-	/*addItemSubmit : function() {
-		$.dialog.tips('保存当前添加用户');
-	},*/
-	editItemSubmit : function() {
-		
-		var id=$("#id-edit").val();
-		var name=$("#name-edit").val();
-		var author=$("#author-edit").val();
-		var publish=$("#publish-edit").val();
-		var catg=$("#catg-edit").val();
-		var isbn=$("#isbn-edit").val();
-		var sum=$("#sum-edit").val();
-		var ret=$("#ret-edit").val();
-		var new_num=$("#new_num-edit").val();
-		var barcode=$("#barcode-edit").val();
-		var call_num=$("#call_num-edit").val();
-		var pic_url=$("#pic_url-edit").val();
-		if(id==""||name==""||catg==""||author==""||publish==""||sum==""||isbn==""||call_num==""||barcode==""||new_num==""||ret=="")
-		 {
-		 	alert("输入不能为空");
-		 	return;
-		 }
-		//alert(id+name+author+publish+isbn+catg+sum+ret+new_num+barcode+call_num);
-		var s=$("#pic_file-edit").val();
+        $("#pictureUrl-view").text(item.pictureUrl);
 
-		$.ajax({
-            type: "POST",
-            url: "editBook.action",
-            cache : false,	//禁用缓存
-            data: "id="+id+"&name="+name+"&author="+author+"&publish="+publish+"&catg="+catg+"&isbn="+isbn+"&sum="+sum+"&ret="+ret+"&barcode="+barcode+"&call_num="+call_num+"&new_num="+new_num+"&pic_url="+pic_url,	//传入已封装的参数
-            success: function(result) {
-            	if(result==0)
-            		$.dialog.tips('修改成功');
-            	else
-            		$.dialog.tips('修改失败');
-            	//_table.draw();
-            		
-            }/*,
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                //$.dialog.alert("修改失败");
-            }*/
-        });
-	
-		
-		if(s!=""&&s!=null){
-			//alert("YES");
-			$.ajaxFileUpload({  
-		        
-		        url:"editImage.action?id="+id, 
-		        fileElementId: 'pic_file-edit',
-		        dataType:'text',  
-		        success:function(data, status){  
-		        	$.dialog.tips('修改成功');
-		        },  
-		        error:function(data, status, e){ 
-		            alert("上传图片失败");  
-		        }  
-		        
-			});
-		}
 	},
 	deleteItem : function(selectedItems) {
 		var message;
 		if (selectedItems&&selectedItems.length) {
 			if (selectedItems.length == 1) {
-				message = "确定要删除 '"+selectedItems[0].name+"' 吗?";
-				//alert(JSON.stringify(selectedItems));
-				
-				
+				message = "确定要删除 '"+selectedItems[0].songName+"' 吗?";
 			}else{
 				message = "确定要删除选中的"+selectedItems.length+"项记录吗?";
-				//alert(JSON.stringify(selectedItems));
-				
 			}
+            var adminId=$("#adminIdInput").val();
+			var token=$("#tokenInput").val();
 			$.dialog.confirmDanger(message, function(){
 				//$.dialog.tips('执行删除操作');
 				$.ajax({
 		            type: "POST",
-		            url: "deleteBook.action",
+		            url: "delete",
 		            cache : false,	//禁用缓存
-		            data: "jsonArray="+JSON.stringify(selectedItems),
+		            data: "needDeleteJsonArray="+JSON.stringify(selectedItems)+"&adminId="+adminId+"&token="+token,
 		            success: function(result) {
-		            	if(result>0)
-		            		$.dialog.tips('删除成功');
-		            	else
-		            		$.dialog.tips('删除失败');
-		            	//_table.draw();
-		            		
-		            }/*,
+                        _table.ajax.reload();
+
+		            },
 		            error: function(XMLHttpRequest, textStatus, errorThrown) {
-		                //$.dialog.alert("修改失败");
-		            }*/
+		                $.dialog.alert("XMLHTTPRequest失败");
+		            }
 		        });
 				
 				

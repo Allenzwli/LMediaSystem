@@ -1,3 +1,4 @@
+<%@ page import="csu.lzw.lmediaserver.pojo.Admin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
@@ -249,14 +250,14 @@
          <!-- END Off Sidebar (right)-->
       </aside>
       <!-- Main section-->
-      <section>
+      <section style="background-color: white">
          <!-- Page content-->
          <div class="content-wrapper" style="background-color: white">
             <h3>音乐
                <small>音频库管理</small>
             </h3>
             <!-- START panel-->
-            <div class="container-fluid">
+            <div class="container-fluid" style="background-color: white">
                <div class="row-fluid">
                   <div class="span12" id="content">
                      <div class="row-fluid">
@@ -288,130 +289,66 @@
                            <input type="text" class="input-medium" placeholder="歌手" id="artist-search">
                            <span>专辑:</span>
                            <input type="text" class="input-medium" placeholder="专辑" id="album-search">
-                           <span>年份:</span>
-                           <input type="text" class="input-medium" placeholder="年份" id="year-search">
                            <button type="button" class="btn" id="btn-advanced-search"><i class="fa fa-search"></i> 查询</button>
+                           <input id="adminIdInput" type="hidden" name="adminId" value="<%=((Admin)session.getAttribute("admin")).getId()%>">
+                           <input id="tokenInput" type="hidden" name="token" value="<%=((Admin)session.getAttribute("admin")).getToken()%>">
                         </form>
                      </div>
 
                      <div class="block info-block" id="user-view">
                         <div class="navbar navbar-inner block-header">
                            <div class="block-title">歌曲详情</div>
-                           <div class="header-buttons">
-                              <button type="button" class="btn btn-primary" id="btn-view-edit">修改</button>
-                           </div>
                         </div>
                         <div class="block-content info-content clearfix">
                            <div class="row-fluid">
-                              <div class="span5">
+                              <div class="span4">
                                  <label class="prop-name">歌曲名:</label>
                                  <div class="prop-value" id="songName-view"></div>
                               </div>
-                              <div class="span3">
+                              <div class="span4">
                                  <label class="prop-name">歌手:</label>
                                  <div class="prop-value" id="aritst-view"></div>
                               </div>
-                              <div class="span3">
+                              <div class="span4">
                                  <label class="prop-name">专辑:</label>
                                  <div class="prop-value" id="album-view"></div>
                               </div>
                            </div>
 
                            <div class="row-fluid">
-                              <div class="span2">
-                                 <label class="prop-name">年份:</label>
-                                 <div class="prop-value" id="year-view"></div>
-                              </div>
-                              <div class="span3">
+                              <div class="span4">
                                  <label class="prop-name">时长:</label>
                                  <div class="prop-value" id="duration-view"></div>
                               </div>
 
-                              <div class="span3">
+                              <div class="span4">
                                  <label class="prop-name">添加时间:</label>
                                  <div class="prop-value" id="uploadTime-view"></div>
                               </div>
-                              <div class="span3">
+                              <div class="span4">
                                  <label class="prop-name">文件大小:</label>
                                  <div class="prop-value" id="fileSize-view"></div>
                               </div>
                            </div>
 
                            <div class="row-fluid">
-                              <div class="span5">
+                              <div class="span4">
                                  <label class="prop-name">文件名:</label>
                                  <div class="prop-value" id="fileName-view"></div>
                               </div>
 
-                              <div class="span5">
+                              <div class="span4">
                                  <label class="prop-name">文件Url:</label>
                                  <div class="prop-value" id="fileUrl-view"></div>
                               </div>
-                           </div>
-
-                           <div class="row-fluid">
-                              <div class="span8">
-                                 <label class="prop-name">专辑封面:</label>
-                                 <div class="prop-value" id="pic_url-view"></div>
+                              <div class="span4">
+                                 <label class="prop-name">封面Url:</label>
+                                 <div class="prop-value" id="pictureUrl-view"></div>
                               </div>
                            </div>
                         </div>
 
 
-                     </div>
-
-                     <div class="block info-block" id="user-edit" style="display:none;">
-                        <div class="navbar navbar-inner block-header">
-                           <div class="block-title">修改歌曲信息:<span id="title-edit"></span></div>
-                           <div class="header-buttons">
-                              <button type="button" class="btn btn-primary" id="btn-save-edit">保存更改</button>
-                              <button type="button" class="btn btn-cancel">取消</button>
-                           </div>
-                        </div>
-                        <div class="block-content info-content clearfix">
-                           <form id="form-edit">
-                              <div class="control-group" style="display:none">
-                                 <label class="control-label" for="id-edit"><span
-                                         class="red-asterisk">*</span>ID:</label>
-                                 <div class="controls">
-                                    <input type="text" id="id-edit" name="id-edit">
-                                 </div>
-                              </div>
-                              <div class="control-group">
-                                 <label class="control-label" for="songName-edit"><span
-                                         class="red-asterisk">*</span>歌曲名:</label>
-                                 <div class="controls">
-                                    <input type="text" id="songName-edit" name="songName-edit">
-                                 </div>
-                              </div>
-                              <div class="control-group">
-                                 <label class="control-label" for="artist-edit">歌手:</label>
-                                 <div class="controls">
-                                    <input type="text" id="artist-edit" name="artist-edit">
-                                 </div>
-                              </div>
-                              <div class="control-group">
-                                 <label class="control-label" for="album-edit">专辑:</label>
-                                 <div class="controls">
-                                    <input type="text" id="album-edit" name="album-edit">
-                                 </div>
-                              </div>
-                              <div class="control-group">
-                                 <label class="control-label" for="year-edit">年份</label>
-                                 <div class="controls">
-                                    <input type="text" id="year-edit" name="year-edit">
-                                 </div>
-                              </div>
-                              <div class="control-group">
-                                 <label class="control-label" for="pic_url-edit">封面URL:</label>
-                                 <div class="controls">
-                                    <input type="text" id="pic_url-edit" name="pic_url-edit">
-                                    <input type="file" id="pic_file-edit" name="pic_file-edit" onchange="checkedFile()">
-                                 </div>
-
-                              </div>
-                           </form>
-                        </div>
                      </div>
 
                      <div class="row-fluid">
@@ -425,7 +362,6 @@
                                  <th>歌曲名</th>
                                  <th>歌手</th>
                                  <th>专辑</th>
-                                 <th>年份</th>
                                  <th>文件名</th>
                                  <th>时长</th>
                                  <th>文件大小</th>
@@ -447,9 +383,6 @@
          </div>
       </section>
       <!-- Page footer-->
-      <footer>
-
-      </footer>
    </div>
 
    <!-- =============== VENDOR SCRIPTS ===============-->
@@ -484,24 +417,6 @@
    <!-- =============== PAGE VENDOR SCRIPTS ===============-->
    <!-- =============== APP SCRIPTS ===============-->
    <script src="<%=request.getContextPath()%>/app/js/app.js"></script>
-
-   <script type="text/javascript">
-       function checkedFile()
-       {
-           var picPath = document.getElementById("pic_file-edit").value;
-           var type = picPath.substring(picPath.lastIndexOf(".") + 1, picPath.length).toLowerCase();
-           if (type != "jpg" && type != "bmp" && type != "png") {
-               alert("请上传正确的图片格式");
-               $("#pic_file-edit").val("");
-               $("#pic_url-edit").attr("disabled",false);
-               //$("#pic_url-edit").val("");
-               return false;
-           }
-           $("#pic_url-edit").attr("disabled",true);
-           //$("#pic_url-edit").val("");
-           return true;
-       }
-   </script>
 </body>
 
 </html>

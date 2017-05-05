@@ -25,17 +25,31 @@ public class MusicServiceImp implements MusicService {
     }
 
     public List<Song> getSongsPerPage(int page) {
-        return mMusicMapper.getSongsByStartAndLength(StaticConfig.MUSIC_PER_PAGE_SIZE*(page-1),StaticConfig.MUSIC_PER_PAGE_SIZE);
+        return mMusicMapper.getSongsByStartAndLength(StaticConfig.MUSIC_PER_PAGE_SIZE*(page-1),StaticConfig.MUSIC_PER_PAGE_SIZE,null,null,null);
     }
 
-    public List<Song> getSongsByStartIndexAndLength(int startIndex, int length) {
+    public List<Song> getSongsByStartIndexAndLength(String fuzzy,String orderCol,String orderDir,int startIndex, int length) {
 
-        return mMusicMapper.getSongsByStartAndLength(startIndex,length);
+        return mMusicMapper.getSongsByStartAndLength(startIndex,length,fuzzy,orderCol,orderDir);
     }
 
-    public int getSongAllCount() {
+    public int getSongAllCount(String fuzzy) {
 
-        return mMusicMapper.getSongsAllCount();
+        return mMusicMapper.getSongsAllCount(fuzzy);
+    }
+
+    public List<Song> getSongsByStartIndexAndLengthAdvanced(String fileName, String artist, String songName, String album, String orderCol, String orderDir, int startIndex, int length) {
+
+        return mMusicMapper.getSongsByStartAndLengthAdvanced(startIndex,length,songName,artist,fileName,album,orderCol,orderDir);
+    }
+
+    public int getSongAllCountAdvanced(String fileName, String artist, String songName, String album) {
+
+        return mMusicMapper.getSongsAllCountAdvanced(songName,artist,fileName,album);
+    }
+
+    public void deleteSongs(int[] idArray) {
+        mMusicMapper.deleteSongs(idArray);
     }
 
 }

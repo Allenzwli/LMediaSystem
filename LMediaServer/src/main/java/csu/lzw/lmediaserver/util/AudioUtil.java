@@ -1,19 +1,11 @@
 package csu.lzw.lmediaserver.util;
 
+import com.mpatric.mp3agic.*;
 import csu.lzw.lmediaserver.pojo.Song;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.audio.mp3.MP3AudioHeader;
-import org.jaudiotagger.audio.mp3.MP3File;
-import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.id3.AbstractID3v2Frame;
-import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
-import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 /**
  * Created by allenzwli on 2017/4/11.
@@ -22,109 +14,70 @@ public class AudioUtil {
 
     /**
      * 获取MP3歌曲名、歌手、时长信息
-     * @param mp3File
+     *
+     * @param file
      * @return
      */
-    public static Song getMP3Info(File mp3File) {
+    public static Song getMP3Info(File file) {
         Song song = new Song();
         try {
-            MP3File file = new MP3File(mp3File);
-            MP3AudioHeader audioHeader = (MP3AudioHeader)file.getAudioHeader();
-            song.setSongName(file.displayStructureAsPlainText());
+            Mp3File mp3file = new Mp3File(file);
+            song.setDuration(mp3file.getLengthInSeconds());
+            if (mp3file.hasId3v1Tag()) {
+                ID3v1 id3v1Tag = mp3file.getId3v1Tag();
+                song.setSongName(id3v1Tag.getTitle());
+                song.setArtist(id3v1Tag.getArtist());
+                song.setAlbum(id3v1Tag.getAlbum());
 
-            //其它的属性之后在研究这个库的API来扩充
+            } else if (mp3file.hasId3v2Tag()) {
+                ID3v2 id3v2Tag = mp3file.getId3v2Tag();
+                song.setSongName(id3v2Tag.getTitle());
+                song.setArtist(id3v2Tag.getArtist());
+                song.setAlbum(id3v2Tag.getAlbum());
+                song.setPictureUrl(saveAlbumPicture(id3v2Tag));
+            }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (TagException e) {
+        } catch (UnsupportedTagException e) {
             e.printStackTrace();
-        } catch (ReadOnlyFileException e) {
-            e.printStackTrace();
-        } catch (InvalidAudioFrameException e) {
+        } catch (InvalidDataException e) {
             e.printStackTrace();
         }
+
         return song;
     }
 
-
-    /**
-     * 获取MP3封面图片
-     * @param mp3File
-     * @return
-     */
-    public static byte[] getMP3Image(File mp3File) {
-        byte[] imageData = null;
-        try {
-            MP3File mp3file = new MP3File(mp3File);
-            AbstractID3v2Tag tag = mp3file.getID3v2Tag();
-            AbstractID3v2Frame frame = (AbstractID3v2Frame) tag.getFrame("APIC");
-            FrameBodyAPIC body = (FrameBodyAPIC) frame.getBody();
-            imageData = body.getImageData();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return imageData;
-    }
-
-
-
-    /**
-     *获取mp3图片并将其保存至指定路径下
-     * @param mp3File mp3文件对象
-     * @param mp3ImageSavePath mp3图片保存位置（默认mp3ImageSavePath +"\" mp3File文件名 +".jpg" ）
-     * @param cover 是否覆盖已有图片
-     * @return 生成图片全路径
-     */
-    public static String saveMP3Image(File mp3File, String mp3ImageSavePath, boolean cover) {
-        //生成mp3图片路径
-        String mp3FileLabel = getFileLabel(mp3File.getName());
-        String mp3ImageFullPath = mp3ImageSavePath + ("\\" + mp3FileLabel + ".jpg");
-
-        //若为非覆盖模式，图片存在则直接返回（不再创建）
-        if( !cover ) {
-            File tempFile = new File(mp3ImageFullPath) ;
-            if(tempFile.exists()) {
-                return mp3ImageFullPath;
+    private static String saveAlbumPicture(ID3v2 id3v2Tag){
+        StringBuffer albumNameSB = new StringBuffer();
+        byte[] imageData = id3v2Tag.getAlbumImage();
+        if (imageData != null) {
+            String mimeType = id3v2Tag.getAlbumImageMimeType();
+            albumNameSB.append(id3v2Tag.getTitle());
+            albumNameSB.append("_");
+            albumNameSB.append(id3v2Tag.getArtist());
+            albumNameSB.append("_");
+            albumNameSB.append(id3v2Tag.getAlbum());
+            if (mimeType.equals("image/jpg")) {
+                albumNameSB.append(".jpg");
+            } else if (mimeType.equals("image/jpeg")) {
+                albumNameSB.append(".jpeg");
+            } else if (mimeType.equals("image/png")) {
+                albumNameSB.append(".png");
+            }
+            File file = new File(StaticConfig.BASE_LOCAL_ALBUM_PIC_PATH+albumNameSB.toString());
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                    RandomAccessFile raFile = new RandomAccessFile(file, "rw");
+                    raFile.write(imageData);
+                    raFile.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-
-        //生成mp3存放目录
-        File saveDirectory = new File(mp3ImageSavePath);
-        saveDirectory.mkdirs();
-
-        //获取mp3图片
-        byte imageData[] = getMP3Image(mp3File);
-        //若图片不存在，则直接返回null
-        if (null == imageData || imageData.length == 0) {
-            return null;
-        }
-        //保存mp3图片文件
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(mp3ImageFullPath);
-            fos.write(imageData);
-            fos.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return mp3ImageFullPath;
+        return StaticConfig.ALBUM_PICTURE_URL_PREFIX+albumNameSB.toString();
     }
 
 
-    /**
-     * 仅返回文件名（不包含.类型）
-     * @param fileName
-     * @return
-     */
-    private static String getFileLabel(String fileName) {
-        int indexOfDot = fileName.lastIndexOf(".");
-        fileName = fileName.substring(0,(indexOfDot==-1?fileName.length():indexOfDot));
-        return fileName;
-    }
-    private static String toGB2312(String s) {
-        try {
-            return new String(s.getBytes("ISO-8859-1"), "gb2312");
-        } catch (Exception e) {
-            return s;
-        }
-    }
 }

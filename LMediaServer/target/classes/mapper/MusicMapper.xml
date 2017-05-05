@@ -2,14 +2,111 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="csu.lzw.lmediaserver.mapper.MusicMapper">
     <insert id="saveSong" parameterType="csu.lzw.lmediaserver.pojo.Song">
-        INSERT INTO songs(fileName,fileSize,fileUrl,adminId) VALUES (#{fileName},#{fileSize},#{fileUrl},#{adminId})
+        INSERT INTO songs(fileName,fileSize,fileUrl,adminId,songName,artist,album,duration,pictureUrl)
+        VALUES (#{fileName},#{fileSize},#{fileUrl},#{adminId},#{songName},#{artist},#{album},#{duration},#{pictureUrl})
     </insert>
 
     <select id="getSongsByStartAndLength" resultType="csu.lzw.lmediaserver.pojo.Song">
-        SELECT id,fileName,fileSize,fileUrl,uploadTime FROM songs LIMIT #{length} OFFSET #{start}
+        SELECT id,fileName,fileSize,fileUrl,uploadTime,songName,artist,album,duration,pictureUrl
+        FROM songs
+        <if test="fuzzy != '' and fuzzy != null">
+        WHERE
+        fileName LIKE concat('%',#{fuzzy},'%')
+        OR songName LIKE concat('%',#{fuzzy},'%')
+        OR artist LIKE concat('%',#{fuzzy},'%')
+        OR album LIKE concat('%',#{fuzzy},'%')
+        </if>
+        ORDER BY
+        <choose>
+            <when test="orderCol=='fileName'">fileName</when>
+            <when test="orderCol=='songName'">songName</when>
+            <when test="orderCol=='artist'">artist</when>
+            <when test="orderCol=='album'">album</when>
+            <when test="orderCol=='fileSize'">fileSize</when>
+            <when test="orderCol=='duration'">duration</when>
+            <when test="orderCol=='uploadTime'">uploadTime</when>
+            <otherwise>id</otherwise>
+        </choose>
+        <choose>
+            <when test="orderDir=='desc'">desc</when>
+            <when test="orderDir=='asc'">asc</when>
+            <otherwise>desc</otherwise>
+        </choose>
+        LIMIT #{length} OFFSET #{start}
     </select>
 
     <select id="getSongsAllCount" resultType="int">
-        SELECT count(id) FROM songs
+        SELECT count(id)
+        FROM songs
+        <if test="fuzzy != '' and fuzzy != null">
+            WHERE
+            fileName LIKE concat('%',#{fuzzy},'%')
+            OR songName LIKE concat('%',#{fuzzy},'%')
+            OR artist LIKE concat('%',#{fuzzy},'%')
+            OR album LIKE concat('%',#{fuzzy},'%')
+        </if>
+    </select>
+
+    <delete id="deleteSongs" parameterType="int">
+        DELETE FROM songs
+        WHERE id in
+        <foreach item="songId" collection="array" open="(" separator="," close=")">
+            #{songId}
+        </foreach>
+    </delete>
+
+    <select id="getSongsByStartAndLengthAdvanced" resultType="csu.lzw.lmediaserver.pojo.Song">
+        SELECT id,fileName,fileSize,fileUrl,uploadTime,songName,artist,album,duration,pictureUrl
+        FROM songs
+        <where>
+            <if test="fileName != '' and fileName != null">
+                fileName LIKE concat('%',#{fileName},'%')
+            </if>
+            <if test="songName != '' and songName != null">
+                AND songName LIKE concat('%',#{songName},'%')
+            </if>
+            <if test="artist != '' and artist != null">
+                AND artist LIKE concat('%',#{artist},'%')
+            </if>
+            <if test="album != '' and album != null">
+                AND album LIKE concat('%',#{album},'%')
+            </if>
+        </where>
+        ORDER BY
+        <choose>
+            <when test="orderCol=='fileName'">fileName</when>
+            <when test="orderCol=='songName'">songName</when>
+            <when test="orderCol=='artist'">artist</when>
+            <when test="orderCol=='album'">album</when>
+            <when test="orderCol=='fileSize'">fileSize</when>
+            <when test="orderCol=='duration'">duration</when>
+            <when test="orderCol=='uploadTime'">uploadTime</when>
+            <otherwise>id</otherwise>
+        </choose>
+        <choose>
+            <when test="orderDir=='desc'">desc</when>
+            <when test="orderDir=='asc'">asc</when>
+            <otherwise>desc</otherwise>
+        </choose>
+        LIMIT #{length} OFFSET #{start}
+    </select>
+
+    <select id="getSongsAllCountAdvanced" resultType="int">
+        SELECT count(id)
+        FROM songs
+        <where>
+            <if test="fileName != '' and fileName != null">
+                fileName LIKE concat('%',#{fileName},'%')
+            </if>
+            <if test="songName != '' and songName != null">
+                AND songName LIKE concat('%',#{songName},'%')
+            </if>
+            <if test="artist != '' and artist != null">
+                AND artist LIKE concat('%',#{artist},'%')
+            </if>
+            <if test="album != '' and album != null">
+                AND album LIKE concat('%',#{album},'%')
+            </if>
+        </where>
     </select>
 </mapper>

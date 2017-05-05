@@ -13,6 +13,8 @@ public class Admin {
 
     private String encyptPassword;
 
+    private String token;
+
     public int getId() {
         return id;
     }
@@ -43,5 +45,13 @@ public class Admin {
 
     public String getAccount() {
         return account;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
     }
 }

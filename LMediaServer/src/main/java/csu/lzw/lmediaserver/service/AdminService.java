@@ -7,4 +7,6 @@ import csu.lzw.lmediaserver.pojo.Admin;
  */
 public interface AdminService {
     Admin getAdmin(String account,String encyptPassword);
+    boolean validAdminToken(String token,int adminId);
+
 }

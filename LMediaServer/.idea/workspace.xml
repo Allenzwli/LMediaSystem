@@ -25,7 +25,7 @@
     <favorites_list name="LMediaServer" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -43,6 +43,7 @@
       <find>require</find>
       <find>baidu</find>
       <find>jstl</find>
+      <find>year</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -60,7 +61,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin_add.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin_manage.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.html" />
-        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/pojo/Admin.java" />
         <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/controller/HomeController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin_manage.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin_add.jsp" />
@@ -71,30 +71,32 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/jdbc.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/mapper/AdminMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/imp/AdminService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/AdminService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/imp/AdminServiceImp.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/mapper/AdminMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/AdminMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/util/AudioUtil.java" />
         <option value="$PROJECT_DIR$/src/main/resources/spring-mybatis.xml" />
         <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/controller/AdminController.java" />
         <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/controller/LogController.java" />
         <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/controller/VideoController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/pojo/Song.java" />
+        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/pojo/Admin.java" />
+        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/AdminService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/mapper/AdminMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/imp/AdminServiceImp.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/AdminMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/music_add.jsp" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/pojo/Song.java" />
+        <option value="$MAVEN_REPOSITORY$/com/mpatric/mp3agic/0.9.0/mp3agic-0.9.0.jar!/com/mpatric/mp3agic/ID3v2.class" />
         <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/util/StaticConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/util/AudioUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/music_manage.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/MusicService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/controller/MusicController.java" />
         <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/mapper/MusicMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/imp/MusicServiceImp.java" />
-        <option value="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/controller/MusicController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/MusicMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/vendor/datatable/js/music-manage.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/music_manage.jsp" />
       </list>
     </option>
   </component>
@@ -159,6 +161,35 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="LMediaServer">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="LMediaServer">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src/main/webapp">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -269,6 +300,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LMediaServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LMediaServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="vendor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -291,7 +352,97 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="datatable" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LMediaServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LMediaServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="datatable" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LMediaServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LMediaServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LMediaServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LMediaServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mapper" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -481,35 +632,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="LMediaServer">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="LMediaServer">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src/main/webapp">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -528,11 +650,11 @@
       <recent name="$PROJECT_DIR$/src/main/webapp" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/vendor/datatable/img" />
       <recent name="$PROJECT_DIR$/src/main/webapp/vendor/datatable/css" />
       <recent name="$PROJECT_DIR$/src/main/webapp/vendor/datatable/js/skins/icons" />
       <recent name="$PROJECT_DIR$/src/main/webapp/vendor/datatable/js" />
       <recent name="$PROJECT_DIR$/src/main/webapp/vendor" />
-      <recent name="$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/mapper" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1108,6 +1230,7 @@
       </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="Unnamed_LMediaServer" />
+        <option name="DEPLOY_TOMCAT_APPS" value="true" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -1192,12 +1315,13 @@
       <workItem from="1491810092532" duration="30419000" />
       <workItem from="1491977913917" duration="7569000" />
       <workItem from="1492963332424" duration="128000" />
-      <workItem from="1493779866311" duration="19099000" />
+      <workItem from="1493779866311" duration="31064000" />
+      <workItem from="1493976471831" duration="9131000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72123000" />
+    <option name="totallyTimeSpent" value="93219000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1266,12 +1390,29 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/music_manage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5145">
+          <caret line="343" column="33" lean-forward="false" selection-start-line="343" selection-start-column="33" selection-end-line="343" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/vendor/datatable/js/music-manage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1695">
+          <caret line="113" column="18" lean-forward="false" selection-start-line="113" selection-start-column="18" selection-end-line="113" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/controller/MusicController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1461#1476#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1634#1649#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1365,45 +1506,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin_add.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1950">
-          <caret line="130" column="65" lean-forward="false" selection-start-line="130" selection-start-column="36" selection-end-line="130" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="69" column="73" lean-forward="false" selection-start-line="69" selection-start-column="73" selection-end-line="69" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/util/AudioUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="32" column="65" lean-forward="false" selection-start-line="32" selection-start-column="65" selection-end-line="32" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/mapper/AdminMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/imp/AdminServiceImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="53" lean-forward="true" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/pojo/Admin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1425,38 +1531,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin_manage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1099">
-          <caret line="263" column="45" lean-forward="true" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="42" column="15" lean-forward="false" selection-start-line="42" selection-start-column="11" selection-end-line="42" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/controller/VideoController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="19" column="22" lean-forward="false" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/pojo/Song.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="122" column="8" lean-forward="false" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="23" />
-          <folding>
-            <element signature="e#2250#2251#0" expanded="true" />
-            <element signature="e#2288#2289#0" expanded="true" />
-            <element signature="e#2319#2320#0" expanded="true" />
-            <element signature="e#2349#2350#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1479,45 +1557,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/controller/AdminController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/vendor/blueimp-file-upload/js/jquery.fileupload.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="319" column="8" lean-forward="false" selection-start-line="319" selection-start-column="8" selection-end-line="319" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/music_add.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="307" column="15" lean-forward="false" selection-start-line="307" selection-start-column="15" selection-end-line="307" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/AdminMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="9" lean-forward="true" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-          <folding>
-            <marker date="1491905637000" expanded="true" signature="312:420" ph="SELECT id,ac... admins" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/util/StaticConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="51" lean-forward="false" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1525,7 +1568,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1533,39 +1575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/AdminService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="57" lean-forward="true" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/MusicService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="13" column="25" lean-forward="false" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/mapper/MusicMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="15" column="24" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/imp/MusicServiceImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="37" column="46" lean-forward="false" selection-start-line="37" selection-start-column="46" selection-end-line="37" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1573,45 +1582,190 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin_manage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="683">
+          <caret line="263" column="45" lean-forward="true" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin_add.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="937">
+          <caret line="130" column="65" lean-forward="false" selection-start-line="130" selection-start-column="36" selection-end-line="130" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/pojo/Admin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="54" column="8" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="21" />
+          <folding>
+            <element signature="e#890#891#0" expanded="false" />
+            <element signature="e#924#925#0" expanded="false" />
+            <element signature="e#956#957#0" expanded="false" />
+            <element signature="e#984#985#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/AdminService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="54" lean-forward="false" selection-start-line="9" selection-start-column="54" selection-end-line="9" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/imp/AdminServiceImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="30" column="8" lean-forward="false" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/AdminMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="58" lean-forward="true" selection-start-line="7" selection-start-column="58" selection-end-line="7" selection-end-column="58" />
+          <folding>
+            <marker date="1493955514000" expanded="true" signature="312:426" ph="SELECT id,ac... admins" />
+            <marker date="1493955514000" expanded="true" signature="531:617" ph="SELECT id,ac... admins" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/mapper/AdminMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="12" column="84" lean-forward="true" selection-start-line="12" selection-start-column="84" selection-end-line="12" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/pojo/Song.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="78" column="5" lean-forward="true" selection-start-line="78" selection-start-column="5" selection-end-line="78" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/mpatric/mp3agic/0.9.0/mp3agic-0.9.0.jar!/com/mpatric/mp3agic/ID3v2.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="123" column="21" lean-forward="false" selection-start-line="123" selection-start-column="21" selection-end-line="123" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/util/AudioUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="57" column="33" lean-forward="false" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/util/StaticConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="61" lean-forward="false" selection-start-line="13" selection-start-column="61" selection-end-line="13" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/music_add.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="261" column="121" lean-forward="true" selection-start-line="260" selection-start-column="24" selection-end-line="261" selection-end-column="121" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="162" column="35" lean-forward="false" selection-start-line="162" selection-start-column="15" selection-end-line="162" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/music_manage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="293" column="48" lean-forward="false" selection-start-line="293" selection-start-column="48" selection-end-line="293" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/MusicService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="15" column="90" lean-forward="false" selection-start-line="15" selection-start-column="90" selection-end-line="15" selection-end-column="90" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/controller/MusicController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-237">
-          <caret line="6" column="49" lean-forward="false" selection-start-line="6" selection-start-column="49" selection-end-line="6" selection-end-column="49" />
+        <state relative-caret-position="354">
+          <caret line="59" column="109" lean-forward="false" selection-start-line="59" selection-start-column="109" selection-end-line="59" selection-end-column="109" />
           <folding>
-            <element signature="e#1461#1476#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1634#1649#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/service/imp/MusicServiceImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/csu/lzw/lmediaserver/mapper/MusicMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="20" column="32" lean-forward="false" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/MusicMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="54" lean-forward="false" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+        <state relative-caret-position="903">
+          <caret line="95" column="18" lean-forward="true" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
           <folding>
-            <marker date="1493914743000" expanded="true" signature="291:398" ph="INSERT INTO songs... " />
-            <marker date="1493914743000" expanded="true" signature="509:566" ph="SELECT fileN... songs" />
-            <marker date="1493914743000" expanded="true" signature="509:598" ph="SELECT id,fi... songs" />
-            <marker date="1493914743000" expanded="true" signature="674:701" ph="SELECT count... songs" />
+            <marker date="1493992989000" expanded="true" signature="291:505" ph="INSERT INTO songs... " />
+            <marker date="1493992989000" expanded="true" signature="616:723" ph="SELECT id,fi... songs" />
+            <marker date="1493992989000" expanded="true" signature="616:1732" ph="SELECT id,fi... songs" />
+            <marker date="1493992989000" expanded="true" signature="2488:2595" ph="SELECT id,fi... songs" />
+            <marker date="1493992989000" expanded="true" signature="2488:3903" ph="SELECT id,fi... songs" />
+            <marker date="1493992989000" expanded="true" signature="3987:4022" ph="SELECT count... songs" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/music_manage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="345" column="47" lean-forward="false" selection-start-line="345" selection-start-column="47" selection-end-line="345" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/vendor/datatable/js/music-manage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="64" column="26" lean-forward="false" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
+        <state relative-caret-position="249">
+          <caret line="84" column="28" lean-forward="false" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
           <folding />
         </state>
       </provider>
