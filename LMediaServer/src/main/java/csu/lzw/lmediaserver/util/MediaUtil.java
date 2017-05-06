@@ -10,13 +10,13 @@ import java.io.RandomAccessFile;
 /**
  * Created by allenzwli on 2017/4/11.
  */
-public class AudioUtil {
+public class MediaUtil {
 
     /**
      * 获取MP3歌曲名、歌手、时长信息
      *
      * @param file
-     * @return
+     * @return Song
      */
     public static Song getMP3Info(File file) {
         Song song = new Song();
@@ -47,6 +47,12 @@ public class AudioUtil {
         return song;
     }
 
+    /**
+     * 保存歌曲中的专辑封面
+     *
+     * @param id3v2Tag
+     * @return 封面URl
+     */
     private static String saveAlbumPicture(ID3v2 id3v2Tag){
         StringBuffer albumNameSB = new StringBuffer();
         byte[] imageData = id3v2Tag.getAlbumImage();
@@ -78,6 +84,4 @@ public class AudioUtil {
         }
         return StaticConfig.ALBUM_PICTURE_URL_PREFIX+albumNameSB.toString();
     }
-
-
 }

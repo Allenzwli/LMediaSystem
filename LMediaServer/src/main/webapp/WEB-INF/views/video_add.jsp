@@ -1,3 +1,4 @@
+<%@ page import="csu.lzw.lmediaserver.pojo.Admin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
 <html lang="en">
 
@@ -16,6 +17,7 @@
    <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/animate.css/animate.min.css">
    <!-- WHIRL (spinners)-->
    <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/whirl/dist/whirl.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/blueimp-file-upload/css/jquery.fileupload.css">
    <!-- =============== PAGE VENDOR STYLES ===============-->
    <!-- =============== BOOTSTRAP STYLES ===============-->
    <link rel="stylesheet" href="<%=request.getContextPath()%>/app/css/bootstrap.css" id="bscss">
@@ -241,24 +243,89 @@
          <!-- END Off Sidebar (right)-->
       </aside>
       <!-- Main section-->
-      <section>
+      <section style="background-color: white">
          <!-- Page content-->
          <div class="content-wrapper">
             <h3>视频
                <small>新增视频</small>
             </h3>
-            <div class="row">
-               <div class="col-lg-12">
-                  <p>A row with content</p>
+
+            <form id="fileUploadForm" action="<%=request.getContextPath()%>/videos/upload" method="POST" enctype="multipart/form-data">
+               <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload-->
+               <div class="row fileupload-buttonbar">
+                  <div class="col-lg-7">
+                     <!-- The fileinput-button span is used to style the file input field as button-->
+                     <span class="btn btn-success fileinput-button"><i class="fa fa-fw fa-plus"></i>
+                        <span id="filePath">添加视频</span>
+                        <input id="fileInput" type="file" name="songFile" onchange="OnSelectFile()">
+                        <input type="hidden" name="adminId" value="<%=((Admin)session.getAttribute("admin")).getId()%>">
+                        <input type="hidden" name="token" value="<%=((Admin)session.getAttribute("admin")).getToken()%>">
+                     </span>
+                     <button type="button" class="btn btn-primary start" onclick="OnUploadFile()" ><i class="fa fa-fw fa-upload"></i>
+                        <span>开始上传</span>
+                     </button>
+                  </div>
                </div>
-            </div>
+            </form>
+
+            <tr class="template-upload">
+               <td>
+                  <p class="name" id="fileNameTitle"></p>
+               </td>
+            </tr>
          </div>
       </section>
-      <!-- Page footer-->
-      <footer>
-         <span>&copy; 2017 - Li Zhaowei</span>
-      </footer>
+      <script>
+          function OnSelectFile() {
+
+              $("#fileNameTitle").text($("#fileInput").val());
+
+          }
+
+          function OnUploadFile(){
+              var xhr = new XMLHttpRequest();
+              var fileUploadForm = document.getElementById('fileUploadForm');
+              var fd=new FormData(fileUploadForm);
+
+             /* event listners */
+              function OnUploadProgress(evt) {
+                  if (evt.lengthComputable) {
+                      var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+                      $("#fileNameTitle").text(percentComplete.toString() + '%');
+                  }
+                  else {
+                      $("#fileNameTitle").text('unable to upload');
+                  }
+              }
+              xhr.upload.addEventListener("progress", OnUploadProgress, false);
+
+              function OnUploadComplete(evt) {
+                  var resultJson=JSON.parse(evt.target.responseText);
+                  if(resultJson.data==0){
+                      $("#fileNameTitle").text(resultJson.msg);
+                  }
+                  else {
+                      alert(resultJson.msg);
+                  }
+              }
+              xhr.addEventListener("load", OnUploadComplete, false);
+
+              function OnUploadFailed() {
+                  alert("There was an error attempting to upload the file.");
+              }
+              xhr.addEventListener("error", OnUploadFailed, false);
+              xhr.open("POST", "<%=request.getContextPath()%>/videos/upload");
+              xhr.send(fd);
+
+          }
+      </script>
+
    </div>
+
+
+
+
+
    <!-- =============== VENDOR SCRIPTS ===============-->
    <!-- MODERNIZR-->
    <script src="<%=request.getContextPath()%>/vendor/modernizr/modernizr.custom.js"></script>
@@ -272,7 +339,8 @@
    <script src="<%=request.getContextPath()%>/vendor/jquery.easing/js/jquery.easing.js"></script>
    <!-- ANIMO-->
    <script src="<%=request.getContextPath()%>/vendor/animo.js/animo.js"></script>
-   
+
+
    <!-- =============== PAGE VENDOR SCRIPTS ===============-->
    <!-- =============== APP SCRIPTS ===============-->
    <script src="<%=request.getContextPath()%>/app/js/app.js"></script>

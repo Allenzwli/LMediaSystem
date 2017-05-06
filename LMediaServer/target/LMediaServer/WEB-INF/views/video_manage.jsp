@@ -1,3 +1,4 @@
+<%@ page import="csu.lzw.lmediaserver.pojo.Admin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
 <html lang="en">
 
@@ -12,15 +13,22 @@
    <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/fontawesome/css/font-awesome.min.css">
    <!-- SIMPLE LINE ICONS-->
    <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/simple-line-icons/css/simple-line-icons.css">
-   <!-- ANIMATE.CSS-->
-   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/animate.css/animate.min.css">
-   <!-- WHIRL (spinners)-->
-   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/whirl/dist/whirl.css">
+
    <!-- =============== PAGE VENDOR STYLES ===============-->
    <!-- =============== BOOTSTRAP STYLES ===============-->
    <link rel="stylesheet" href="<%=request.getContextPath()%>/app/css/bootstrap.css" id="bscss">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/datatable/css/bootstrap.min.css">
    <!-- =============== APP STYLES ===============-->
    <link rel="stylesheet" href="<%=request.getContextPath()%>/app/css/app.css" id="maincss">
+
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/datatable/css/bootstrap-responsive.min.css" media="screen">
+
+   <!-- DataTables CSS start-->
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/datatable/css/dataTables.bootstrap.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/datatable/css/dataTables.fontAwesome.css">
+   <!-- DataTables CSS end-->
+
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/vendor/datatable/css/music-manage.css">
 </head>
 
 <body>
@@ -241,24 +249,92 @@
          <!-- END Off Sidebar (right)-->
       </aside>
       <!-- Main section-->
-      <section>
+      <section style="background-color: white">
          <!-- Page content-->
-         <div class="content-wrapper">
-            <h3>视频
-               <small>视频管理</small>
+         <div class="content-wrapper" style="background-color: white">
+            <h3>音乐
+               <small>音频库管理</small>
             </h3>
-            <div class="row">
-               <div class="col-lg-12">
-                  <p>A row with content</p>
+            <!-- START panel-->
+            <div class="container-fluid" style="background-color: white">
+               <div class="row-fluid">
+                  <div class="span12" id="content">
+                     <div class="row-fluid">
+                        <div class="span12">
+                           <div class="btn-toolbar">
+                              <div class="pull-right">
+                                 <div class="input-append">
+                                    <input type="text" placeholder="视频名" id="fuzzy-search">
+                                    <input id="adminIdInput" type="hidden" name="adminId" value="<%=((Admin)session.getAttribute("admin")).getId()%>">
+                                    <input id="tokenInput" type="hidden" name="token" value="<%=((Admin)session.getAttribute("admin")).getToken()%>">
+                                    <div class="btn-group">
+                                       <button type="button" class="btn" id="btn-simple-search"><i class="fa fa-search"></i></button>
+                                    </div>
+                                 </div>
+                              </div>
+                              <button type="button" class="btn btn-danger" id="btn-del"><i class="fa fa-remove"></i> 批量删除</button>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="block info-block" id="user-view">
+                        <div class="navbar navbar-inner block-header">
+                           <div class="block-title">视频详情</div>
+                        </div>
+                        <div class="block-content info-content clearfix">
+                           <div class="row-fluid">
+                              <div class="span4">
+                                 <label class="prop-name">视频名:</label>
+                                 <div class="prop-value" id="videoName-view"></div>
+                              </div>
+                              <div class="span4">
+                                 <label class="prop-name">视频URL:</label>
+                                 <div class="prop-value" id="fileUrl-view"></div>
+                              </div>
+                           </div>
+
+                           <div class="row-fluid">
+                              <div class="span4">
+                                 <label class="prop-name">添加时间:</label>
+                                 <div class="prop-value" id="uploadTime-view"></div>
+                              </div>
+                              <div class="span4">
+                                 <label class="prop-name">文件大小:</label>
+                                 <div class="prop-value" id="fileSize-view"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row-fluid">
+                        <div class="span12" id="div-table-container">
+                           <table class="table table-striped table-hover" id="table-user">
+                              <thead>
+                              <tr>
+                                 <th>
+                                    <input type="checkbox" name="cb-check-all">
+                                 </th>
+                                 <th>视频名</th>
+                                 <th>文件大小</th>
+                                 <th>文件URL</th>
+                                 <th>添加时间</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                           </table>
+
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
+            <!-- END panel-->
          </div>
       </section>
       <!-- Page footer-->
-      <footer>
-         <span>&copy; 2017 - Li Zhaowei</span>
-      </footer>
    </div>
+
    <!-- =============== VENDOR SCRIPTS ===============-->
    <!-- MODERNIZR-->
    <script src="<%=request.getContextPath()%>/vendor/modernizr/modernizr.custom.js"></script>
@@ -272,8 +348,22 @@
    <script src="<%=request.getContextPath()%>/vendor/jquery.easing/js/jquery.easing.js"></script>
    <!-- ANIMO-->
    <script src="<%=request.getContextPath()%>/vendor/animo.js/animo.js"></script>
-   
-   
+   <!-- Datatable-->
+
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/json2.js"></script>
+   <!-- JQueryFileUpload -->
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/ajaxfileupload.js"></script>
+   <!-- SpinJS-->
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/jquery.spin.merge.js"></script>
+   <!-- lhgdialog -->
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/lhgdialog.js?skin=bootstrap2"></script>
+   <!-- DataTables JS-->
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/jquery.dataTables.js"></script>
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/dataTables.bootstrap.js"></script>
+   <!-- DataTables JS end-->
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/constant.js"></script>
+   <script src="<%=request.getContextPath()%>/vendor/datatable/js/video-manage.js"></script>
+
    <!-- =============== PAGE VENDOR SCRIPTS ===============-->
    <!-- =============== APP SCRIPTS ===============-->
    <script src="<%=request.getContextPath()%>/app/js/app.js"></script>

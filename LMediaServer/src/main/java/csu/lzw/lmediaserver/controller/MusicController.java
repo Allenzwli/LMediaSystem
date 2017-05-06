@@ -3,7 +3,7 @@ package csu.lzw.lmediaserver.controller;
 import csu.lzw.lmediaserver.pojo.Song;
 import csu.lzw.lmediaserver.service.AdminService;
 import csu.lzw.lmediaserver.service.MusicService;
-import csu.lzw.lmediaserver.util.AudioUtil;
+import csu.lzw.lmediaserver.util.MediaUtil;
 import csu.lzw.lmediaserver.util.StaticConfig;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -74,7 +74,7 @@ public class MusicController {
     public Map musicUpload(@RequestParam(value = "songFile", required = false) MultipartFile songFile,int adminId,String token){
         Map<String,Object> resultMap=new HashMap<String, Object>();
         if(!mAdminService.validAdminToken(token,adminId)){
-            resultMap.put("data",3);
+            resultMap.put("data",4);
             resultMap.put("msg","上传失败，无效的管理员身份");
         }else{
             if(songFile!=null&&!songFile.isEmpty()){
@@ -90,7 +90,7 @@ public class MusicController {
                         resultMap.put("data",3);
                         resultMap.put("msg",e.toString());
                     }
-                    Song song= AudioUtil.getMP3Info(file);
+                    Song song= MediaUtil.getMP3Info(file);
                     song.setFileSize(file.length());
                     song.setFileUrl(StaticConfig.MUSIC_FILE_URL_PREFIX+originalFileName);
                     song.setAdminId(adminId);
@@ -116,7 +116,7 @@ public class MusicController {
         Map<String,Object> resultMap=new HashMap<String, Object>();
         if(!mAdminService.validAdminToken(token,adminId)){
             resultMap.put("data",3);
-            resultMap.put("msg","上传失败，无效的管理员身份");
+            resultMap.put("msg","删除失败，无效的管理员身份");
         }else{
             List<Song> needDeleteSongList=null;
             try {

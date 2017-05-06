@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="csu.lzw.lmediaserver.mapper.VideoMapper">
+    <insert id="saveVideo" parameterType="csu.lzw.lmediaserver.pojo.Video">
+        INSERT INTO videos(videoName,fileUrl,fileSize,adminId)
+        VALUES(#{videoName},#{fileUrl},#{fileSize},#{adminId})
+    </insert>
+
+    <select id="getVideosByStartAndLength" resultType="csu.lzw.lmediaserver.pojo.Video">
+        SELECT id,videoName,fileUrl,fileSize,uploadTime
+        FROM videos
+        <if test="fuzzy != '' and fuzzy != null">
+            WHERE
+            videoName LIKE concat('%',#{fuzzy},'%')
+        </if>
+        ORDER BY
+        <choose>
+            <when test="orderCol=='videoName'">videoName</when>
+            <when test="orderCol=='fileSize'">fileSize</when>
+            <when test="orderCol=='uploadTime'">uploadTime</when>
+            <otherwise>id</otherwise>
+        </choose>
+        <choose>
+            <when test="orderDir=='desc'">desc</when>
+            <when test="orderDir=='asc'">asc</when>
+            <otherwise>desc</otherwise>
+        </choose>
+        LIMIT #{length} OFFSET #{start}
+    </select>
+
+    <select id="getVideosAllCount" resultType="int">
+        SELECT count(id)
+        FROM videos
+        <if test="fuzzy != '' and fuzzy != null">
+            WHERE
+            videoName LIKE concat('%',#{fuzzy},'%')
+        </if>
+    </select>
+
+    <delete id="deleteVideos" parameterType="int">
+        DELETE FROM videos
+        WHERE id in
+        <foreach item="videoId" collection="array" open="(" separator="," close=")">
+            #{videoId}
+        </foreach>
+    </delete>
+</mapper>
