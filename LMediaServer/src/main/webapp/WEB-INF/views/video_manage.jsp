@@ -252,8 +252,8 @@
       <section style="background-color: white">
          <!-- Page content-->
          <div class="content-wrapper" style="background-color: white">
-            <h3>音乐
-               <small>音频库管理</small>
+            <h3>视频
+               <small>视频库管理</small>
             </h3>
             <!-- START panel-->
             <div class="container-fluid" style="background-color: white">

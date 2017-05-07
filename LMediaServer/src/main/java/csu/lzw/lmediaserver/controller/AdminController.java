@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 
 /**
@@ -59,4 +60,9 @@ public class AdminController {
         return "login";
     }
 
+    @ResponseBody
+    @RequestMapping("/validate")
+    public Admin validateAdmin(String account,String encyptPassword){
+        return mAdminService.getAdmin(account,encyptPassword);
+    }
 }
