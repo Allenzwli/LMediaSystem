@@ -1,34 +1,57 @@
 package csu.allenzwli.lmediaclientandroid.ui;
 
-import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import java.util.List;
+
+import butterknife.InjectView;
 import csu.allenzwli.lmediaclientandroid.R;
+import csu.allenzwli.lmediaclientandroid.adapter.VPFragmentAdapter;
+import csu.allenzwli.lmediaclientandroid.base.BaseActivity;
+import csu.allenzwli.lmediaclientandroid.base.BaseLazyFragment;
+import csu.allenzwli.lmediaclientandroid.presenter.MainPresenter;
+import csu.allenzwli.lmediaclientandroid.presenter.imp.MainPresenterImp;
+import csu.allenzwli.lmediaclientandroid.ui.widget.XViewPager;
+import csu.allenzwli.lmediaclientandroid.view.MainView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,MainView {
+
+    @InjectView(R.id.home_container)
+    XViewPager mViewPager;
+
+    @InjectView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    @InjectView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+
+    @InjectView(R.id.nav_view)
+    NavigationView mNavigationView;
+
+    private MainPresenter mMainPresenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+    protected int getContentViewLayoutID() {
+        return R.layout.activity_main;
+    }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+    @Override
+    protected void initViewsAndEvents() {
+        setSupportActionBar(mToolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+        mNavigationView.setNavigationItemSelectedListener(this);
+        mMainPresenter=new MainPresenterImp(this,this);
+        mMainPresenter.initialized();
     }
 
     @Override
@@ -62,25 +85,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    enum MediaMenuItem{
+        LocalMusic,
+        OnlineMusic,
+        LocalVideo,
+        OnlineVideo,
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
         int id = item.getItemId();
-
-        if (id == R.id.nav_local_music) {
-
-            Toast.makeText(this,"local music",Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_online_music) {
-            Toast.makeText(this,"online music",Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_local_video) {
-            Toast.makeText(this,"local_video",Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_online_video) {
-            Toast.makeText(this,"online_video",Toast.LENGTH_SHORT).show();
+        if(id==R.id.nav_feedback){
+            //弹出反馈窗口
+            return true;
+        }else if(id==R.id.nav_about){
+            //弹出关于窗口
+            return true;
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        MediaMenuItem mediaMenuItem=MediaMenuItem.LocalMusic;
+        if (id == R.id.nav_local_music) {
+            mediaMenuItem=MediaMenuItem.LocalMusic;
+        } else if (id == R.id.nav_online_music) {
+            mediaMenuItem=MediaMenuItem.OnlineMusic;
+        } else if (id == R.id.nav_local_video) {
+            mediaMenuItem=MediaMenuItem.LocalVideo;
+        } else if (id == R.id.nav_online_video) {
+            mediaMenuItem=MediaMenuItem.OnlineVideo;
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        mViewPager.setCurrentItem(mediaMenuItem.ordinal());
         return true;
+    }
+
+    @Override
+    public void initializeViews(List<BaseLazyFragment> fragments) {
+        if (null != fragments && !fragments.isEmpty()) {
+            mViewPager.setEnableScroll(false);
+            mViewPager.setOffscreenPageLimit(fragments.size());
+            mViewPager.setAdapter(new VPFragmentAdapter(getSupportFragmentManager(), fragments));
+        }
     }
 }

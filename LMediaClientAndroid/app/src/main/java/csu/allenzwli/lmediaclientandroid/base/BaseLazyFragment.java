@@ -1,19 +1,3 @@
-/*
- * Copyright (c) 2015 [1076559197@qq.com | tchen0707@gmail.com]
- *
- * Licensed under the Apache License, Version 2.0 (the "License”);
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package csu.allenzwli.lmediaclientandroid.base;
 
 import android.app.Activity;
@@ -35,23 +19,10 @@ import butterknife.ButterKnife;
 import csu.allenzwli.lmediaclientandroid.util.CommonUtils;
 
 public abstract class BaseLazyFragment extends Fragment {
-
-    /**
-     * Log tag
-     */
-    protected static String TAG_LOG = null;
-
-    /**
-     * Screen information
-     */
-    protected int mScreenWidth = 0;
-    protected int mScreenHeight = 0;
-    protected float mScreenDensity = 0.0f;
-
     /**
      * context
      */
-    protected Context mContext = null;
+    protected Context mContext;
 
     private boolean isFirstResume = true;
     private boolean isFirstVisible = true;
@@ -67,7 +38,6 @@ public abstract class BaseLazyFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TAG_LOG = this.getClass().getSimpleName();
 
     }
 
@@ -86,10 +56,6 @@ public abstract class BaseLazyFragment extends Fragment {
         ButterKnife.inject(this, view);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        mScreenDensity = displayMetrics.density;
-        mScreenHeight = displayMetrics.heightPixels;
-        mScreenWidth = displayMetrics.widthPixels;
 
         initViewsAndEvents();
     }

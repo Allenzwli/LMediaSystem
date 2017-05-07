@@ -5,19 +5,19 @@
         <item
             android:id="@+id/nav_local_music"
             android:icon="@drawable/ic_menu_camera"
-            android:title="本地音频" />
+            android:title="@string/menu0" />
         <item
             android:id="@+id/nav_online_music"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="在线音频" />
+            android:title="@string/menu1" />
         <item
             android:id="@+id/nav_local_video"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="本地视频" />
+            android:title="@string/menu2" />
         <item
             android:id="@+id/nav_online_video"
             android:icon="@drawable/ic_menu_manage"
-            android:title="在线视频" />
+            android:title="@string/menu3" />
     </group>
 
     <item android:title="其他">
