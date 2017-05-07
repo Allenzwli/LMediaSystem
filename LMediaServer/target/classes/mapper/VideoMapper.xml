@@ -44,4 +44,11 @@
             #{videoId}
         </foreach>
     </delete>
+
+    <select id="getAllVideos" resultType="csu.lzw.lmediaserver.pojo.Video">
+        SELECT id,videoName,fileUrl,fileSize,uploadTime
+        FROM videos
+        ORDER BY uploadTime
+        DESC
+    </select>
 </mapper>

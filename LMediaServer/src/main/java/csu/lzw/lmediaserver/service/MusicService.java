@@ -15,4 +15,5 @@ public interface MusicService {
     List<Song> getSongsByStartIndexAndLengthAdvanced(String fileName,String artist,String songName,String album,String orderCol,String orderDir,int startIndex, int length);
     int getSongAllCountAdvanced(String fileName,String artist,String songName,String album);
     void deleteSongs(int[] idArray);
+    List<Song> getAllSongs();
 }

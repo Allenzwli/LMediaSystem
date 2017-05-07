@@ -38,4 +38,8 @@ public class VideoServiceImp implements VideoService{
     public void deleteVideos(int[] idArray) {
         mVideoMapper.deleteVideos(idArray);
     }
+
+    public List<Video> getAllVideos() {
+        return mVideoMapper.getAllVideos();
+    }
 }

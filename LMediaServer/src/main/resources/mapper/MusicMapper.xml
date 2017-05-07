@@ -109,4 +109,11 @@
             </if>
         </where>
     </select>
+
+    <select id="getAllSongs" resultType="csu.lzw.lmediaserver.pojo.Song">
+        SELECT id,fileName,fileSize,fileUrl,uploadTime,songName,artist,album,duration,pictureUrl
+        FROM songs
+        ORDER BY uploadTime
+        DESC
+    </select>
 </mapper>

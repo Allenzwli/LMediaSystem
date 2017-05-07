@@ -5,23 +5,25 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.victor.loading.rotate.RotateLoading;
+
 import java.util.List;
 
 import butterknife.InjectView;
 import csu.allenzwli.lmediaclientandroid.R;
-import csu.allenzwli.lmediaclientandroid.adapter.LocalVideoAdapter;
+import csu.allenzwli.lmediaclientandroid.adapter.VideoAdapter;
 import csu.allenzwli.lmediaclientandroid.base.BaseLazyFragment;
 import csu.allenzwli.lmediaclientandroid.model.Video;
-import csu.allenzwli.lmediaclientandroid.presenter.LocalVideoPresenter;
+import csu.allenzwli.lmediaclientandroid.presenter.VideoPresenter;
 import csu.allenzwli.lmediaclientandroid.presenter.imp.LocalVideoPresenterImp;
 import csu.allenzwli.lmediaclientandroid.util.ApiConstants;
-import csu.allenzwli.lmediaclientandroid.view.LocalVideoView;
+import csu.allenzwli.lmediaclientandroid.view.VideoView;
 
 /**
  * Created by allenzwli on 2017/5/7.
  */
 
-public class LocalVideoFragment extends BaseLazyFragment implements LocalVideoView,SwipeRefreshLayout.OnRefreshListener{
+public class LocalVideoFragment extends BaseLazyFragment implements VideoView,SwipeRefreshLayout.OnRefreshListener{
 
     @InjectView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -29,9 +31,12 @@ public class LocalVideoFragment extends BaseLazyFragment implements LocalVideoVi
     @InjectView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private LocalVideoAdapter mLocalVideoAdapter;
+    @InjectView(R.id.loading)
+    RotateLoading loading;
 
-    private LocalVideoPresenter mLocalVideoPresenter;
+    private VideoAdapter mLocalVideoAdapter;
+
+    private VideoPresenter mLocalVideoPresenter;
 
     @Override
     protected void onFirstUserVisible() {
@@ -40,7 +45,7 @@ public class LocalVideoFragment extends BaseLazyFragment implements LocalVideoVi
             mSwipeRefreshLayout.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mLocalVideoPresenter.loadLocalVideoListData(false);
+                    mLocalVideoPresenter.loadVideoListData(false);
                 }
             }, ApiConstants.Integers.PAGE_LAZY_LOAD_DELAY_TIME_MS);
         }
@@ -62,24 +67,23 @@ public class LocalVideoFragment extends BaseLazyFragment implements LocalVideoVi
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fragment_local_common;
+        return R.layout.fragment_common;
     }
 
     @Override
     public void onRefresh() {
-        mLocalVideoPresenter.loadLocalVideoListData(true);
+        mLocalVideoPresenter.loadVideoListData(true);
     }
 
     @Override
     public void showLoading() {
-        if (null != mSwipeRefreshLayout) {
-            mSwipeRefreshLayout.setRefreshing(true);
-        }
+        loading.start();
     }
 
     @Override
     public void hideLoading() {
-        if (null != mSwipeRefreshLayout) {
+        loading.stop();
+        if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
     }
@@ -87,7 +91,7 @@ public class LocalVideoFragment extends BaseLazyFragment implements LocalVideoVi
     @Override
     public void refreshVideoListData(List<Video> videoBeanLists) {
         if(videoBeanLists.size()>0){
-            mLocalVideoAdapter=new LocalVideoAdapter(mContext,videoBeanLists);
+            mLocalVideoAdapter=new VideoAdapter(mContext,videoBeanLists);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setAdapter(mLocalVideoAdapter);
@@ -95,12 +99,12 @@ public class LocalVideoFragment extends BaseLazyFragment implements LocalVideoVi
     }
 
     @Override
-    public void navigateToLocalVideoItem(int position, Video videoBean) {
-
+    public void showError(String msg) {
+        showToast(msg);
     }
 
     @Override
-    public void showError(String msg) {
+    public void navigateToLocalVideoItem(int position, Video videoBean) {
 
     }
 

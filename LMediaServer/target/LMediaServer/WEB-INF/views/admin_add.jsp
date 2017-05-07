@@ -61,7 +61,7 @@
 
                   <!-- Search icon-->
                   <li>
-                     <a href="http://www.baidu.com">
+                     <a href="<%=request.getContextPath()%>/admins/logout">
                         <em class="fa fa-sign-out"></em>
                      </a>
                   </li>
@@ -158,20 +158,6 @@
                         <li class="active">
                            <a href="<%=request.getContextPath()%>/admins/add" title="Sub Menu">
                               <span data-localize="sidebar.nav.menu.SUBMENU">新增管理员</span>
-                           </a>
-                        </li>
-                     </ul>
-                  </li>
-                  <li class=" ">
-                     <a href="#menuid3" title="Menu" data-toggle="collapse">
-                        <em class="fa fa-file-text"></em>
-                        <span data-localize="sidebar.nav.menu.MENU">日志统计</span>
-                     </a>
-                     <ul id="menuid3" class="nav sidebar-subnav collapse">
-                        <li class="sidebar-subnav-header">日志统计</li>
-                        <li class=" ">
-                           <a href="<%=request.getContextPath()%>/logs/manage" title="Sub Menu">
-                              <span data-localize="sidebar.nav.menu.SUBMENU">查看日志</span>
                            </a>
                         </li>
                      </ul>

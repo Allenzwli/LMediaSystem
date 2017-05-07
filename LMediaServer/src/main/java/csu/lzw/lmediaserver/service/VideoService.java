@@ -14,4 +14,5 @@ public interface VideoService {
     List<Video> getVideosByStartIndexAndLength(String fuzzy,String orderCol,String orderDir,int startIndex, int length);
     int getVideoAllCount(String fuzzy);
     void deleteVideos(int[] idArray);
+    List<Video> getAllVideos();
 }

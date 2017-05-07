@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import csu.allenzwli.lmediaclientandroid.callback.LoadResultCallBack;
-import csu.allenzwli.lmediaclientandroid.interactor.LocalMusicInteractor;
+import csu.allenzwli.lmediaclientandroid.interactor.CommonInteractor;
 import csu.allenzwli.lmediaclientandroid.model.Song;
 
 /**
  * Created by allenzwli on 2017/5/7.
  */
 
-public class LocalMusicInteractorImp implements LocalMusicInteractor {
+public class LocalMusicInteractorImp implements CommonInteractor {
 
     private LoadResultCallBack<List<Song>> mLoadResultListener;
     private Context mContext;
@@ -29,7 +29,7 @@ public class LocalMusicInteractorImp implements LocalMusicInteractor {
     }
 
     @Override
-    public void getLocalMusicListData() {
+    public void getCommonListData() {
         new GetLocalMusicTask().execute();
     }
 
@@ -41,20 +41,17 @@ public class LocalMusicInteractorImp implements LocalMusicInteractor {
             Cursor cursor = mContext.getContentResolver().query(
                     MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null,
                     MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
+            Song mp3Info=null;
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();
-                Song mp3Info = new Song();
+                mp3Info = new Song();
                 String title = cursor.getString((cursor
                         .getColumnIndex(MediaStore.Audio.Media.TITLE)));
                 String artist = cursor.getString(cursor
                         .getColumnIndex(MediaStore.Audio.Media.ARTIST));
                 String album = cursor.getString(cursor
                         .getColumnIndex(MediaStore.Audio.Media.ALBUM));
-                /*String displayName = cursor.getString(cursor
-                        .getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME));
-                long id = cursor.getLong(cursor
-                        .getColumnIndex(MediaStore.Audio.Media._ID));
-                long size = cursor.getLong(cursor
+                /*long size = cursor.getLong(cursor
                         .getColumnIndex(MediaStore.Audio.Media.SIZE));*/
                 long albumId = cursor.getInt(cursor
                         .getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));

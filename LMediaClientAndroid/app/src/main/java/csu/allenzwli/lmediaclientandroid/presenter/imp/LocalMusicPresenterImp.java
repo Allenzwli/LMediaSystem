@@ -1,56 +1,54 @@
 package csu.allenzwli.lmediaclientandroid.presenter.imp;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import java.util.List;
 
 import csu.allenzwli.lmediaclientandroid.callback.LoadResultCallBack;
-import csu.allenzwli.lmediaclientandroid.interactor.LocalMusicInteractor;
+import csu.allenzwli.lmediaclientandroid.interactor.CommonInteractor;
 import csu.allenzwli.lmediaclientandroid.interactor.imp.LocalMusicInteractorImp;
 import csu.allenzwli.lmediaclientandroid.model.Song;
-import csu.allenzwli.lmediaclientandroid.presenter.LocalMusicPresenter;
-import csu.allenzwli.lmediaclientandroid.view.LocalMusicView;
+import csu.allenzwli.lmediaclientandroid.presenter.MusicPresenter;
+import csu.allenzwli.lmediaclientandroid.view.MusicView;
 
 /**
  * Created by allenzwli on 2017/5/7.
  */
 
-public class LocalMusicPresenterImp implements LocalMusicPresenter,LoadResultCallBack<List<Song>>{
+public class LocalMusicPresenterImp implements MusicPresenter,LoadResultCallBack<List<Song>>{
 
-    private LocalMusicView mLocalMusicView;
-    private LocalMusicInteractor mLocalMusicInteractor;
+    private MusicView mMusicView;
+    private CommonInteractor mLocalMusicInteractor;
     private Context mContext;
 
-    public LocalMusicPresenterImp(Context context,LocalMusicView localMusicView){
+    public LocalMusicPresenterImp(Context context,MusicView localMusicView){
         mContext=context;
-        mLocalMusicView=localMusicView;
+        mMusicView=localMusicView;
         mLocalMusicInteractor=new LocalMusicInteractorImp(this,mContext);
     }
 
     @Override
-    public void loadLocalMusicListData(boolean isSwipeRefresh) {
-        mLocalMusicView.hideLoading();
+    public void loadMusicListData(boolean isSwipeRefresh) {
         if (!isSwipeRefresh) {
-            mLocalMusicView.showLoading();
+            mMusicView.showLoading();
         }
-        mLocalMusicInteractor.getLocalMusicListData();
+        mLocalMusicInteractor.getCommonListData();
     }
 
     @Override
     public void onItemClickListener(int position, Song song) {
-        mLocalMusicView.navigateToLocalMusicItem(position,song);
+        mMusicView.navigateToLocalMusicItem(position,song);
     }
 
     @Override
     public void onSuccess(int code, List<Song> data) {
-        mLocalMusicView.hideLoading();
-        mLocalMusicView.refreshMusicListData(data);
+        mMusicView.hideLoading();
+        mMusicView.refreshMusicListData(data);
     }
 
     @Override
     public void onError(int code, String msg) {
-        mLocalMusicView.hideLoading();
-        mLocalMusicView.showError(msg);
+        mMusicView.hideLoading();
+        mMusicView.showError(msg);
     }
 }

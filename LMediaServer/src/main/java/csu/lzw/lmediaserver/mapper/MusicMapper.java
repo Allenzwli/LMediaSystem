@@ -20,4 +20,5 @@ public interface MusicMapper {
             (@Param("start")int start,@Param("length")int length,@Param("songName")String songName,@Param("artist")String artist,@Param("fileName")String fileName,@Param("album")String album,@Param("orderCol")String orderCol,@Param("orderDir")String orderDir);
     int getSongsAllCountAdvanced(@Param("songName")String songName,@Param("artist")String artist,@Param("fileName")String fileName,@Param("album")String album);
     void deleteSongs(int[] idArray);
+    List<Song> getAllSongs();
 }

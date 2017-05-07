@@ -1,5 +1,6 @@
 package csu.lzw.lmediaserver.controller;
 
+import csu.lzw.lmediaserver.pojo.Admin;
 import csu.lzw.lmediaserver.pojo.Video;
 import csu.lzw.lmediaserver.service.AdminService;
 import csu.lzw.lmediaserver.service.VideoService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -38,20 +40,27 @@ public class VideoController {
     private VideoService mVideoService;
 
     @RequestMapping("/manage")
-    public String videoManageDirect(){
+    public String videoManageDirect(HttpServletRequest request){
+        Admin admin=(Admin) request.getSession().getAttribute("admin");
+        if(admin==null){
+            return "login";
+        }
         return "video_manage";
     }
 
     @RequestMapping("/add")
-    public String videoAddDirect(){
-        return "video_add";
+    public String videoAddDirect(HttpServletRequest request){
+        Admin admin=(Admin) request.getSession().getAttribute("admin");
+        if(admin==null){
+            return "login";
+        }return "video_add";
     }
 
 
     @ResponseBody
     @RequestMapping("list")
-    public List<Video> getVideosList(@RequestParam(required = false) int page){
-        return mVideoService.getVideosPerPage(page);
+    public List<Video> getVideosList(){
+        return mVideoService.getAllVideos();
     }
 
     @ResponseBody

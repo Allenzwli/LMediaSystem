@@ -69,7 +69,7 @@
                <ul class="nav navbar-nav navbar-right">
                   <!-- Search icon-->
                   <li>
-                     <a href="http://www.baidu.com">
+                     <a href="<%=request.getContextPath()%>/admins/logout">
                         <em class="fa fa-sign-out"></em>
                      </a>
                   </li>
@@ -170,21 +170,6 @@
                         </li>
                      </ul>
                   </li>
-                  <li class=" ">
-                     <a href="#menuid3" title="Menu" data-toggle="collapse">
-                        <em class="fa fa-file-text"></em>
-                        <span data-localize="sidebar.nav.menu.MENU">日志统计</span>
-                     </a>
-                     <ul id="menuid3" class="nav sidebar-subnav collapse">
-                        <li class="sidebar-subnav-header">日志统计</li>
-                        <li class=" ">
-                           <a href="<%=request.getContextPath()%>/logs/manage" title="Sub Menu">
-                              <span data-localize="sidebar.nav.menu.SUBMENU">查看日志</span>
-                           </a>
-                        </li>
-                     </ul>
-                  </li>
-
                </ul>
                <!-- END sidebar nav-->
             </nav>
@@ -252,8 +237,8 @@
       <section style="background-color: white">
          <!-- Page content-->
          <div class="content-wrapper" style="background-color: white">
-            <h3>音乐
-               <small>音频库管理</small>
+            <h3>视频
+               <small>视频库管理</small>
             </h3>
             <!-- START panel-->
             <div class="container-fluid" style="background-color: white">

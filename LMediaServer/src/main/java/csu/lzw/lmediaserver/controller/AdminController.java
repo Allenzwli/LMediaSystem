@@ -28,12 +28,20 @@ public class AdminController {
     private AdminService mAdminService;
 
     @RequestMapping("/manage")
-    public String adminManageDirect(){
+    public String adminManageDirect(HttpServletRequest request){
+        Admin admin=(Admin) request.getSession().getAttribute("admin");
+        if(admin==null){
+            return "login";
+        }
         return "admin_manage";
     }
 
     @RequestMapping("/add")
-    public String adminAddDirect(){
+    public String adminAddDirect(HttpServletRequest request){
+        Admin admin=(Admin) request.getSession().getAttribute("admin");
+        if(admin==null){
+            return "login";
+        }
         return "admin_add";
     }
 

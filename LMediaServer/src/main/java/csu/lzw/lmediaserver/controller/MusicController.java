@@ -1,5 +1,6 @@
 package csu.lzw.lmediaserver.controller;
 
+import csu.lzw.lmediaserver.pojo.Admin;
 import csu.lzw.lmediaserver.pojo.Song;
 import csu.lzw.lmediaserver.service.AdminService;
 import csu.lzw.lmediaserver.service.MusicService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -35,14 +37,18 @@ public class MusicController {
     private AdminService mAdminService;
 
     @RequestMapping("/manage")
-    public String musicManageDirect(){
+    public String musicManageDirect(HttpServletRequest request){
+        Admin admin=(Admin) request.getSession().getAttribute("admin");
+        if(admin==null){
+            return "login";
+        }
         return "music_manage";
     }
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<Song> getSongsList(@RequestParam(required = false) int page){
-            return mMusicService.getSongsPerPage(page);
+    public List<Song> getSongsList(){
+                return mMusicService.getAllSongs();//全部
     }
 
     @ResponseBody
@@ -63,7 +69,11 @@ public class MusicController {
     }
 
     @RequestMapping("/add")
-    public String musicAddDirect(){
+    public String musicAddDirect(HttpServletRequest request){
+        Admin admin=(Admin) request.getSession().getAttribute("admin");
+        if(admin==null){
+            return "login";
+        }
         return "music_add";
     }
 

@@ -52,4 +52,8 @@ public class MusicServiceImp implements MusicService {
         mMusicMapper.deleteSongs(idArray);
     }
 
+    public List<Song> getAllSongs() {
+        return mMusicMapper.getAllSongs();
+    }
+
 }

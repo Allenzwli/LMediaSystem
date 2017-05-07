@@ -5,23 +5,25 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.victor.loading.rotate.RotateLoading;
+
 import java.util.List;
 
 import butterknife.InjectView;
 import csu.allenzwli.lmediaclientandroid.R;
-import csu.allenzwli.lmediaclientandroid.adapter.LocalMusicAdapter;
+import csu.allenzwli.lmediaclientandroid.adapter.MusicAdapter;
 import csu.allenzwli.lmediaclientandroid.base.BaseLazyFragment;
 import csu.allenzwli.lmediaclientandroid.model.Song;
-import csu.allenzwli.lmediaclientandroid.presenter.LocalMusicPresenter;
+import csu.allenzwli.lmediaclientandroid.presenter.MusicPresenter;
 import csu.allenzwli.lmediaclientandroid.presenter.imp.LocalMusicPresenterImp;
 import csu.allenzwli.lmediaclientandroid.util.ApiConstants;
-import csu.allenzwli.lmediaclientandroid.view.LocalMusicView;
+import csu.allenzwli.lmediaclientandroid.view.MusicView;
 
 /**
  * Created by allenzwli on 2017/5/7.
  */
 
-public class LocalMusicFragment extends BaseLazyFragment implements LocalMusicView,SwipeRefreshLayout.OnRefreshListener {
+public class LocalMusicFragment extends BaseLazyFragment implements MusicView,SwipeRefreshLayout.OnRefreshListener {
 
     @InjectView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -29,9 +31,12 @@ public class LocalMusicFragment extends BaseLazyFragment implements LocalMusicVi
     @InjectView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private LocalMusicAdapter mLocalMusicAdapter;
+    @InjectView(R.id.loading)
+    RotateLoading loading;
 
-    private LocalMusicPresenter mLocalMusicPresenter;
+    private MusicAdapter mLocalMusicAdapter;
+
+    private MusicPresenter mLocalMusicPresenter;
 
 
     @Override
@@ -41,7 +46,7 @@ public class LocalMusicFragment extends BaseLazyFragment implements LocalMusicVi
             mSwipeRefreshLayout.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mLocalMusicPresenter.loadLocalMusicListData(false);
+                    mLocalMusicPresenter.loadMusicListData(false);
                 }
             }, ApiConstants.Integers.PAGE_LAZY_LOAD_DELAY_TIME_MS);
         }
@@ -63,20 +68,19 @@ public class LocalMusicFragment extends BaseLazyFragment implements LocalMusicVi
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fragment_local_common;
+        return R.layout.fragment_common;
     }
 
 
     @Override
     public void showLoading() {
-        if (null != mSwipeRefreshLayout) {
-            mSwipeRefreshLayout.setRefreshing(true);
-        }
+        loading.start();
     }
 
     @Override
     public void hideLoading() {
-        if (null != mSwipeRefreshLayout) {
+        loading.stop();
+        if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
     }
@@ -84,7 +88,7 @@ public class LocalMusicFragment extends BaseLazyFragment implements LocalMusicVi
     @Override
     public void refreshMusicListData(List<Song> songBeanLists) {
         if(songBeanLists.size()>0){
-            mLocalMusicAdapter=new LocalMusicAdapter(mContext,songBeanLists);
+            mLocalMusicAdapter=new MusicAdapter(mContext,songBeanLists);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setAdapter(mLocalMusicAdapter);
@@ -92,13 +96,13 @@ public class LocalMusicFragment extends BaseLazyFragment implements LocalMusicVi
     }
 
     @Override
-    public void navigateToLocalMusicItem(int position, Song songBean) {
-
+    public void onRefresh() {
+        mLocalMusicPresenter.loadMusicListData(true);
     }
 
     @Override
-    public void onRefresh() {
-        mLocalMusicPresenter.loadLocalMusicListData(true);
+    public void showError(String msg) {
+        showToast(msg);
     }
 
     @Override
@@ -112,7 +116,7 @@ public class LocalMusicFragment extends BaseLazyFragment implements LocalMusicVi
     }
 
     @Override
-    public void showError(String msg) {
+    public void navigateToLocalMusicItem(int position, Song songBean) {
 
     }
 }

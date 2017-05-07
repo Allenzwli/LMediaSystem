@@ -11,6 +11,16 @@ public class Video {
     private long fileSize;
     private String fileUrl;
 
+    private String thumbUrl;
+
+    public void setThumbUrl(String thumbUrl) {
+        this.thumbUrl = thumbUrl;
+    }
+
+    public String getThumbUrl() {
+        return thumbUrl;
+    }
+
     public String getVideoName() {
         return videoName;
     }

@@ -5,55 +5,52 @@ import android.content.Context;
 import java.util.List;
 
 import csu.allenzwli.lmediaclientandroid.callback.LoadResultCallBack;
-import csu.allenzwli.lmediaclientandroid.interactor.LocalVideoInteractor;
+import csu.allenzwli.lmediaclientandroid.interactor.CommonInteractor;
 import csu.allenzwli.lmediaclientandroid.interactor.imp.LocalVideoInteractorImp;
-import csu.allenzwli.lmediaclientandroid.model.Song;
 import csu.allenzwli.lmediaclientandroid.model.Video;
-import csu.allenzwli.lmediaclientandroid.presenter.LocalMusicPresenter;
-import csu.allenzwli.lmediaclientandroid.presenter.LocalVideoPresenter;
-import csu.allenzwli.lmediaclientandroid.view.LocalVideoView;
+import csu.allenzwli.lmediaclientandroid.presenter.VideoPresenter;
+import csu.allenzwli.lmediaclientandroid.view.VideoView;
 
 /**
  * Created by allenzwli on 2017/5/7.
  */
 
-public class LocalVideoPresenterImp implements LocalVideoPresenter,LoadResultCallBack<List<Video>> {
+public class LocalVideoPresenterImp implements VideoPresenter,LoadResultCallBack<List<Video>> {
 
-    private LocalVideoView mLocalVideoView;
+    private VideoView mVideoView;
 
-    private LocalVideoInteractor mLocalVideoInteractor;
+    private CommonInteractor mLocalVideoInteractor;
 
     private Context mContext;
 
-    public LocalVideoPresenterImp(Context context,LocalVideoView localVideoView){
+    public LocalVideoPresenterImp(Context context,VideoView localVideoView){
         mContext=context;
-        mLocalVideoView=localVideoView;
+        mVideoView=localVideoView;
         mLocalVideoInteractor=new LocalVideoInteractorImp(mContext,this);
     }
 
     @Override
-    public void loadLocalVideoListData(boolean isSwipeRefresh) {
-        mLocalVideoView.hideLoading();
+    public void loadVideoListData(boolean isSwipeRefresh) {
         if(!isSwipeRefresh){
-            mLocalVideoView.showLoading();
+            mVideoView.showLoading();
         }
-        mLocalVideoInteractor.getLocalMusicListData();
+        mLocalVideoInteractor.getCommonListData();
     }
 
     @Override
     public void onItemClickListener(int position, Video video) {
-        mLocalVideoView.navigateToLocalVideoItem(position,video);
+        mVideoView.navigateToLocalVideoItem(position,video);
     }
 
     @Override
     public void onSuccess(int code, List<Video> data) {
-        mLocalVideoView.hideLoading();
-        mLocalVideoView.refreshVideoListData(data);
+        mVideoView.hideLoading();
+        mVideoView.refreshVideoListData(data);
     }
 
     @Override
     public void onError(int code, String msg) {
-        mLocalVideoView.hideLoading();
-        mLocalVideoView.showError(msg);
+        mVideoView.hideLoading();
+        mVideoView.showError(msg);
     }
 }
