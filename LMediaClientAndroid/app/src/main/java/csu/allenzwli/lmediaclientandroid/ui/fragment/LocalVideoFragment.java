@@ -1,9 +1,7 @@
 package csu.allenzwli.lmediaclientandroid.ui.fragment;
 
 import android.view.View;
-import android.widget.TextView;
 
-import butterknife.InjectView;
 import csu.allenzwli.lmediaclientandroid.R;
 import csu.allenzwli.lmediaclientandroid.base.BaseLazyFragment;
 

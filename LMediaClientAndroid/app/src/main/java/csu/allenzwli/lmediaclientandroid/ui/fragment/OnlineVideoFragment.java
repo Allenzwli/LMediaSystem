@@ -41,6 +41,6 @@ public class OnlineVideoFragment extends BaseLazyFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fragment_local_common;
+        return R.layout.fragment_online_common;
     }
 }
