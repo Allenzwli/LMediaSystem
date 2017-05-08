@@ -6,7 +6,7 @@ package csu.allenzwli.lmediaclientandroid.model;
 
 public class Song {
 
-    private int id;
+    private long id;
     private String songName;
     private String artist;
     private String pictureUrl;
@@ -30,12 +30,12 @@ public class Song {
         return album;
     }
 
-    public int getId() {
-        return id;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public long getId() {
+        return id;
     }
 
     public String getSongName() {

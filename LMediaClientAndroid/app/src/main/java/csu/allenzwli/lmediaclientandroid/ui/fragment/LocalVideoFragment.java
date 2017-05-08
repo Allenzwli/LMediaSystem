@@ -4,6 +4,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.victor.loading.rotate.RotateLoading;
 
@@ -18,6 +20,7 @@ import csu.allenzwli.lmediaclientandroid.presenter.VideoPresenter;
 import csu.allenzwli.lmediaclientandroid.presenter.imp.LocalVideoPresenterImp;
 import csu.allenzwli.lmediaclientandroid.util.ApiConstants;
 import csu.allenzwli.lmediaclientandroid.view.VideoView;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 /**
  * Created by allenzwli on 2017/5/7.
@@ -25,8 +28,8 @@ import csu.allenzwli.lmediaclientandroid.view.VideoView;
 
 public class LocalVideoFragment extends BaseLazyFragment implements VideoView,SwipeRefreshLayout.OnRefreshListener{
 
-    @InjectView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    @InjectView(R.id.list_view)
+    ListView mListView;
 
     @InjectView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -63,6 +66,8 @@ public class LocalVideoFragment extends BaseLazyFragment implements VideoView,Sw
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mLocalVideoAdapter=new VideoAdapter(mContext);
+        mListView.setAdapter(mLocalVideoAdapter);
     }
 
     @Override
@@ -77,12 +82,14 @@ public class LocalVideoFragment extends BaseLazyFragment implements VideoView,Sw
 
     @Override
     public void showLoading() {
-        loading.start();
+        if(loading!=null)
+            loading.start();
     }
 
     @Override
     public void hideLoading() {
-        loading.stop();
+        if(loading!=null)
+            loading.stop();
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -90,11 +97,10 @@ public class LocalVideoFragment extends BaseLazyFragment implements VideoView,Sw
 
     @Override
     public void refreshVideoListData(List<Video> videoBeanLists) {
-        if(videoBeanLists.size()>0){
-            mLocalVideoAdapter=new VideoAdapter(mContext,videoBeanLists);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-            mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setAdapter(mLocalVideoAdapter);
+        if(videoBeanLists!=null&&videoBeanLists.size()>0){
+            mLocalVideoAdapter.getmLocalVideoLists().clear();
+            mLocalVideoAdapter.getmLocalVideoLists().addAll(videoBeanLists);
+            mLocalVideoAdapter.notifyDataSetChanged();
         }
     }
 
@@ -105,7 +111,7 @@ public class LocalVideoFragment extends BaseLazyFragment implements VideoView,Sw
 
     @Override
     public void navigateToLocalVideoItem(int position, Video videoBean) {
-
+        showToast(videoBean.getFileUrl());
     }
 
     @Override
@@ -117,4 +123,5 @@ public class LocalVideoFragment extends BaseLazyFragment implements VideoView,Sw
     protected void onUserInvisible() {
 
     }
+
 }

@@ -6,5 +6,5 @@
 持续更新中  
 Web前端:jQuery;Bootstrap;DataTable  
 Web后台:Spring MVC;Spring;Mybatis  
-Android:  
+Android:ButterKnife;Volley;OKHttp;FFmpegMediaMetadataRetriever  
 iOS:  

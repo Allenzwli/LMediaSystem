@@ -5,7 +5,7 @@ package csu.allenzwli.lmediaclientandroid.model;
  */
 
 public class Video {
-    private int id;
+    private long id;
     private String videoName;
     private long duration;
     private long fileSize;
@@ -53,11 +53,11 @@ public class Video {
         this.fileUrl = fileUrl;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 }

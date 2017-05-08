@@ -4,6 +4,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.victor.loading.rotate.RotateLoading;
@@ -19,6 +21,7 @@ import csu.allenzwli.lmediaclientandroid.presenter.VideoPresenter;
 import csu.allenzwli.lmediaclientandroid.presenter.imp.OnlineVideoPresenterImp;
 import csu.allenzwli.lmediaclientandroid.util.ApiConstants;
 import csu.allenzwli.lmediaclientandroid.view.VideoView;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 /**
  * Created by allenzwli on 2017/5/7.
@@ -26,8 +29,8 @@ import csu.allenzwli.lmediaclientandroid.view.VideoView;
 
 public class OnlineVideoFragment extends BaseLazyFragment implements VideoView,SwipeRefreshLayout.OnRefreshListener{
 
-    @InjectView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    @InjectView(R.id.list_view)
+    ListView mListView;
 
     @InjectView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -64,6 +67,8 @@ public class OnlineVideoFragment extends BaseLazyFragment implements VideoView,S
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mOnlineVideoAdapter=new VideoAdapter(mContext);
+        mListView.setAdapter(mOnlineVideoAdapter);
     }
 
     @Override
@@ -96,11 +101,10 @@ public class OnlineVideoFragment extends BaseLazyFragment implements VideoView,S
 
     @Override
     public void refreshVideoListData(List<Video> videoBeanLists) {
-        if(videoBeanLists.size()>0){
-            mOnlineVideoAdapter=new VideoAdapter(mContext,videoBeanLists);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-            mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setAdapter(mOnlineVideoAdapter);
+        if(videoBeanLists!=null&&videoBeanLists.size()>0){
+            mOnlineVideoAdapter.getmLocalVideoLists().clear();
+            mOnlineVideoAdapter.getmLocalVideoLists().addAll(videoBeanLists);
+            mOnlineVideoAdapter.notifyDataSetChanged();
         }
     }
 
@@ -115,6 +119,8 @@ public class OnlineVideoFragment extends BaseLazyFragment implements VideoView,S
     }
     @Override
     public void navigateToLocalVideoItem(int position, Video videoBean) {
-
+        showToast(videoBean.getFileUrl());
     }
+
+
 }

@@ -20,6 +20,7 @@ import csu.allenzwli.lmediaclientandroid.presenter.MainPresenter;
 import csu.allenzwli.lmediaclientandroid.presenter.imp.MainPresenterImp;
 import csu.allenzwli.lmediaclientandroid.ui.widget.XViewPager;
 import csu.allenzwli.lmediaclientandroid.view.MainView;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,MainView {
 
@@ -56,6 +57,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -127,5 +132,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             mViewPager.setOffscreenPageLimit(fragments.size());
             mViewPager.setAdapter(new VPFragmentAdapter(getSupportFragmentManager(), fragments));
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
     }
 }

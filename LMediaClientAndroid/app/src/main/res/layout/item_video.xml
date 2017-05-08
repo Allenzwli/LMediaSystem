@@ -5,41 +5,8 @@
     android:layout_width="fill_parent"
     android:padding="8dp"
     android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/thumbIV"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:src="@drawable/icon_album_dark"
-        android:scaleType="centerCrop"
-        android:layout_centerVertical="true" />
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@id/thumbIV"
-        android:layout_centerVertical="true">
-
-        <TextView
-            android:id="@+id/videoNameTV"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="test"
-            style="@style/ListItemTitleStyle"/>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="6dip">
-
-            <TextView
-                android:id="@+id/fileSizeTV"
-                android:layout_width="wrap_content"
-                android:text="test3"
-                android:layout_height="wrap_content"
-                android:maxWidth="180dp"
-                style="@style/ListItemSubTitleStyle"/>
-
-        </RelativeLayout>
-    </LinearLayout>
+    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+        android:id="@+id/jc_player"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 </RelativeLayout>

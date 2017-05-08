@@ -4,6 +4,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.victor.loading.rotate.RotateLoading;
 
@@ -23,10 +25,10 @@ import csu.allenzwli.lmediaclientandroid.view.MusicView;
  * Created by allenzwli on 2017/5/7.
  */
 
-public class LocalMusicFragment extends BaseLazyFragment implements MusicView,SwipeRefreshLayout.OnRefreshListener {
+public class LocalMusicFragment extends BaseLazyFragment implements MusicView,SwipeRefreshLayout.OnRefreshListener,AdapterView.OnItemClickListener {
 
-    @InjectView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    @InjectView(R.id.list_view)
+    ListView mListView;
 
     @InjectView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -64,6 +66,9 @@ public class LocalMusicFragment extends BaseLazyFragment implements MusicView,Sw
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mLocalMusicAdapter=new MusicAdapter(mContext);
+        mListView.setAdapter(mLocalMusicAdapter);
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -87,11 +92,10 @@ public class LocalMusicFragment extends BaseLazyFragment implements MusicView,Sw
 
     @Override
     public void refreshMusicListData(List<Song> songBeanLists) {
-        if(songBeanLists.size()>0){
-            mLocalMusicAdapter=new MusicAdapter(mContext,songBeanLists);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-            mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setAdapter(mLocalMusicAdapter);
+        if(songBeanLists!=null&&songBeanLists.size()>0){
+            mLocalMusicAdapter.getmSongBeanLists().clear();
+            mLocalMusicAdapter.getmSongBeanLists().addAll(songBeanLists);
+            mLocalMusicAdapter.notifyDataSetChanged();
         }
     }
 
@@ -106,6 +110,11 @@ public class LocalMusicFragment extends BaseLazyFragment implements MusicView,Sw
     }
 
     @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        mLocalMusicPresenter.onItemClickListener(i,mLocalMusicAdapter.getmSongBeanLists().get(i));
+    }
+
+    @Override
     protected void onUserVisible() {
 
     }
@@ -117,6 +126,7 @@ public class LocalMusicFragment extends BaseLazyFragment implements MusicView,Sw
 
     @Override
     public void navigateToLocalMusicItem(int position, Song songBean) {
-
+        showToast(songBean.getFileUrl());
     }
+
 }

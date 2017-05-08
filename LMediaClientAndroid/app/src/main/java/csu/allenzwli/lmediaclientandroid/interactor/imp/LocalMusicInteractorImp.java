@@ -45,6 +45,8 @@ public class LocalMusicInteractorImp implements CommonInteractor {
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();
                 mp3Info = new Song();
+                long id = cursor.getLong(cursor
+                        .getColumnIndex(MediaStore.Audio.Media._ID));
                 String title = cursor.getString((cursor
                         .getColumnIndex(MediaStore.Audio.Media.TITLE)));
                 String artist = cursor.getString(cursor
@@ -62,6 +64,7 @@ public class LocalMusicInteractorImp implements CommonInteractor {
                 int isMusic = cursor.getInt(cursor
                         .getColumnIndex(MediaStore.Audio.Media.IS_MUSIC));
                 if (isMusic != 0) {
+                    mp3Info.setId(id);
                     mp3Info.setSongName(title);
                     mp3Info.setArtist(artist);
                     mp3Info.setAlbum(album);

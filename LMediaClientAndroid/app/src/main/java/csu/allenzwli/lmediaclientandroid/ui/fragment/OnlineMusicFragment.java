@@ -4,6 +4,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.victor.loading.rotate.RotateLoading;
@@ -24,10 +26,10 @@ import csu.allenzwli.lmediaclientandroid.view.MusicView;
  * Created by allenzwli on 2017/5/7.
  */
 
-public class OnlineMusicFragment extends BaseLazyFragment implements MusicView,SwipeRefreshLayout.OnRefreshListener{
+public class OnlineMusicFragment extends BaseLazyFragment implements MusicView,SwipeRefreshLayout.OnRefreshListener,AdapterView.OnItemClickListener{
 
-    @InjectView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    @InjectView(R.id.list_view)
+    ListView mListView;
 
     @InjectView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -59,6 +61,9 @@ public class OnlineMusicFragment extends BaseLazyFragment implements MusicView,S
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mOnlineMusicAdapter=new MusicAdapter(mContext);
+        mListView.setAdapter(mOnlineMusicAdapter);
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -76,11 +81,10 @@ public class OnlineMusicFragment extends BaseLazyFragment implements MusicView,S
 
     @Override
     public void refreshMusicListData(List<Song> songBeanLists) {
-        if(songBeanLists.size()>0){
-            mOnlineMusicAdapter=new MusicAdapter(mContext,songBeanLists);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-            mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setAdapter(mOnlineMusicAdapter);
+        if(songBeanLists!=null&&songBeanLists.size()>0){
+            mOnlineMusicAdapter.getmSongBeanLists().clear();
+            mOnlineMusicAdapter.getmSongBeanLists().addAll(songBeanLists);
+            mOnlineMusicAdapter.notifyDataSetChanged();
         }
     }
 
@@ -93,6 +97,7 @@ public class OnlineMusicFragment extends BaseLazyFragment implements MusicView,S
     public void showError(String msg) {
         showToast(msg);
     }
+
     @Override
     protected View getLoadingTargetView() {
         return mSwipeRefreshLayout;
@@ -104,6 +109,10 @@ public class OnlineMusicFragment extends BaseLazyFragment implements MusicView,S
         return R.layout.fragment_common;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        mOnlineMusicPresenter.onItemClickListener(i,mOnlineMusicAdapter.getmSongBeanLists().get(i));
+    }
 
     @Override
     protected void onUserVisible() {
@@ -118,6 +127,7 @@ public class OnlineMusicFragment extends BaseLazyFragment implements MusicView,S
 
     @Override
     public void navigateToLocalMusicItem(int position, Song songBean) {
-
+        showToast(songBean.getFileUrl());
     }
+
 }

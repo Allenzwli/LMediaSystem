@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "csu.allenzwli.lmediaclientandroid"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -36,7 +36,7 @@ dependencies {
     compile 'com.victor:lib:1.0.1'
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'com.google.code.gson:gson:2.6.2'
-
+    compile 'fm.jiecao:jiecaovideoplayer:5.5.4'
 
     testCompile 'junit:junit:4.12'
 }

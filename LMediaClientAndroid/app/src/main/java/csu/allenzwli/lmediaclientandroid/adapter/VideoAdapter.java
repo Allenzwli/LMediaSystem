@@ -1,71 +1,82 @@
 package csu.allenzwli.lmediaclientandroid.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import csu.allenzwli.lmediaclientandroid.R;
 import csu.allenzwli.lmediaclientandroid.model.Video;
 import csu.allenzwli.lmediaclientandroid.util.ATEUtil;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * Created by allenzwli on 2017/5/7.
  */
 
-public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
+public class VideoAdapter extends BaseAdapter {
 
     private List<Video> mLocalVideoLists;
     private Context mContext;
 
-    public VideoAdapter(Context context, List<Video> localVideoLists){
+    public VideoAdapter(Context context){
         mContext=context;
-        mLocalVideoLists=localVideoLists;
+        mLocalVideoLists=new ArrayList<Video>();
+    }
+
+    public List<Video> getmLocalVideoLists() {
+        return mLocalVideoLists;
     }
 
     @Override
-    public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_video, parent, false);
-        return new VideoAdapter.VideoViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(VideoViewHolder holder, int position) {
-        final Video video=mLocalVideoLists.get(position);
-        holder.videoNameTV.setText(video.getVideoName());
-        holder.fileSizeTV.setText(Formatter.formatFileSize(mContext, Long.valueOf(video.getFileSize())));
-        Glide.with(holder.itemView.getContext()).load(video.getThumbUrl())
-                .error(ATEUtil.getDefaultAlbumDrawable(mContext))
-                .placeholder(ATEUtil.getDefaultAlbumDrawable(mContext))
-                .into(holder.thumbIV);
-    }
-
-    @Override
-    public int getItemCount() {
+    public int getCount() {
         return mLocalVideoLists.size();
     }
 
-    static class VideoViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public Object getItem(int i) {
+        return mLocalVideoLists.get(i);
+    }
 
-        private TextView videoNameTV;
-        private TextView fileSizeTV;
-        private ImageView thumbIV;
+    @Override
+    public long getItemId(int i) {
+        return mLocalVideoLists.get(i).getId();
+    }
 
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        VideoViewHolder holder=null;
+        if(view==null){
+            view= LayoutInflater.from(mContext).inflate(R.layout.item_video, null, false);
+            holder=new VideoViewHolder(view);
+            view.setTag(holder);
+        }else{
+            holder= (VideoViewHolder) view.getTag();
+        }
+        final Video video=mLocalVideoLists.get(i);
+
+        holder.mJCVideoPlayerStandard.setUp(video.getFileUrl(),JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,video.getVideoName());
+        holder.mJCVideoPlayerStandard.thumbImageView.setImageURI(Uri.parse(video.getThumbUrl()));
+        return view;
+    }
+
+    class VideoViewHolder{
+        JCVideoPlayerStandard mJCVideoPlayerStandard;
         public VideoViewHolder(View contentView) {
-            super(contentView);
-            videoNameTV= (TextView) contentView.findViewById(R.id.videoNameTV);
-            fileSizeTV= (TextView) contentView.findViewById(R.id.fileSizeTV);
-            thumbIV= (ImageView) contentView.findViewById(R.id.thumbIV);
+
+            mJCVideoPlayerStandard= (JCVideoPlayerStandard) contentView.findViewById(R.id.jc_player);
         }
     }
 }

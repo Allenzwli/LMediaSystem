@@ -46,6 +46,8 @@ public class LocalVideoInteractorImp implements CommonInteractor {
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();
                 video=new Video();
+                long id=cursor.getLong((cursor
+                        .getColumnIndex(MediaStore.Video.Media._ID)));
                 String title = cursor.getString((cursor
                         .getColumnIndex(MediaStore.Video.Media.TITLE)));
                 long size = cursor.getLong(cursor
@@ -54,6 +56,7 @@ public class LocalVideoInteractorImp implements CommonInteractor {
                         .getColumnIndex(MediaStore.Video.Media.DURATION));
                 String url = cursor.getString(cursor
                         .getColumnIndex(MediaStore.Video.Media.DATA));
+                video.setId(id);
                 video.setDuration(duration);
                 video.setFileSize(size);
                 video.setVideoName(title);
