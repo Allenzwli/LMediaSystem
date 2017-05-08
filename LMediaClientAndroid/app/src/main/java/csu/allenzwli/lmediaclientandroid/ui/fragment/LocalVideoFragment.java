@@ -1,5 +1,6 @@
 package csu.allenzwli.lmediaclientandroid.ui.fragment;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +19,9 @@ import csu.allenzwli.lmediaclientandroid.base.BaseLazyFragment;
 import csu.allenzwli.lmediaclientandroid.model.Video;
 import csu.allenzwli.lmediaclientandroid.presenter.VideoPresenter;
 import csu.allenzwli.lmediaclientandroid.presenter.imp.LocalVideoPresenterImp;
+import csu.allenzwli.lmediaclientandroid.service.MusicPlayService;
 import csu.allenzwli.lmediaclientandroid.util.ApiConstants;
+import csu.allenzwli.lmediaclientandroid.util.TLog;
 import csu.allenzwli.lmediaclientandroid.view.VideoView;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
@@ -116,7 +119,8 @@ public class LocalVideoFragment extends BaseLazyFragment implements VideoView,Sw
 
     @Override
     protected void onUserVisible() {
-
+        mContext.stopService(new Intent(mContext, MusicPlayService.class));
+        TLog.d("moviestop","_");
     }
 
     @Override

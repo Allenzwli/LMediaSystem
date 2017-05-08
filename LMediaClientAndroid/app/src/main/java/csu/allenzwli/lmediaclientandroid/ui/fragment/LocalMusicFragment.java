@@ -1,5 +1,6 @@
 package csu.allenzwli.lmediaclientandroid.ui.fragment;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +19,11 @@ import csu.allenzwli.lmediaclientandroid.base.BaseLazyFragment;
 import csu.allenzwli.lmediaclientandroid.model.Song;
 import csu.allenzwli.lmediaclientandroid.presenter.MusicPresenter;
 import csu.allenzwli.lmediaclientandroid.presenter.imp.LocalMusicPresenterImp;
+import csu.allenzwli.lmediaclientandroid.ui.MusicPlayerActivity;
+import csu.allenzwli.lmediaclientandroid.ui.widget.MusicPlayer;
 import csu.allenzwli.lmediaclientandroid.util.ApiConstants;
+import csu.allenzwli.lmediaclientandroid.util.MusicPlayState;
+import csu.allenzwli.lmediaclientandroid.util.PlayListSingleton;
 import csu.allenzwli.lmediaclientandroid.view.MusicView;
 
 /**
@@ -96,6 +101,7 @@ public class LocalMusicFragment extends BaseLazyFragment implements MusicView,Sw
             mLocalMusicAdapter.getmSongBeanLists().clear();
             mLocalMusicAdapter.getmSongBeanLists().addAll(songBeanLists);
             mLocalMusicAdapter.notifyDataSetChanged();
+            PlayListSingleton.getInstance().refreshSongList(songBeanLists);
         }
     }
 
@@ -126,7 +132,11 @@ public class LocalMusicFragment extends BaseLazyFragment implements MusicView,Sw
 
     @Override
     public void navigateToLocalMusicItem(int position, Song songBean) {
-        showToast(songBean.getFileUrl());
+        //showToast(songBean.getFileUrl());
+        PlayListSingleton.getInstance().refreshSongList(mLocalMusicAdapter.getmSongBeanLists());
+        Intent intent=new Intent(mContext,MusicPlayerActivity.class);
+        intent.putExtra(MusicPlayState.PLAYING_SONG,mLocalMusicAdapter.getmSongBeanLists().get(position));
+        intent.putExtra(MusicPlayState.PLAYING_INDEX,position);
+        startActivity(intent);
     }
-
 }

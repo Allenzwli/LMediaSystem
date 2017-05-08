@@ -5,6 +5,7 @@ import java.util.List;
 
 import csu.allenzwli.lmediaclientandroid.base.BaseLazyFragment;
 import csu.allenzwli.lmediaclientandroid.interactor.MainInteractor;
+import csu.allenzwli.lmediaclientandroid.ui.fragment.AdminManageFragment;
 import csu.allenzwli.lmediaclientandroid.ui.fragment.LocalMusicFragment;
 import csu.allenzwli.lmediaclientandroid.ui.fragment.LocalVideoFragment;
 import csu.allenzwli.lmediaclientandroid.ui.fragment.OnlineMusicFragment;
@@ -22,6 +23,7 @@ public class MainInteractorImp implements MainInteractor {
         fragments.add(new OnlineMusicFragment());
         fragments.add(new LocalVideoFragment());
         fragments.add(new OnlineVideoFragment());
+        fragments.add(new AdminManageFragment());
         return fragments;
     }
 }

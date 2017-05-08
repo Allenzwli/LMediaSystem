@@ -23,13 +23,13 @@
     <item android:title="其他">
         <menu>
             <item
-                android:id="@+id/nav_feedback"
+                android:id="@+id/nav_admin_manage"
                 android:icon="@drawable/ic_menu_share"
-                android:title="反馈" />
+                android:title="管理员操作" />
             <item
-                android:id="@+id/nav_about"
+                android:id="@+id/nav_feedback"
                 android:icon="@drawable/ic_menu_send"
-                android:title="关于" />
+                android:title="反馈" />
         </menu>
     </item>
 

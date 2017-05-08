@@ -278,6 +278,9 @@
                   if (evt.lengthComputable) {
                       var percentComplete = Math.round(evt.loaded * 100 / evt.total);
                       $("#fileNameTitle").text(percentComplete.toString() + '%');
+                      if(percentComplete==100){
+                          $("#fileNameTitle").text('正在解析文件，请稍等');
+                      }
                   }
                   else {
                       $("#fileNameTitle").text('unable to upload');

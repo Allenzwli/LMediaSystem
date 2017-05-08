@@ -13,6 +13,8 @@ public class ApiConstants {
         private static final String REMOTE_IP="http://182.254.216.85:8080";
         public static final String ONLINE_MUSIC_LIST=REMOTE_IP+"/LMediaServer/musics/list";
         public static final String ONLINE_VIDEO_LIST=REMOTE_IP+"/LMediaServer/videos/list";
+
+        public static final String ADMIN_MANAGE=REMOTE_IP+"/LMediaServer/";
     }
 
 }

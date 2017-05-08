@@ -84,6 +84,7 @@ $(function (){
                 render: function (data, type, row, meta) {
                     var t="";
                     if(data > -1){
+                    	data/=1000;
                         var min = Math.floor(data/60);
                         var sec = data % 60;
                         if(min < 10){t += "0";}

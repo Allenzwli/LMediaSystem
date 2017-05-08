@@ -84,7 +84,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-       if(id==R.id.action_upload){
+       if(id==R.id.action_ablout){
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -95,22 +95,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         OnlineMusic,
         LocalVideo,
         OnlineVideo,
+        AdminManage,
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-
+        MediaMenuItem mediaMenuItem=MediaMenuItem.LocalMusic;
         int id = item.getItemId();
-        if(id==R.id.nav_feedback){
-            //弹出反馈窗口
-            return true;
-        }else if(id==R.id.nav_about){
-            //弹出关于窗口
+        if(id==R.id.nav_admin_manage){
+            //弹管理员操作
+            mediaMenuItem=MediaMenuItem.AdminManage;
+        }else if(id==R.id.nav_feedback){
+            //弹出反馈
             return true;
         }
-        MediaMenuItem mediaMenuItem=MediaMenuItem.LocalMusic;
         if (id == R.id.nav_local_music) {
             mediaMenuItem=MediaMenuItem.LocalMusic;
         } else if (id == R.id.nav_online_music) {

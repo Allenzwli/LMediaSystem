@@ -22,7 +22,7 @@ public class MediaUtil {
         Song song = new Song();
         try {
             Mp3File mp3file = new Mp3File(file);
-            song.setDuration(mp3file.getLengthInSeconds());
+            song.setDuration(mp3file.getLengthInMilliseconds());
             if (mp3file.hasId3v1Tag()) {
                 ID3v1 id3v1Tag = mp3file.getId3v1Tag();
                 song.setSongName(id3v1Tag.getTitle());

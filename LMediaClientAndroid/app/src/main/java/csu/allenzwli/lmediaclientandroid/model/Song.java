@@ -1,10 +1,14 @@
 package csu.allenzwli.lmediaclientandroid.model;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by allenzwli on 2017/5/7.
  */
 
-public class Song {
+public class Song implements Serializable{
 
     private long id;
     private String songName;

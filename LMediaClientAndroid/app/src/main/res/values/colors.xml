@@ -6,4 +6,12 @@
 
     <color name="base_bg">#ffeeeeee</color>
     <color name="base_msg_color">#ff999999</color>
+
+    <color name="sr_color_primary">#FF4E3E7F</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="music_player_sb_bg">#FFFFE4D9</color>
+    <color name="music_player_sb_progress_color">#FFE64626</color>
+    <color name="music_player_sb_secondary_progress_color">#FFE87F6A</color>
+    <color name="music_player_user_name_color">#FF1A7BE8</color>
 </resources>
