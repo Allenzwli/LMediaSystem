@@ -1,5 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="csu.lzw.lmediaserver.pojo.Admin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
+<%
+   Admin admin= (Admin) session.getAttribute("admin");
+%>
 <html lang="en">
 
 <head>
@@ -97,10 +101,10 @@
                <ul class="nav">
                   <!-- Iterates over all sidebar items-->
                   <li class="nav-heading ">
-                     <span data-localize="sidebar.heading.HEADER">欢迎 李钊伟</span>
+                     <span data-localize="sidebar.heading.HEADER">欢迎 <%=admin.getNickName()%></span>
                   </li>
                   <li class="">
-                     <a href="<%=request.getContextPath()%>/main" title="Single View">
+                     <a href="<%=request.getContextPath()%>/admins/main" title="Single View">
                         <em class="fa fa-long-arrow-right"></em>
                         <span data-localize="sidebar.nav.SINGLEVIEW">快捷操作</span>
                      </a>
@@ -148,28 +152,30 @@
                      </ul>
                   </li>
 
-                  <li class="nav-heading ">
+                  <c:if test="${admin.isSuperAdmin==1}">
+                     　　<li class="nav-heading ">
                      <span data-localize="sidebar.heading.HEADER">更多</span>
-                  </li>
-                  <li class=" ">
-                     <a href="#menuid2" title="Menu" data-toggle="collapse">
-                        <em class="fa fa-user"></em>
-                        <span data-localize="sidebar.nav.menu.MENU">账号管理</span>
-                     </a>
-                     <ul id="menuid2" class="nav sidebar-subnav collapse">
-                        <li class="sidebar-subnav-header">账号管理</li>
-                        <li class="">
-                           <a href="<%=request.getContextPath()%>/admins/manage" title="Sub Menu">
-                              <span data-localize="sidebar.nav.menu.SUBMENU">管理员账号</span>
-                           </a>
-                        </li>
-                        <li class=" ">
-                           <a href="<%=request.getContextPath()%>/admins/add" title="Sub Menu">
-                              <span data-localize="sidebar.nav.menu.SUBMENU">新增管理员</span>
-                           </a>
-                        </li>
-                     </ul>
-                  </li>
+                     </li>
+                     <li class=" ">
+                        <a href="#menuid2" title="Menu" data-toggle="collapse">
+                           <em class="fa fa-user"></em>
+                           <span data-localize="sidebar.nav.menu.MENU">账号管理</span>
+                        </a>
+                        <ul id="menuid2" class="nav sidebar-subnav collapse">
+                           <li class="sidebar-subnav-header">账号管理</li>
+                           <li class="">
+                              <a href="<%=request.getContextPath()%>/admins/manage" title="Sub Menu">
+                                 <span data-localize="sidebar.nav.menu.SUBMENU">管理员账号</span>
+                              </a>
+                           </li>
+                           <li class="">
+                              <a href="<%=request.getContextPath()%>/admins/add" title="Sub Menu">
+                                 <span data-localize="sidebar.nav.menu.SUBMENU">新增管理员</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                  </c:if>
                </ul>
                <!-- END sidebar nav-->
             </nav>

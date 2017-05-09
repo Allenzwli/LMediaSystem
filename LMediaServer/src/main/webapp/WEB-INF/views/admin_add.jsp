@@ -1,4 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="csu.lzw.lmediaserver.pojo.Admin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
+<%
+   Admin admin= (Admin) session.getAttribute("admin");
+%>
 <html>
 <head>
    <meta charset="utf-8">
@@ -89,10 +94,10 @@
                <ul class="nav">
                   <!-- Iterates over all sidebar items-->
                   <li class="nav-heading ">
-                     <span data-localize="sidebar.heading.HEADER">欢迎 李钊伟</span>
+                     <span data-localize="sidebar.heading.HEADER">欢迎 <%=admin.getNickName()%></span>
                   </li>
                   <li class="">
-                     <a href="<%=request.getContextPath()%>/main" title="Single View">
+                     <a href="<%=request.getContextPath()%>/admins/main" title="">
                         <em class="fa fa-long-arrow-right"></em>
                         <span data-localize="sidebar.nav.SINGLEVIEW">快捷操作</span>
                      </a>
@@ -139,30 +144,30 @@
                         </li>
                      </ul>
                   </li>
-
-                  <li class="nav-heading ">
+                  <c:if test="${admin.isSuperAdmin=='1'}">
+                     　　<li class="nav-heading ">
                      <span data-localize="sidebar.heading.HEADER">更多</span>
-                  </li>
-                  <li class=" ">
-                     <a href="#menuid2" title="Menu" data-toggle="collapse">
-                        <em class="fa fa-user"></em>
-                        <span data-localize="sidebar.nav.menu.MENU">账号管理</span>
-                     </a>
-                     <ul id="menuid2" class="nav sidebar-subnav collapse">
-                        <li class="sidebar-subnav-header">账号管理</li>
-                        <li class="">
-                           <a href="<%=request.getContextPath()%>/admins/manage" title="Sub Menu">
-                              <span data-localize="sidebar.nav.menu.SUBMENU">管理员账号</span>
-                           </a>
-                        </li>
-                        <li class="active">
-                           <a href="<%=request.getContextPath()%>/admins/add" title="Sub Menu">
-                              <span data-localize="sidebar.nav.menu.SUBMENU">新增管理员</span>
-                           </a>
-                        </li>
-                     </ul>
-                  </li>
-
+                     </li>
+                     <li class=" ">
+                        <a href="#menuid2" title="Menu" data-toggle="collapse">
+                           <em class="fa fa-user"></em>
+                           <span data-localize="sidebar.nav.menu.MENU">账号管理</span>
+                        </a>
+                        <ul id="menuid2" class="nav sidebar-subnav collapse">
+                           <li class="sidebar-subnav-header">账号管理</li>
+                           <li class="">
+                              <a href="<%=request.getContextPath()%>/admins/manage" title="Sub Menu">
+                                 <span data-localize="sidebar.nav.menu.SUBMENU">管理员账号</span>
+                              </a>
+                           </li>
+                           <li class="active">
+                              <a href="<%=request.getContextPath()%>/admins/add" title="Sub Menu">
+                                 <span data-localize="sidebar.nav.menu.SUBMENU">新增管理员</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                  </c:if>
                </ul>
                <!-- END sidebar nav-->
             </nav>
@@ -230,12 +235,46 @@
       <section>
          <!-- Page content-->
          <div class="content-wrapper">
-            <h3>账号管理
+            <h3>权限管理
                <small>新增管理员</small>
             </h3>
-            <div class="row">
-               <div class="col-lg-12">
-                  <p>A row with content</p>
+            <div class="panel panel-default">
+               <div class="panel-heading">添加普通管理员账号</div>
+               <div class="panel-body">
+                  <form class="form-horizontal" id="adminAddForm" method="post" action="<%=request.getContextPath()%>/admins/register">
+                     <div class="form-group">
+                        <label class="col-lg-2 control-label">账户名</label>
+                        <div class="col-lg-10">
+                           <input name="account" placeholder="account" class="form-control">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="col-lg-2 control-label">昵称</label>
+                        <div class="col-lg-10">
+                           <input name="nickName" placeholder="nickName" class="form-control">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="col-lg-2 control-label">密码</label>
+                        <div class="col-lg-10">
+                           <input name="password" type="password" placeholder="Password" class="form-control">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="col-lg-2 control-label">重复密码</label>
+                        <div class="col-lg-10">
+                           <input name="repeatPassword" type="password" placeholder="Password" class="form-control">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                           <button type="submit" class="btn btn-sm btn-default">注册</button>
+                        </div>
+                     </div>
+                  </form>
+                   <h5>
+                       ${msg}
+                   </h5>
                </div>
             </div>
          </div>

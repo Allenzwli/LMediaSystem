@@ -13,7 +13,28 @@ public class Admin {
 
     private String encyptPassword;
 
+
     private String token;
+
+    private String createTime;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    private int isSuperAdmin;
+
+    public void setIsSuperAdmin(int isSuperAdmin) {
+        this.isSuperAdmin = isSuperAdmin;
+    }
+
+    public int getIsSuperAdmin() {
+        return isSuperAdmin;
+    }
 
     public int getId() {
         return id;

@@ -1,4 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="csu.lzw.lmediaserver.pojo.Admin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
+<%
+   Admin admin= (Admin) session.getAttribute("admin");
+%>
 <html lang="en">
 
 <head>
@@ -89,10 +94,10 @@
                <ul class="nav">
                   <!-- Iterates over all sidebar items-->
                   <li class="nav-heading ">
-                     <span data-localize="sidebar.heading.HEADER">欢迎 李钊伟</span>
+                     <span data-localize="sidebar.heading.HEADER">欢迎 <%=admin.getNickName()%></span>
                   </li>
                   <li class="">
-                     <a href="<%=request.getContextPath()%>/main" title="Single View">
+                     <a href="<%=request.getContextPath()%>/admins/main" title="Single View">
                         <em class="fa fa-long-arrow-right"></em>
                         <span data-localize="sidebar.nav.SINGLEVIEW">快捷操作</span>
                      </a>
@@ -140,28 +145,30 @@
                      </ul>
                   </li>
 
-                  <li class="nav-heading ">
+                  <c:if test="${admin.isSuperAdmin=='1'}">
+                     　　<li class="nav-heading ">
                      <span data-localize="sidebar.heading.HEADER">更多</span>
-                  </li>
-                  <li class=" ">
-                     <a href="#menuid2" title="Menu" data-toggle="collapse">
-                        <em class="fa fa-user"></em>
-                        <span data-localize="sidebar.nav.menu.MENU">账号管理</span>
-                     </a>
-                     <ul id="menuid2" class="nav sidebar-subnav collapse">
-                        <li class="sidebar-subnav-header">账号管理</li>
-                        <li class="active">
-                           <a href="<%=request.getContextPath()%>/admins/manage" title="Sub Menu">
-                              <span data-localize="sidebar.nav.menu.SUBMENU">管理员账号</span>
-                           </a>
-                        </li>
-                        <li class=" ">
-                           <a href="<%=request.getContextPath()%>/admins/add" title="Sub Menu">
-                              <span data-localize="sidebar.nav.menu.SUBMENU">新增管理员</span>
-                           </a>
-                        </li>
-                     </ul>
-                  </li>
+                     </li>
+                     <li class=" ">
+                        <a href="#menuid2" title="Menu" data-toggle="collapse">
+                           <em class="fa fa-user"></em>
+                           <span data-localize="sidebar.nav.menu.MENU">账号管理</span>
+                        </a>
+                        <ul id="menuid2" class="nav sidebar-subnav collapse">
+                           <li class="sidebar-subnav-header">账号管理</li>
+                           <li class="active">
+                              <a href="<%=request.getContextPath()%>/admins/manage" title="Sub Menu">
+                                 <span data-localize="sidebar.nav.menu.SUBMENU">管理员账号</span>
+                              </a>
+                           </li>
+                           <li class="">
+                              <a href="<%=request.getContextPath()%>/admins/add" title="Sub Menu">
+                                 <span data-localize="sidebar.nav.menu.SUBMENU">新增管理员</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                  </c:if>
 
                </ul>
                <!-- END sidebar nav-->
@@ -230,15 +237,48 @@
       <section>
          <!-- Page content-->
          <div class="content-wrapper">
-            <h3>账号管理
+            <h3>权限管理
                <small>管理员账号</small>
             </h3>
             <div class="row">
-               <div class="col-lg-12">
-                  <p>A row with content</p>
-               </div>
-            </div>
+
+                  <div class="panel panel-default">
+                     <div class="panel-heading">普通管理员列表</div>
+                     <div class="panel-body">
+                        <!-- START table-responsive-->
+                        <div class="table-responsive">
+                           <table class="table table-striped table-bordered table-hover">
+                              <thead>
+                              <tr>
+                                 <th>#</th>
+                                 <th>账号</th>
+                                 <th>昵称</th>
+                                 <th>创建时间</th>
+                                  <th>授权</th>
+                                  <th>删除</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <c:forEach var="litem" items="${adminList}">
+                                <tr>
+                                  <td>${litem.id}</td>
+                                  <td>${litem.account}</td>
+                                  <td>${litem.nickName}</td>
+                                  <td>${litem.createTime}</td>
+                                  <td><a class="btn btn-primary" href="<%=request.getContextPath()%>/admins/super?id=${litem.id}">授权为超级管理员</a></td>
+                                  <td><a class="btn btn-danger" href="<%=request.getContextPath()%>/admins/delete?id=${litem.id}">删除此管理员</a></td>
+                                <tr>
+                              </c:forEach>
+                              </tbody>
+                           </table>
+                        </div>
+                        <!-- END table-responsive-->
+                     </div>
+                  </div>
          </div>
+         </div>
+
+
       </section>
       <!-- Page footer-->
       <footer>

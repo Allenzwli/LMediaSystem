@@ -1,10 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="csu.lzw.lmediaserver.pojo.Admin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
 <%
-   Admin admin= (Admin) request.getSession().getAttribute("admin");
-   if(admin==null){
-      request.getRequestDispatcher(request.getContextPath()+"/admins/login").forward(request,response);
-   }
+   Admin admin= (Admin) session.getAttribute("admin");
 %>
 <html lang="en">
 
@@ -98,7 +96,7 @@
                      <span data-localize="sidebar.heading.HEADER">欢迎 <%=admin.getNickName()%></span>
                   </li>
                   <li class="active">
-                     <a href="<%=request.getContextPath()%>/main" title="Single View">
+                     <a href="<%=request.getContextPath()%>/admins/main" title="Single View">
                         <em class="fa fa-long-arrow-right"></em>
                         <span data-localize="sidebar.nav.SINGLEVIEW">快捷操作</span>
                      </a>
@@ -146,28 +144,30 @@
                      </ul>
                   </li>
 
-                  <li class="nav-heading ">
+                  <c:if test="${admin.isSuperAdmin=='1'}">
+                     　　<li class="nav-heading ">
                      <span data-localize="sidebar.heading.HEADER">更多</span>
-                  </li>
-                  <li class=" ">
-                     <a href="#menuid2" title="Menu" data-toggle="collapse">
-                        <em class="fa fa-user"></em>
-                        <span data-localize="sidebar.nav.menu.MENU">账号管理</span>
-                     </a>
-                     <ul id="menuid2" class="nav sidebar-subnav collapse">
-                        <li class="sidebar-subnav-header">账号管理</li>
-                        <li class="">
-                           <a href="<%=request.getContextPath()%>/admins/manage" title="Sub Menu">
-                              <span data-localize="sidebar.nav.menu.SUBMENU">管理员账号</span>
-                           </a>
-                        </li>
-                        <li class=" ">
-                           <a href="<%=request.getContextPath()%>/admins/add" title="Sub Menu">
-                              <span data-localize="sidebar.nav.menu.SUBMENU">新增管理员</span>
-                           </a>
-                        </li>
-                     </ul>
-                  </li>
+                     </li>
+                     <li class=" ">
+                        <a href="#menuid2" title="Menu" data-toggle="collapse">
+                           <em class="fa fa-user"></em>
+                           <span data-localize="sidebar.nav.menu.MENU">账号管理</span>
+                        </a>
+                        <ul id="menuid2" class="nav sidebar-subnav collapse">
+                           <li class="sidebar-subnav-header">账号管理</li>
+                           <li class="">
+                              <a href="<%=request.getContextPath()%>/admins/manage" title="Sub Menu">
+                                 <span data-localize="sidebar.nav.menu.SUBMENU">管理员账号</span>
+                              </a>
+                           </li>
+                           <li class="">
+                              <a href="<%=request.getContextPath()%>/admins/add" title="Sub Menu">
+                                 <span data-localize="sidebar.nav.menu.SUBMENU">新增管理员</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                  </c:if>
 
                </ul>
                <!-- END sidebar nav-->
@@ -240,13 +240,36 @@
                快速操作
                <small data-localize="dashboard.WELCOME"></small>
             </div>
-            <div class="row">
-               <div class="col-xs-12 text-center">
-                  <h2 class="text-thin">Single view content</h2>
-                  <p>This project is an application skeleton. You can use it to quickly bootstrap your jQuery webapp projects and dev environment for these projects.
-                     <br>The seed app doesn't do much and has most of the feature removed so you can add theme as per your needs just following the demo app examples.</p>
-               </div>
-            </div>
+             <!-- START widgets box-->
+             <div class="row">
+                 <a class="col-lg-3 col-sm-6" href="<%=request.getContextPath()%>/musics/add">
+                     <!-- START widget-->
+                     <div class="panel bg-info-light pt b0 widget">
+                         <div class="ph">
+                             <em class="icon-music-tone fa-lg pull-right"></em>
+                             <div class="h2 mt0">${musicCount}</div>
+                             <div class="text-uppercase">音频</div>
+                         </div>
+                         <div data-sparkline="" data-type="line" data-width="100%" data-height="75px" data-line-color="#23b7e5" data-chart-range-min="0" data-fill-color="#23b7e5" data-spot-color="#23b7e5" data-min-spot-color="#23b7e5" data-max-spot-color="#23b7e5"
+                              data-highlight-spot-color="#23b7e5" data-highlight-line-color="#23b7e5" values="2,5,3,7,4,5" style="margin-bottom: -2px" data-resize="true"></div>
+                     </div>
+                 </a>
+                 <a class="col-lg-3 col-sm-6" href="<%=request.getContextPath()%>/videos/add">
+                     <!-- START widget-->
+                     <div class="panel widget bg-purple-light pt b0 widget" >
+                         <div class="ph">
+                             <em class="glyphicon-facetime-video fa-lg pull-right"></em>
+                             <div class="h2 mt0">
+                                 ${videoCount}
+                             </div>
+                             <div class="text-uppercase">视频</div>
+                         </div>
+                         <div data-sparkline="" data-type="line" data-width="100%" data-height="75px" data-line-color="#7266ba" data-chart-range-min="0" data-fill-color="#7266ba" data-spot-color="#7266ba" data-min-spot-color="#7266ba" data-max-spot-color="#7266ba"
+                              data-highlight-spot-color="#7266ba" data-highlight-line-color="#7266ba" values="1,4,5,4,8,7,10" style="margin-bottom: -2px" data-resize="true"></div>
+                     </div>
+                 </a>
+             </div>
+
          </div>
       </section>
       <!-- Page footer-->

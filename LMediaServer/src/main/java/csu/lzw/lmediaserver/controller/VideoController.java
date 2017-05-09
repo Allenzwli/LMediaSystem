@@ -82,7 +82,7 @@ public class VideoController {
             resultMap.put("msg","上传失败，无效的管理员身份");
         }else{
             if(videoFile!=null&&!videoFile.isEmpty()){
-                String originalFileName=videoFile.getOriginalFilename();
+                String originalFileName=videoFile.getOriginalFilename().trim();
                 String realPath= StaticConfig.BASE_LOCAL_VIDEO_FILE_PATH+originalFileName;
                 String videoType=originalFileName.substring(originalFileName.lastIndexOf(".")).toLowerCase();
                 if(videoType.equals(".mp4")) {

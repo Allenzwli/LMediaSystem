@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by allenzwli on 2017/4/11.
@@ -30,4 +31,26 @@ public class AdminServiceImp implements AdminService{
             return true;
 
     }
+
+    public List<Admin> getAllAdmins() {
+        return mAdminMapper.getAllAdmins();
+    }
+
+    public void setSuper(int adminId) {
+        mAdminMapper.setSuper(adminId);
+    }
+
+    public void deleteAdmin(int adminId) {
+        mAdminMapper.deleteAdmin(adminId);
+    }
+
+    public boolean isAccountExist(String account) {
+        return mAdminMapper.geAdminByAccount(account)!=null;
+    }
+
+    public void registAdmin(Admin admin) {
+        mAdminMapper.insertAdmin(admin);
+    }
+
+
 }

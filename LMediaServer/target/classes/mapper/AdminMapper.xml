@@ -2,10 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="csu.lzw.lmediaserver.mapper.AdminMapper">
     <select id="getAdminByAccountByEncyptPassword" resultType="csu.lzw.lmediaserver.pojo.Admin">
-      SELECT id,account,nickName,token FROM admins WHERE account=#{account} AND encyptPassword=#{encyptPassword} LIMIT 1
+      SELECT id,account,nickName,token,isSuperAdmin FROM admins WHERE account=#{account} AND encyptPassword=#{encyptPassword} LIMIT 1
     </select>
 
     <select id="getAdminByIdByToken" resultType="csu.lzw.lmediaserver.pojo.Admin">
-      SELECT id,account,nickName,token FROM admins WHERE id=#{id} AND token=#{token} LIMIT 1
+      SELECT id,account,nickName,token,isSuperAdmin FROM admins WHERE id=#{id} AND token=#{token} LIMIT 1
+    </select>
+
+    <select id="getAllAdmins" resultType="csu.lzw.lmediaserver.pojo.Admin">
+        SELECT id,account,nickName,isSuperAdmin,createTime FROM admins WHERE isSuperAdmin=0
+    </select>
+
+    <update id="setSuper" parameterType="int">
+        UPDATE admins SET isSuperAdmin=1 WHERE id=#{id}
+    </update>
+
+    <delete id="deleteAdmin" parameterType="int">
+        DELETE FROM admins WHERE id=#{id}
+    </delete>
+
+    <insert id="insertAdmin" parameterType="csu.lzw.lmediaserver.pojo.Admin">
+        INSERT into admins(account,encyptPassword,nickName,token)
+        VALUES (#{account},#{encyptPassword},#{nickName},#{token})
+    </insert>
+
+    <select id="geAdminByAccount" resultType="csu.lzw.lmediaserver.pojo.Admin">
+       SELECT id,account,nickName,isSuperAdmin,createTime
+       FROM   admins
+       WHERE  account=#{account}
+       LIMIT 1
     </select>
 </mapper>

@@ -88,7 +88,7 @@ public class MusicController {
             resultMap.put("msg","上传失败，无效的管理员身份");
         }else{
             if(songFile!=null&&!songFile.isEmpty()){
-                String originalFileName=songFile.getOriginalFilename();
+                String originalFileName=songFile.getOriginalFilename().trim();
                 String realPath= StaticConfig.BASE_LOCAL_MUSIC_FILE_PATH+originalFileName;
                 String songType=originalFileName.substring(originalFileName.lastIndexOf(".")).toLowerCase();
                 if(songType.equals(".mp3")) {
