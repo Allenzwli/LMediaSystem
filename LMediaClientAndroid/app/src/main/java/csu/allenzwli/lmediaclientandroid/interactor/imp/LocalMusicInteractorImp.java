@@ -40,7 +40,7 @@ public class LocalMusicInteractorImp implements CommonInteractor {
         protected Void doInBackground(Void... params) {
             Cursor cursor = mContext.getContentResolver().query(
                     MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null,
-                    MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
+                    MediaStore.Audio.Media.DATE_MODIFIED);
             Song mp3Info=null;
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();

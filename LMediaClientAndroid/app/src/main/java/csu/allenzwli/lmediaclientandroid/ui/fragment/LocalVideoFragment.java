@@ -16,6 +16,7 @@ import butterknife.InjectView;
 import csu.allenzwli.lmediaclientandroid.R;
 import csu.allenzwli.lmediaclientandroid.adapter.VideoAdapter;
 import csu.allenzwli.lmediaclientandroid.base.BaseLazyFragment;
+import csu.allenzwli.lmediaclientandroid.model.Song;
 import csu.allenzwli.lmediaclientandroid.model.Video;
 import csu.allenzwli.lmediaclientandroid.presenter.VideoPresenter;
 import csu.allenzwli.lmediaclientandroid.presenter.imp.LocalVideoPresenterImp;
@@ -113,19 +114,12 @@ public class LocalVideoFragment extends BaseLazyFragment implements VideoView,Sw
     }
 
     @Override
-    public void navigateToLocalVideoItem(int position, Video videoBean) {
-        showToast(videoBean.getFileUrl());
-    }
-
-    @Override
     protected void onUserVisible() {
         mContext.stopService(new Intent(mContext, MusicPlayService.class));
-        TLog.d("moviestop","_");
     }
 
     @Override
     protected void onUserInvisible() {
 
     }
-
 }

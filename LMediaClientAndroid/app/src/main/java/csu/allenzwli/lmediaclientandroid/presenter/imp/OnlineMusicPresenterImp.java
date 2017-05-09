@@ -10,6 +10,7 @@ import csu.allenzwli.lmediaclientandroid.interactor.imp.OnlineMusicInteractorImp
 import csu.allenzwli.lmediaclientandroid.model.Song;
 import csu.allenzwli.lmediaclientandroid.presenter.MusicPresenter;
 import csu.allenzwli.lmediaclientandroid.view.MusicView;
+import csu.allenzwli.lmediaclientandroid.view.OnlineMusicView;
 
 /**
  * Created by allenzwli on 2017/5/7.
@@ -17,11 +18,11 @@ import csu.allenzwli.lmediaclientandroid.view.MusicView;
 
 public class OnlineMusicPresenterImp implements MusicPresenter,LoadResultCallBack<List<Song>> {
 
-    private MusicView mMusicView;
+    private OnlineMusicView mMusicView;
     private CommonInteractor mOnlineMusicInteractor;
     private Context mContext;
 
-    public OnlineMusicPresenterImp(Context context,MusicView musicView){
+    public OnlineMusicPresenterImp(Context context,OnlineMusicView musicView){
         mMusicView=musicView;
         mContext=context;
         mOnlineMusicInteractor=new OnlineMusicInteractorImp(mContext,this);
@@ -39,6 +40,11 @@ public class OnlineMusicPresenterImp implements MusicPresenter,LoadResultCallBac
     @Override
     public void onItemClickListener(int position, Song song) {
         mMusicView.navigateToLocalMusicItem(position,song);
+    }
+
+    @Override
+    public void OnItemLongClickListner(int position, Song song) {
+        mMusicView.showMaterialDialogWhenItemLongClick(position,song);
     }
 
     @Override

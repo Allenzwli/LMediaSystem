@@ -12,4 +12,5 @@ public interface MusicView extends BaseView {
     void refreshMusicListData(List<Song> songBeanLists);
 
     void navigateToLocalMusicItem(int position, Song songBean);
+
 }

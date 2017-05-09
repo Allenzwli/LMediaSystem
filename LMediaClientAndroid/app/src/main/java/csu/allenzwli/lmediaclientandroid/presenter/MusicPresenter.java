@@ -11,5 +11,7 @@ public interface MusicPresenter {
     void loadMusicListData(boolean isSwipeRefresh);
 
     void onItemClickListener(int position, Song song);
+
+    void OnItemLongClickListner(int position,Song song);
     
 }

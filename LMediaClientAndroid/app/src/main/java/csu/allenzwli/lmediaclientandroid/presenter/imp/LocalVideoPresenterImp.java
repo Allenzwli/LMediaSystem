@@ -38,9 +38,10 @@ public class LocalVideoPresenterImp implements VideoPresenter,LoadResultCallBack
     }
 
     @Override
-    public void onItemClickListener(int position, Video video) {
-        mVideoView.navigateToLocalVideoItem(position,video);
+    public void OnItemLongClickListner(int position, Video video) {
+
     }
+
 
     @Override
     public void onSuccess(int code, List<Video> data) {

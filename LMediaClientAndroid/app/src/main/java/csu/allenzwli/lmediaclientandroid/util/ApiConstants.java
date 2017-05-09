@@ -1,5 +1,9 @@
 package csu.allenzwli.lmediaclientandroid.util;
 
+import android.os.Environment;
+
+import csu.allenzwli.lmediaclientandroid.base.LApplication;
+
 /**
  * Created by allenzwli on 2017/5/7.
  */

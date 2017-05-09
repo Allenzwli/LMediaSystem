@@ -12,5 +12,4 @@ import csu.allenzwli.lmediaclientandroid.model.Video;
 public interface VideoView extends BaseView{
     void refreshVideoListData(List<Video> videoBeanLists);
 
-    void navigateToLocalVideoItem(int position, Video videoBean);
 }

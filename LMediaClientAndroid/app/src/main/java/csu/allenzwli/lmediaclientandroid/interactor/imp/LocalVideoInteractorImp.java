@@ -41,7 +41,7 @@ public class LocalVideoInteractorImp implements CommonInteractor {
         protected Void doInBackground(Void... params) {
             Cursor cursor = mContext.getContentResolver().query(
                     MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null,
-                    MediaStore.Video.Media.DEFAULT_SORT_ORDER);
+                    MediaStore.Video.Media.DATE_MODIFIED);
             Video video=null;
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();

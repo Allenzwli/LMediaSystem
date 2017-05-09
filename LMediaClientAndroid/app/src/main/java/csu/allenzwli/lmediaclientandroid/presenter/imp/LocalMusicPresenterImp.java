@@ -41,6 +41,11 @@ public class LocalMusicPresenterImp implements MusicPresenter,LoadResultCallBack
     }
 
     @Override
+    public void OnItemLongClickListner(int position, Song song) {
+
+    }
+
+    @Override
     public void onSuccess(int code, List<Song> data) {
         mMusicView.hideLoading();
         mMusicView.refreshMusicListData(data);

@@ -139,4 +139,5 @@ public class LocalMusicFragment extends BaseLazyFragment implements MusicView,Sw
         intent.putExtra(MusicPlayState.PLAYING_INDEX,position);
         startActivity(intent);
     }
+
 }

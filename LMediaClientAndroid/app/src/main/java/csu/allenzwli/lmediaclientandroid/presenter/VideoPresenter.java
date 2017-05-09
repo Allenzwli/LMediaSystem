@@ -1,5 +1,6 @@
 package csu.allenzwli.lmediaclientandroid.presenter;
 
+import csu.allenzwli.lmediaclientandroid.model.Song;
 import csu.allenzwli.lmediaclientandroid.model.Video;
 
 /**
@@ -10,5 +11,5 @@ public interface VideoPresenter {
 
     void loadVideoListData(boolean isSwipeRefresh);
 
-    void onItemClickListener(int position, Video video);
+    void OnItemLongClickListner(int position,Video video);
 }

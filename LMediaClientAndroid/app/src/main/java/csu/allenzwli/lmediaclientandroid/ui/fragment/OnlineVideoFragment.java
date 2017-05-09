@@ -2,12 +2,10 @@ package csu.allenzwli.lmediaclientandroid.ui.fragment;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.victor.loading.rotate.RotateLoading;
 
@@ -22,14 +20,13 @@ import csu.allenzwli.lmediaclientandroid.presenter.VideoPresenter;
 import csu.allenzwli.lmediaclientandroid.presenter.imp.OnlineVideoPresenterImp;
 import csu.allenzwli.lmediaclientandroid.service.MusicPlayService;
 import csu.allenzwli.lmediaclientandroid.util.ApiConstants;
-import csu.allenzwli.lmediaclientandroid.view.VideoView;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import csu.allenzwli.lmediaclientandroid.view.OnlineVideoView;
 
 /**
  * Created by allenzwli on 2017/5/7.
  */
 
-public class OnlineVideoFragment extends BaseLazyFragment implements VideoView,SwipeRefreshLayout.OnRefreshListener{
+public class OnlineVideoFragment extends BaseLazyFragment implements OnlineVideoView,SwipeRefreshLayout.OnRefreshListener{
 
     @InjectView(R.id.list_view)
     ListView mListView;
@@ -119,10 +116,11 @@ public class OnlineVideoFragment extends BaseLazyFragment implements VideoView,S
     protected void onUserInvisible() {
 
     }
-    @Override
-    public void navigateToLocalVideoItem(int position, Video videoBean) {
-        showToast(videoBean.getFileUrl());
-    }
 
+    @Override
+    public void showMaterialDialogWhenItemLongClick(int position, Video video) {
+        //showToast(video.getFileUrl());
+        //ListView使用了CardView作为item，点击事件失效，要在adapter的getView里设置
+    }
 
 }

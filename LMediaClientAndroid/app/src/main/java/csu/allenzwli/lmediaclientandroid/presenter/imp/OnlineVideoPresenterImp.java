@@ -11,6 +11,7 @@ import csu.allenzwli.lmediaclientandroid.interactor.imp.OnlineVideoInteractorImp
 import csu.allenzwli.lmediaclientandroid.model.Video;
 import csu.allenzwli.lmediaclientandroid.presenter.VideoPresenter;
 import csu.allenzwli.lmediaclientandroid.view.MusicView;
+import csu.allenzwli.lmediaclientandroid.view.OnlineVideoView;
 import csu.allenzwli.lmediaclientandroid.view.VideoView;
 
 /**
@@ -19,11 +20,11 @@ import csu.allenzwli.lmediaclientandroid.view.VideoView;
 
 public class OnlineVideoPresenterImp implements VideoPresenter,LoadResultCallBack<List<Video>>{
 
-    private VideoView mVideoView;
+    private OnlineVideoView mVideoView;
     private CommonInteractor mOnlineVideoInteractor;
     private Context mContext;
 
-    public OnlineVideoPresenterImp(Context context,VideoView videoView){
+    public OnlineVideoPresenterImp(Context context,OnlineVideoView videoView){
         mContext=context;
         mVideoView=videoView;
         mOnlineVideoInteractor=new OnlineVideoInteractorImp(mContext,this);
@@ -38,8 +39,8 @@ public class OnlineVideoPresenterImp implements VideoPresenter,LoadResultCallBac
     }
 
     @Override
-    public void onItemClickListener(int position, Video video) {
-        mVideoView.navigateToLocalVideoItem(position,video);
+    public void OnItemLongClickListner(int position, Video video) {
+        mVideoView.showMaterialDialogWhenItemLongClick(position,video);
     }
 
     @Override
