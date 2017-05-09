@@ -152,7 +152,7 @@ public class AdminManageFragment extends BaseLazyFragment{
     private void openImageChooserActivity() {
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);
         i.addCategory(Intent.CATEGORY_OPENABLE);
-        i.setType("audio/*;video/*");
+        i.setType("video/*|audio/*");
         startActivityForResult(Intent.createChooser(i, "Image Chooser"), FILE_CHOOSER_RESULT_CODE);
     }
 
