@@ -254,7 +254,7 @@
                                  <th>账号</th>
                                  <th>昵称</th>
                                  <th>创建时间</th>
-                                  <th>授权</th>
+
                                   <th>删除</th>
                               </tr>
                               </thead>
@@ -265,7 +265,7 @@
                                   <td>${litem.account}</td>
                                   <td>${litem.nickName}</td>
                                   <td>${litem.createTime}</td>
-                                  <td><a class="btn btn-primary" href="<%=request.getContextPath()%>/admins/super?id=${litem.id}">授权为超级管理员</a></td>
+
                                   <td><a class="btn btn-danger" href="<%=request.getContextPath()%>/admins/delete?id=${litem.id}">删除此管理员</a></td>
                                 <tr>
                               </c:forEach>
