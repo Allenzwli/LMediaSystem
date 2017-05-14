@@ -56,18 +56,14 @@ public class MusicController {
     @ResponseBody
     @RequestMapping("/get")
     public Map getSongsByStartAndLength(int startIndex,int pageSize,String fuzzy,String orderColumn,String orderDir,boolean fuzzySearch,String fileName,String songName,String artist,String album){
-            Map<String,Object> resultMap=new HashMap<String,Object>();
-            if(fuzzySearch){
-                //模糊搜索
-                resultMap.put("pageData",mMusicService.getSongsByStartIndexAndLength(fuzzy,orderColumn,orderDir,startIndex,pageSize));
-                resultMap.put("total",mMusicService.getSongAllCount(fuzzy));
-            }
-            else {
-                //高级搜索
-                resultMap.put("pageData",mMusicService.getSongsByStartIndexAndLengthAdvanced(fileName,artist,songName,album,orderColumn,orderDir,startIndex,pageSize));
-                resultMap.put("total",mMusicService.getSongAllCountAdvanced(fileName,artist,songName,album));
-            }
-            return resultMap;
+        if(fuzzySearch){
+            //模糊搜索
+            return mMusicService.getSongsFuzzy(fuzzy,orderColumn,orderDir,startIndex,pageSize);
+        }
+        else {
+            //高级搜索
+            return mMusicService.getSongsAdvance(fileName,artist,songName,album,orderColumn,orderDir,startIndex,pageSize);
+        }
     }
 
     @RequestMapping("/add")
@@ -89,36 +85,7 @@ public class MusicController {
             resultMap.put("data",4);
             resultMap.put("msg","上传失败，无效的管理员身份");
         }else{
-            if(songFile!=null&&!songFile.isEmpty()){
-                String originalFileName=songFile.getOriginalFilename().trim();
-                String savedFileName=Base64Util.getBase64(originalFileName);
-                String realPath= StaticConfig.BASE_LOCAL_MUSIC_FILE_PATH+savedFileName;
-                String songType=originalFileName.substring(originalFileName.lastIndexOf(".")).toLowerCase();
-                if(songType.equals(".mp3")) {
-                    File file = new File(realPath);
-                    try {
-                        songFile.transferTo(file);
-                    } catch (IOException e) {
-                        //e.printStackTrace();
-                        resultMap.put("data",3);
-                        resultMap.put("msg",e.toString());
-                    }
-                    Song song= MediaUtil.getMP3Info(file);
-                    song.setFileSize(file.length());
-                    song.setFileUrl(StaticConfig.MUSIC_FILE_URL_PREFIX+savedFileName);
-                    song.setAdminId(adminId);
-                    song.setFileName(originalFileName);
-                    mMusicService.saveSong(song);
-                    resultMap.put("data",0);
-                    resultMap.put("msg","歌曲:"+originalFileName+" 已上传成功");
-                } else {
-                    resultMap.put("data",1);
-                    resultMap.put("msg","上传失败，文件类型应为mp3");
-                }
-            }else{
-                resultMap.put("data",2);
-                resultMap.put("msg","上传失败，上传的文件不能为空");
-            }
+            resultMap=mMusicService.saveSong(songFile,adminId);
         }
         return resultMap;
     }
@@ -131,21 +98,7 @@ public class MusicController {
             resultMap.put("data",3);
             resultMap.put("msg","删除失败，无效的管理员身份");
         }else{
-            List<Song> needDeleteSongList=null;
-            try {
-                needDeleteSongList=new ObjectMapper().readValue(needDeleteJsonArray,new TypeReference<List<Song>>() {});
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            int idArray[]=new int[needDeleteSongList.size()];
-            for(int i=0;i<needDeleteSongList.size();i++){
-                idArray[i]=needDeleteSongList.get(i).getId();
-                File file=new File(StaticConfig.BASE_LOCAL_MUSIC_FILE_PATH+needDeleteSongList.get(i).getFileName());
-                if(file.exists())
-                    file.delete();
-            }
-            mMusicService.deleteSongs(idArray);
-            resultMap.put("data",0);
+            resultMap=mMusicService.deleteSongs(needDeleteJsonArray);
         }
         return resultMap;
     }

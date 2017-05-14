@@ -13,10 +13,6 @@
         SELECT id,account,nickName,isSuperAdmin,createTime FROM admins WHERE isSuperAdmin=0
     </select>
 
-    <update id="setSuper" parameterType="int">
-        UPDATE admins SET isSuperAdmin=1 WHERE id=#{id}
-    </update>
-
     <delete id="deleteAdmin" parameterType="int">
         DELETE FROM admins WHERE id=#{id}
     </delete>

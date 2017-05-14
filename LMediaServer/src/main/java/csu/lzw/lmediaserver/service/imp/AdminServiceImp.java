@@ -3,8 +3,10 @@ package csu.lzw.lmediaserver.service.imp;
 import csu.lzw.lmediaserver.mapper.AdminMapper;
 import csu.lzw.lmediaserver.pojo.Admin;
 import csu.lzw.lmediaserver.service.AdminService;
+import csu.lzw.lmediaserver.util.MD5Util;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -36,20 +38,27 @@ public class AdminServiceImp implements AdminService{
         return mAdminMapper.getAllAdmins();
     }
 
-    public void setSuper(int adminId) {
-        mAdminMapper.setSuper(adminId);
-    }
-
     public void deleteAdmin(int adminId) {
         mAdminMapper.deleteAdmin(adminId);
     }
 
-    public boolean isAccountExist(String account) {
-        return mAdminMapper.geAdminByAccount(account)!=null;
-    }
-
-    public void registAdmin(Admin admin) {
-        mAdminMapper.insertAdmin(admin);
+    public String registAdmin(String account,String password,String repeatPassword,String nickName,String token) {
+        String msg="注册成功";
+        if(account==null||account.trim().equals("")||password==null||password.trim().equals("")||nickName==null||nickName.trim().equals("")||repeatPassword==null||repeatPassword.trim().equals("")){
+            msg="注册失败，输入不能为空";
+        }else if(!password.equals(repeatPassword)){
+            msg="注册失败，两次输入的密码不一致";
+        }else if(mAdminMapper.geAdminByAccount(account)!=null){
+            msg="注册失败，用户名已存在";
+        }else {
+            Admin adminBean=new Admin();
+            adminBean.setAccount(account);
+            adminBean.setToken(token);
+            adminBean.setEncyptPassword(MD5Util.getMD5(password));
+            adminBean.setNickName(nickName);
+            mAdminMapper.insertAdmin(adminBean);
+        }
+        return msg;
     }
 
 

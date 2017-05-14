@@ -12,9 +12,7 @@ public interface AdminService {
     boolean validAdminToken(String token,int adminId);
 
     List<Admin> getAllAdmins();
-    void setSuper(int adminId);
     void deleteAdmin(int adminId);
-    boolean isAccountExist(String account);
-    void registAdmin(Admin admin);
+    String registAdmin(String account,String password,String repeatPassword,String nickName,String token);
 
 }

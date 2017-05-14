@@ -14,7 +14,6 @@ public interface AdminMapper {
     Admin getAdminByAccountByEncyptPassword(@Param("account") String account,@Param("encyptPassword") String encyptPassword);
     Admin getAdminByIdByToken(@Param("token")String token,@Param("id") int adminId);
     List<Admin> getAllAdmins();
-    void setSuper(int id);
     void deleteAdmin(int id);
     Admin geAdminByAccount(@Param("account") String account);
     void insertAdmin(Admin admin);

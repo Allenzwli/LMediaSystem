@@ -67,10 +67,7 @@ public class VideoController {
     @ResponseBody
     @RequestMapping("/get")
     public Map getvideoByStartAndLength(int startIndex,int pageSize,String fuzzy,String orderColumn,String orderDir){
-        Map<String,Object> resultMap=new HashMap<String,Object>();
-        resultMap.put("pageData",mVideoService.getVideosByStartIndexAndLength(fuzzy,orderColumn,orderDir,startIndex,pageSize));
-        resultMap.put("total",mVideoService.getVideoAllCount(fuzzy));
-        return resultMap;
+        return mVideoService.getVideosByStartIndexAndLength(fuzzy,orderColumn,orderDir,startIndex,pageSize);
     }
 
 
@@ -82,36 +79,7 @@ public class VideoController {
             resultMap.put("data",4);
             resultMap.put("msg","上传失败，无效的管理员身份");
         }else{
-            if(videoFile!=null&&!videoFile.isEmpty()){
-                String originalFileName=videoFile.getOriginalFilename().trim();
-                String savedFileName= Base64Util.getBase64(originalFileName);
-                String realPath= StaticConfig.BASE_LOCAL_VIDEO_FILE_PATH+savedFileName;
-                String videoType=originalFileName.substring(originalFileName.lastIndexOf(".")).toLowerCase();
-                if(videoType.equals(".mp4")) {
-                    File file = new File(realPath);
-                    try {
-                        videoFile.transferTo(file);
-                    } catch (IOException e) {
-                        //e.printStackTrace();
-                        resultMap.put("data",3);
-                        resultMap.put("msg",e.toString());
-                    }
-                    Video video=new Video();
-                    video.setFileSize(file.length());
-                    video.setFileUrl(StaticConfig.VIDEO_FILE_URL_PREFIX+savedFileName);
-                    video.setAdminId(adminId);
-                    video.setVideoName(originalFileName);
-                    mVideoService.saveVideo(video);
-                    resultMap.put("data",0);
-                    resultMap.put("msg","视频:"+originalFileName+" 已上传成功");
-                } else {
-                    resultMap.put("data",1);
-                    resultMap.put("msg","上传失败，文件类型应为mp4");
-                }
-            }else{
-                resultMap.put("data",2);
-                resultMap.put("msg","上传失败，上传的文件不能为空");
-            }
+            resultMap=mVideoService.saveVideo(videoFile,adminId);
         }
         return resultMap;
     }
@@ -124,21 +92,7 @@ public class VideoController {
             resultMap.put("data",3);
             resultMap.put("msg","删除失败，无效的管理员身份");
         }else{
-            List<Video> needDeleteVideoList=null;
-            try {
-                needDeleteVideoList=new ObjectMapper().readValue(needDeleteJsonArray,new TypeReference<List<Video>>() {});
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            int idArray[]=new int[needDeleteVideoList.size()];
-            for(int i=0;i<needDeleteVideoList.size();i++){
-                idArray[i]=needDeleteVideoList.get(i).getId();
-                File file=new File(StaticConfig.BASE_LOCAL_VIDEO_FILE_PATH+needDeleteVideoList.get(i).getVideoName());
-                if(file.exists())
-                    file.delete();
-            }
-            mVideoService.deleteVideos(idArray);
-            resultMap.put("data",0);
+            resultMap=mVideoService.deleteVideos(needDeleteJsonArray);
         }
         return resultMap;
     }
