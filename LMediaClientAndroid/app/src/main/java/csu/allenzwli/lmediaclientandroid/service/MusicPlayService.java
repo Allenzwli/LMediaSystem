@@ -53,7 +53,7 @@ public class MusicPlayService extends Service {
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
         int index=intent.getIntExtra(MusicPlayState.PLAYING_INDEX,0);
-        TLog.d("4444444444444","4,,,,,,,"+index);
+        //TLog.d("4444444444444","4,,,,,,,"+index);
         mPlayer.play(index);
 
     }

@@ -44,6 +44,7 @@ public class OnlineMusicInteractorImp implements CommonInteractor {
 
             @Override
             public void onResponse(String arg0) {
+                //TLog.v("test",arg0);
                 List<Song> musicLists = new Gson().fromJson(arg0, new TypeToken<List<Song>>(){}.getType());
                 if(musicLists!=null&&musicLists.size()>0){
                     mLoadResultListener.onSuccess(0,musicLists);

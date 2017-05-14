@@ -7,8 +7,10 @@ package csu.lzw.lmediaserver.util;
 public class StaticConfig {
 
     //Release
-    public static final String IP_ADDRESS="http://182.254.216.85:8080/";
-    public static final String DISK_PATH="C:\\";
+    //public static final String IP_ADDRESS="http://182.254.216.85:8080/";
+    public static final String IP_ADDRESS="http://112.74.175.94:8080/";
+    //public static final String DISK_PATH="C:\\";
+    public static final String DISK_PATH="/home/lmedialib/";
 
     //Debug
     //public static final String IP_ADDRESS="http://127.0.0.1:8080/";
