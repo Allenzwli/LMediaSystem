@@ -4,6 +4,8 @@ import csu.lzw.lmediaserver.pojo.Admin;
 import csu.lzw.lmediaserver.pojo.Song;
 import csu.lzw.lmediaserver.service.AdminService;
 import csu.lzw.lmediaserver.service.MusicService;
+import csu.lzw.lmediaserver.util.Base64Util;
+import csu.lzw.lmediaserver.util.MD5Util;
 import csu.lzw.lmediaserver.util.MediaUtil;
 import csu.lzw.lmediaserver.util.StaticConfig;
 import org.apache.log4j.Logger;
@@ -89,7 +91,8 @@ public class MusicController {
         }else{
             if(songFile!=null&&!songFile.isEmpty()){
                 String originalFileName=songFile.getOriginalFilename().trim();
-                String realPath= StaticConfig.BASE_LOCAL_MUSIC_FILE_PATH+originalFileName;
+                String savedFileName=Base64Util.getBase64(originalFileName);
+                String realPath= StaticConfig.BASE_LOCAL_MUSIC_FILE_PATH+savedFileName;
                 String songType=originalFileName.substring(originalFileName.lastIndexOf(".")).toLowerCase();
                 if(songType.equals(".mp3")) {
                     File file = new File(realPath);
@@ -102,7 +105,7 @@ public class MusicController {
                     }
                     Song song= MediaUtil.getMP3Info(file);
                     song.setFileSize(file.length());
-                    song.setFileUrl(StaticConfig.MUSIC_FILE_URL_PREFIX+originalFileName);
+                    song.setFileUrl(StaticConfig.MUSIC_FILE_URL_PREFIX+savedFileName);
                     song.setAdminId(adminId);
                     song.setFileName(originalFileName);
                     mMusicService.saveSong(song);

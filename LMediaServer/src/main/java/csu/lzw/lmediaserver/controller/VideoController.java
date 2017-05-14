@@ -4,6 +4,7 @@ import csu.lzw.lmediaserver.pojo.Admin;
 import csu.lzw.lmediaserver.pojo.Video;
 import csu.lzw.lmediaserver.service.AdminService;
 import csu.lzw.lmediaserver.service.VideoService;
+import csu.lzw.lmediaserver.util.Base64Util;
 import csu.lzw.lmediaserver.util.MediaUtil;
 import csu.lzw.lmediaserver.util.StaticConfig;
 import org.apache.log4j.Logger;
@@ -83,7 +84,8 @@ public class VideoController {
         }else{
             if(videoFile!=null&&!videoFile.isEmpty()){
                 String originalFileName=videoFile.getOriginalFilename().trim();
-                String realPath= StaticConfig.BASE_LOCAL_VIDEO_FILE_PATH+originalFileName;
+                String savedFileName= Base64Util.getBase64(originalFileName);
+                String realPath= StaticConfig.BASE_LOCAL_VIDEO_FILE_PATH+savedFileName;
                 String videoType=originalFileName.substring(originalFileName.lastIndexOf(".")).toLowerCase();
                 if(videoType.equals(".mp4")) {
                     File file = new File(realPath);
@@ -96,7 +98,7 @@ public class VideoController {
                     }
                     Video video=new Video();
                     video.setFileSize(file.length());
-                    video.setFileUrl(StaticConfig.VIDEO_FILE_URL_PREFIX+originalFileName);
+                    video.setFileUrl(StaticConfig.VIDEO_FILE_URL_PREFIX+savedFileName);
                     video.setAdminId(adminId);
                     video.setVideoName(originalFileName);
                     mVideoService.saveVideo(video);
