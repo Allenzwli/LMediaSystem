@@ -3406,7 +3406,7 @@ jQuery.extend( {
 				}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
 			}
 
-			// deferred[ resolve | reject | notify ]
+			// deferred[ resolver | reject | notify ]
 			deferred[ tuple[ 0 ] ] = function() {
 				deferred[ tuple[ 0 ] + "With" ]( this === deferred ? promise : this, arguments );
 				return this;
@@ -3440,7 +3440,7 @@ jQuery.extend( {
 			// If resolveValues consist of only a single Deferred, just use that.
 			deferred = remaining === 1 ? subordinate : jQuery.Deferred(),
 
-			// Update function for both resolve and progress values
+			// Update function for both resolver and progress values
 			updateFunc = function( i, contexts, values ) {
 				return function( value ) {
 					contexts[ i ] = this;
@@ -3472,7 +3472,7 @@ jQuery.extend( {
 			}
 		}
 
-		// If we're not waiting on anything, resolve the master
+		// If we're not waiting on anything, resolver the master
 		if ( !remaining ) {
 			deferred.resolveWith( resolveContexts, resolveValues );
 		}

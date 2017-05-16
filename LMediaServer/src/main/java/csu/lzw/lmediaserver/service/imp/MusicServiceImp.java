@@ -2,6 +2,9 @@ package csu.lzw.lmediaserver.service.imp;
 
 import csu.lzw.lmediaserver.mapper.MusicMapper;
 import csu.lzw.lmediaserver.pojo.Song;
+import csu.lzw.lmediaserver.resolver.ID3V1TagMusicResolverStrategy;
+import csu.lzw.lmediaserver.resolver.ID3V2TagMusicResolverStrategy;
+import csu.lzw.lmediaserver.resolver.MusicResolver;
 import csu.lzw.lmediaserver.service.MusicService;
 import csu.lzw.lmediaserver.util.Base64Util;
 import csu.lzw.lmediaserver.util.MediaUtil;
@@ -45,7 +48,11 @@ public class MusicServiceImp implements MusicService {
                     resultMap.put("data",3);
                     resultMap.put("msg",e.toString());
                 }
-                Song song= MediaUtil.getMP3Info(file);
+                MusicResolver musicResolver=new MusicResolver(new ID3V2TagMusicResolverStrategy(file));
+                if(musicResolver.performGetSongName()==null){
+                    musicResolver.setMusicResolver(new ID3V1TagMusicResolverStrategy(file));
+                }
+                Song song=musicResolver.performGetSongBean();
                 song.setFileSize(file.length());
                 song.setFileUrl(StaticConfig.MUSIC_FILE_URL_PREFIX+savedFileName);
                 song.setAdminId(adminId);

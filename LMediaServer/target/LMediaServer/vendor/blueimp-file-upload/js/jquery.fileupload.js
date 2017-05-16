@@ -1085,7 +1085,7 @@
                         e.entry = entry;
                     }
                     // Since $.when returns immediately if one
-                    // Deferred is rejected, we use resolve instead.
+                    // Deferred is rejected, we use resolver instead.
                     // This allows valid files and invalid items
                     // to be returned together in one set:
                     dfd.resolve([e]);
