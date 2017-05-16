@@ -39,12 +39,9 @@ public class OnlineMusicInteractorImp implements CommonInteractor {
 
     @Override
     public void getCommonListData() {
-
         RequestUtil.addRequest(new StringRequest(Request.Method.GET, ApiConstants.ApiUrl.ONLINE_MUSIC_LIST, new Response.Listener<String>() {
-
             @Override
             public void onResponse(String arg0) {
-                //TLog.v("test",arg0);
                 List<Song> musicLists = new Gson().fromJson(arg0, new TypeToken<List<Song>>(){}.getType());
                 if(musicLists!=null&&musicLists.size()>0){
                     mLoadResultListener.onSuccess(0,musicLists);
@@ -59,6 +56,5 @@ public class OnlineMusicInteractorImp implements CommonInteractor {
                 mLoadResultListener.onError(2,"请求歌曲列表失败");
             }
         }),getClass().toString());
-
     }
 }
