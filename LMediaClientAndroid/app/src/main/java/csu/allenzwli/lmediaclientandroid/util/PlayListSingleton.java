@@ -13,6 +13,22 @@ public class PlayListSingleton {
 
     private static PlayListSingleton instance;
 
+    private PlayListSingleton(){
+        mSongLists=new ArrayList<Song>();
+    }
+
+    public static PlayListSingleton getInstance(){
+        if(null==instance){
+            synchronized (PlayListSingleton.class){
+                if(instance==null){
+                    instance=new PlayListSingleton();
+                }
+            }
+
+        }
+        return instance;
+    }
+
     private List<Song> mSongLists;
 
     private String mCurrentSongUrl;
@@ -35,17 +51,6 @@ public class PlayListSingleton {
 
     public int getmCurrentSongIndex() {
         return mCurrentSongIndex;
-    }
-
-    private PlayListSingleton(){
-        mSongLists=new ArrayList<Song>();
-    }
-
-    public static PlayListSingleton getInstance(){
-        if(null==instance){
-            instance=new PlayListSingleton();
-        }
-        return instance;
     }
 
     public void addSongList(List<Song> songList){

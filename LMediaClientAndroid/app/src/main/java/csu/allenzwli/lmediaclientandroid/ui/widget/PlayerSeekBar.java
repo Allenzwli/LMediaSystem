@@ -69,7 +69,8 @@ public class PlayerSeekBar extends SeekBar {
             degree %= 360;
             matrix.reset();
             matrix.postRotate(degree, loading.getWidth() / 2, loading.getHeight() / 2);
-            canvas.translate(getPaddingLeft() + getThumb().getBounds().left + drawable.getIntrinsicWidth() / 2 - loading.getWidth() / 2 - getThumbOffset(), getPaddingTop() + getThumb().getBounds().top + drawable.getIntrinsicHeight() / 2 - loading.getHeight() / 2);
+            canvas.translate(getPaddingLeft() + getThumb().getBounds().left + drawable.getIntrinsicWidth() / 2 - loading.getWidth() / 2 - getThumbOffset(),
+                    getPaddingTop() + getThumb().getBounds().top + drawable.getIntrinsicHeight() / 2 - loading.getHeight() / 2);
             canvas.drawBitmap(loading, matrix, null);
             canvas.restore();
             invalidate();
